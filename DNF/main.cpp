@@ -79,7 +79,6 @@ int APIENTRY WinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstanc
 
 	// 메인게임 해제
 	g_mainGame.Release();
-	GdiplusShutdown(g_gpToken);
 	return (int)(message.wParam);
 }
 

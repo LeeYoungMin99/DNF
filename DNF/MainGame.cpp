@@ -49,6 +49,7 @@ void MainGame::Release()
 
 	MGR_SCENE->Release();
 
+	GdiplusShutdown(g_gpToken);
 	KillTimer(g_hWnd, 0);
 }
 

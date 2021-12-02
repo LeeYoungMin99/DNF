@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ElvengardFieldScene.h"
 
 HRESULT ElvengardFieldScene::Init()

@@ -1,11 +1,15 @@
 #pragma once
 #include "Scene.h"
 
+template <typename T>
 class Button;
+
 class BmpImage;
 class DemonSlayer;
 class CharacterSelectScene : public Scene
 {
+	using Button = Button<CharacterSelectScene>;
+
 public:
 	virtual ~CharacterSelectScene() = default;
 

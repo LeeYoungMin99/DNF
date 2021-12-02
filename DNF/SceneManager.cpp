@@ -29,6 +29,7 @@ void SceneManager::Init()
 {
 	AddScene("CharacterSelectScene", new CharacterSelectScene());
 	AddScene("ElvengardFieldScene", new ElvengardFieldScene());
+	AddScene("TitleScene", new TitleScene());
 	AddLoadingScene("TitleScene", new TitleScene());
 }
 

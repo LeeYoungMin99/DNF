@@ -28,19 +28,20 @@ HRESULT CharacterSelectScene::Init()
 	return S_OK;
 }
 
+
 void CharacterSelectScene::Update()
 {
-	myCharacter->Update();
-	createCharacterButton->Update();
-	deleteCharacterButton->Update();
-	startButton->Update();
-	shutdownButton->Update();
+	SAFE_UPDATAE(myCharacter);
+	SAFE_UPDATAE(createCharacterButton);
+	SAFE_UPDATAE(deleteCharacterButton);
+	SAFE_UPDATAE(startButton);
+	SAFE_UPDATAE(shutdownButton);
 }
 
 void CharacterSelectScene::Render(HDC hdc)
 {
 	Graphics g(hdc);
-	Font fontSmallButton(L"UttumBatangBold", 8);
+	Font fontSmallButton(L"gasinamuM", 8);
 	Font fontLargeButton(L"UttumBatangBold", 15, FontStyleBold);
 	SolidBrush b(Color(170, 134, 77));
 
@@ -75,7 +76,7 @@ void CharacterSelectScene::Release()
 
 void CharacterSelectScene::StartGame()
 {
-	cout << "¾À ¹Ù²ð°ÅÀÓ!!!" << endl;
+	MGR_SCENE->ChangeScene("TitleScene");
 }
 
 void CharacterSelectScene::ShutdownGame()
@@ -85,7 +86,7 @@ void CharacterSelectScene::ShutdownGame()
 
 void CharacterSelectScene::CreateCharacter()
 {
-	cout << "¾À ¹Ù²ð°ÅÀÓ!!!" << endl;
+	MGR_SCENE->ChangeScene("TitleScene");
 }
 
 void CharacterSelectScene::DeleteCharacter()
