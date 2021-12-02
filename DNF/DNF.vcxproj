@@ -144,7 +144,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
     <ClCompile Include="DemonSlayer.cpp" />
-    <ClCompile Include="ElvengardScene.cpp" />
+    <ClCompile Include="ElvengardFieldScene.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -163,7 +163,7 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DemonSlayer.h" />
-    <ClInclude Include="ElvengardScene.h" />
+    <ClInclude Include="ElvengardFieldScene.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KeyManager.h" />

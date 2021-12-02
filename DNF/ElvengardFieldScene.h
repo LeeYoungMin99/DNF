@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene.h"
-class ElvengardScene : public Scene
+
+class BmpImage;
+class ElvengardFieldScene : public Scene
 {
 public:
 	virtual HRESULT Init() override;
@@ -8,5 +10,6 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
 private:
+	BmpImage* elvengardFieldImage = nullptr;
 
 };

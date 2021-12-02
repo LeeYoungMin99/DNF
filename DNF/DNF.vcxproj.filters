@@ -81,7 +81,7 @@
     <ClCompile Include="CharacterSelectScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ElvengardScene.cpp">
+    <ClCompile Include="ElvengardFieldScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,7 +140,7 @@
     <ClInclude Include="CharacterSelectScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="ElvengardScene.h">
+    <ClInclude Include="ElvengardFieldScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "CharacterSelectScene.h"
+#include "ElvengardFieldScene.h"
 #pragma endregion
 
 Scene* SceneManager::currScene = nullptr;
@@ -27,6 +28,7 @@ DWORD CALLBACK LoadingThread(LPVOID pvParam)
 void SceneManager::Init()
 {
 	AddScene("CharacterSelectScene", new CharacterSelectScene());
+	AddScene("ElvengardFieldScene", new ElvengardFieldScene());
 	AddLoadingScene("TitleScene", new TitleScene());
 }
 
