@@ -44,7 +44,7 @@ bool Animation::UpdateAnimation()
 
 void Animation::Render(HDC hdc, POINTFLOAT pos)
 {
-	animationImage->Render(hdc, pos.x - correctionPosX, pos.y, currFrame, 0, scale);
+	animationImage->Render(hdc, (int)(pos.x - correctionPosX), (int)pos.y, currFrame, 0, scale);
 }
 
 void Animation::Release()

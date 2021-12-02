@@ -21,7 +21,7 @@ private:
 	int imageFrameSizeY = 0;
 	int correctionPosX = 0;
 	int correctionPosY = 0;
-	int scale = 0;
+	float scale = 0.0f;
 	bool loop = false;
 	bool isFlip = false;
 

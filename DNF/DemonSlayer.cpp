@@ -21,21 +21,9 @@ HRESULT DemonSlayer::Init()
 
 void DemonSlayer::Update()
 {
-	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-	{
-		dir = eMoveDir::Left;
-		state = eDemonSlayerState::greatswordWalk;
-		pos.x -= DELTA_TIME * moveSpeed;
-	}
-	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-	{
-		dir = eMoveDir::Right;
-		state = eDemonSlayerState::greatswordWalk;
-		pos.x += DELTA_TIME * moveSpeed;
-	}
 
-	if (MGR_KEY->IsOnceKeyUp(VK_LEFT)) { state = eDemonSlayerState::greatswordIdle; }
-	else if (MGR_KEY->IsOnceKeyUp(VK_RIGHT)) { state = eDemonSlayerState::greatswordIdle; }
+
+
 
 	if (dir == eMoveDir::Right)
 	{
@@ -43,9 +31,47 @@ void DemonSlayer::Update()
 		{
 		case eDemonSlayerState::greatswordIdle:
 			greatswordRightIdleMotion->UpdateAnimation();
+			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+			{
+				dir = eMoveDir::Left;
+				state = eDemonSlayerState::greatswordWalk;
+			}
+			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+			{
+				dir = eMoveDir::Right;
+				state = eDemonSlayerState::greatswordWalk;
+			}
+
+			if (MGR_KEY->IsStayKeyDown(VK_UP))
+			{
+				state = eDemonSlayerState::greatswordWalk;
+			}
+			else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
+			{
+				state = eDemonSlayerState::greatswordWalk;
+			}
 			break;
 		case eDemonSlayerState::greatswordWalk:
 			greatswordRightWalkMotion->UpdateAnimation();
+			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+			{
+				dir = eMoveDir::Left;
+				pos.x -= DELTA_TIME * moveSpeed;
+			}
+			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+			{
+				dir = eMoveDir::Right;
+				pos.x += DELTA_TIME * moveSpeed;
+			}
+
+			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
+			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
+
+			if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { state = eDemonSlayerState::greatswordIdle; }
+
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -71,9 +97,42 @@ void DemonSlayer::Update()
 		{
 		case eDemonSlayerState::greatswordIdle:
 			greatswordLeftIdleMotion->UpdateAnimation();
+			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+			{
+				dir = eMoveDir::Left;
+				state = eDemonSlayerState::greatswordWalk;
+			}
+			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+			{
+				dir = eMoveDir::Right;
+				state = eDemonSlayerState::greatswordWalk;
+			}
+
+			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
+			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
+
 			break;
 		case eDemonSlayerState::greatswordWalk:
 			greatswordLeftWalkMotion->UpdateAnimation();
+			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+			{
+				dir = eMoveDir::Left;
+				pos.x -= DELTA_TIME * moveSpeed;
+			}
+			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+			{
+				dir = eMoveDir::Right;
+				pos.x += DELTA_TIME * moveSpeed;
+			}
+
+			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
+			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
+
+			if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
+			if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { state = eDemonSlayerState::greatswordIdle; }
+
 			break;
 		case eDemonSlayerState::Run:
 			break;
