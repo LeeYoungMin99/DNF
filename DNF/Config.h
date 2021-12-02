@@ -29,18 +29,6 @@
 
 enum class eButtonType { Small, Middle, Large, Long, None, };
 enum class eMoveDir { Left = -1, Right = 1, None, };
-enum class eDemonSlayerState
-{
-	greatswordIdle,
-	greatswordWalk,
-	Run,
-	Damage,
-	Jump,
-	BasickAttak1,
-	BasickAttak2,
-	BasickAttak3,
-	BasickAttak4,
-};
 
 struct AnimationData
 {

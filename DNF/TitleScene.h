@@ -11,12 +11,12 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
 private:
-	float rotateAngle = 0.0f;
-	float elapsedTime = 0.0f;
+	float mRotateAngle = 0.0f;
+	float mElapsedTime = 0.0f;
 
-	Image* titleImage = nullptr;
-	Image* loadingImage = nullptr;
-	Image* loadingRotateImage = nullptr;
-	Image* neopleImage = nullptr;
-	Image* loadingBelt = nullptr;
+	Image* mpTitleImage = nullptr;
+	Image* mpLoadingImage = nullptr;
+	Image* mpLoadingRotateImage = nullptr;
+	Image* mpNeopleImage = nullptr;
+	Image* mpLoadingBelt = nullptr;
 };

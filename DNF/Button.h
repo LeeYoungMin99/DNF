@@ -22,67 +22,67 @@ public:
 
 	HRESULT Init(eButtonType type, POINT pos, int sizeX, int sizeY)
 	{
-		this->pos = pos;
+		this->mPos = { float(pos.x),float(pos.y) };
 
 		switch (type)
 		{
 		case eButtonType::Small:
-			this->buttonIdleImage = FROM_FILE(L"Image/Button/SmallButtonIdleImage.png");
-			this->buttonPutImage = FROM_FILE(L"Image/Button/SmallButtonPutImage.png");
-			this->buttonClickImage = FROM_FILE(L"Image/Button/SmallButtonClickImage.png");
+			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/SmallButtonIdleImage.png");
+			this->mpButtonPutImage = FROM_FILE(L"Image/Button/SmallButtonPutImage.png");
+			this->mpButtonClickImage = FROM_FILE(L"Image/Button/SmallButtonClickImage.png");
 			break;
 		case eButtonType::Middle:
-			this->buttonIdleImage = FROM_FILE(L"Image/Button/MiddleButtonIdleImage.png");
-			this->buttonPutImage = FROM_FILE(L"Image/Button/MiddleButtonPutImage.png");
-			this->buttonClickImage = FROM_FILE(L"Image/Button/MiddleButtonClickImage.png");
+			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/MiddleButtonIdleImage.png");
+			this->mpButtonPutImage = FROM_FILE(L"Image/Button/MiddleButtonPutImage.png");
+			this->mpButtonClickImage = FROM_FILE(L"Image/Button/MiddleButtonClickImage.png");
 			break;
 		case eButtonType::Large:
-			this->buttonIdleImage = FROM_FILE(L"Image/Button/LargeButtonIdleImage.png");
-			this->buttonPutImage = FROM_FILE(L"Image/Button/LargeButtonPutImage.png");
-			this->buttonClickImage = FROM_FILE(L"Image/Button/LargeButtonClickImage.png");
+			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/LargeButtonIdleImage.png");
+			this->mpButtonPutImage = FROM_FILE(L"Image/Button/LargeButtonPutImage.png");
+			this->mpButtonClickImage = FROM_FILE(L"Image/Button/LargeButtonClickImage.png");
 			break;
 		case eButtonType::Long:
-			this->buttonIdleImage = FROM_FILE(L"Image/Button/LongButtonIdleImage.png");
-			this->buttonPutImage = FROM_FILE(L"Image/Button/LongButtonPutImage.png");
-			this->buttonClickImage = FROM_FILE(L"Image/Button/LongButtonClickImage.png");
+			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/LongButtonIdleImage.png");
+			this->mpButtonPutImage = FROM_FILE(L"Image/Button/LongButtonPutImage.png");
+			this->mpButtonClickImage = FROM_FILE(L"Image/Button/LongButtonClickImage.png");
 			break;
 		case eButtonType::None:
 		default:
 			break;
 		}
 
-		this->sizeX = sizeX;
-		this->sizeY = sizeY;
-		this->state = eButtonState::Idle;
+		this->mSizeX = sizeX;
+		this->mSizeY = sizeY;
+		this->mState = eButtonState::Idle;
 
-		renderPos = { pos.x - (sizeX / 2), pos.y - (sizeY / 2) };
-		collisionRect = { renderPos.X, renderPos.Y, pos.x + (sizeX / 2), pos.y + (sizeY / 2) };
+		mRenderPos = { pos.x - (sizeX / 2), pos.y - (sizeY / 2) };
+		mCollisionRect = { mRenderPos.X, mRenderPos.Y, pos.x + (sizeX / 2), pos.y + (sizeY / 2) };
 
 		return S_OK;
 	}
 
 	virtual void Update() override
 	{
-		switch (state)
+		switch (mState)
 		{
 		case Button::eButtonState::Idle:
-			if (PtInRect(&collisionRect, g_ptMouse))
-				state = eButtonState::Hover;
+			if (PtInRect(&mCollisionRect, g_ptMouse))
+				mState = eButtonState::Hover;
 			break;
 		case Button::eButtonState::Hover:
 			if (MGR_KEY->IsOnceKeyDown(VK_LBUTTON))
-				state = eButtonState::Click;
-			else if (false == PtInRect(&collisionRect, g_ptMouse))
-				state = eButtonState::Idle;
+				mState = eButtonState::Click;
+			else if (false == PtInRect(&mCollisionRect, g_ptMouse))
+				mState = eButtonState::Idle;
 			break;
 		case Button::eButtonState::Click:
 			if (MGR_KEY->IsOnceKeyUp(VK_LBUTTON))
 			{
-				if (PtInRect(&collisionRect, g_ptMouse))
+				if (PtInRect(&mCollisionRect, g_ptMouse))
 				{
 					(_scene->*_callback)();
 				}
-				state = eButtonState::Idle;
+				mState = eButtonState::Idle;
 			}
 			break;
 		case Button::eButtonState::None:
@@ -96,16 +96,16 @@ public:
 	{
 		Graphics g(hdc);
 
-		switch (state)
+		switch (mState)
 		{
 		case Button::eButtonState::Idle:
-			g.DrawImage(buttonIdleImage, renderPos.X, renderPos.Y, sizeX, sizeY);
+			g.DrawImage(mpButtonIdleImage, mRenderPos.X, mRenderPos.Y, mSizeX, mSizeY);
 			break;
 		case Button::eButtonState::Hover:
-			g.DrawImage(buttonPutImage, renderPos.X, renderPos.Y, sizeX, sizeY);
+			g.DrawImage(mpButtonPutImage, mRenderPos.X, mRenderPos.Y, mSizeX, mSizeY);
 			break;
 		case Button::eButtonState::Click:
-			g.DrawImage(buttonClickImage, renderPos.X, renderPos.Y, sizeX, sizeY);
+			g.DrawImage(mpButtonClickImage, mRenderPos.X, mRenderPos.Y, mSizeX, mSizeY);
 			break;
 		case Button::eButtonState::None:
 		default:
@@ -122,15 +122,14 @@ private:
 	scene_t* _scene;
 	callback_t _callback;
 
-	POINT pos = {};
-	int sizeX = 0;
-	int sizeY = 0;
-	Image* buttonIdleImage = nullptr;
-	Image* buttonPutImage = nullptr;
-	Image* buttonClickImage = nullptr;
-	eButtonState state = eButtonState::None;
+	int mSizeX = 0;
+	int mSizeY = 0;
+	Image* mpButtonIdleImage = nullptr;
+	Image* mpButtonPutImage = nullptr;
+	Image* mpButtonClickImage = nullptr;
+	eButtonState mState = eButtonState::None;
 
-	Point renderPos = {};
-	RECT collisionRect = {};
+	Point mRenderPos = {};
+	RECT mCollisionRect = {};
 	
 };

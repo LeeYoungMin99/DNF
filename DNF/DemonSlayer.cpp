@@ -4,74 +4,28 @@
 
 HRESULT DemonSlayer::Init()
 {
-	greatswordRightIdleMotion = new Animation;
-	greatswordRightIdleMotion->Init(AnimationData("Image/CharacterMotion/Greatsword/RightIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, -90, 0, 2.0f, true));
-	greatswordLeftIdleMotion = new Animation;
-	greatswordLeftIdleMotion->Init(AnimationData("Image/CharacterMotion/Greatsword/LeftIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, 90, 0, 2.0f, true));
-	greatswordRightWalkMotion = new Animation;
-	greatswordRightWalkMotion->Init(AnimationData("Image/CharacterMotion/Greatsword/RightWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, -90, 0, 2.0f, true));
-	greatswordLeftWalkMotion = new Animation;
-	greatswordLeftWalkMotion->Init(AnimationData("Image/CharacterMotion/Greatsword/LeftWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, 90, 0, 2.0f, true));
+	SetAnimation(DIR::Right, WEAPON_TYPE::Greatsword, STATE::Idle, AnimationData("Image/CharacterMotion/Greatsword/RightIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, -90, 0, 2.0f, true));
+	SetAnimation(DIR::Left, WEAPON_TYPE::Greatsword, STATE::Idle, AnimationData("Image/CharacterMotion/Greatsword/LeftIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, 90, 0, 2.0f, true));
+	SetAnimation(DIR::Right, WEAPON_TYPE::Greatsword, STATE::Walk, AnimationData("Image/CharacterMotion/Greatsword/RightWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, -90, 0, 2.0f, true));
+	SetAnimation(DIR::Left, WEAPON_TYPE::Greatsword, STATE::Walk, AnimationData("Image/CharacterMotion/Greatsword/LeftWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, 90, 0, 2.0f, true));
 
-	dir = eMoveDir::Right;
-	moveSpeed = 200.0f;
+	mDir = eMoveDir::Right;
+	mMoveSpeed = 200.0f;
 
 	return S_OK;
 }
 
 void DemonSlayer::Update()
 {
-
-
-
-
-	if (dir == eMoveDir::Right)
+	if (mDir == eMoveDir::Right)
 	{
-		switch (state)
+		switch (mState)
 		{
-		case eDemonSlayerState::greatswordIdle:
-			greatswordRightIdleMotion->UpdateAnimation();
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				dir = eMoveDir::Left;
-				state = eDemonSlayerState::greatswordWalk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				dir = eMoveDir::Right;
-				state = eDemonSlayerState::greatswordWalk;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP))
-			{
-				state = eDemonSlayerState::greatswordWalk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
-			{
-				state = eDemonSlayerState::greatswordWalk;
-			}
+		case eDemonSlayerState::Idle:
+			UpdateIdleState(DIR::Right);
 			break;
-		case eDemonSlayerState::greatswordWalk:
-			greatswordRightWalkMotion->UpdateAnimation();
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				dir = eMoveDir::Left;
-				pos.x -= DELTA_TIME * moveSpeed;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				dir = eMoveDir::Right;
-				pos.x += DELTA_TIME * moveSpeed;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
-
-			if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { state = eDemonSlayerState::greatswordIdle; }
-
+		case eDemonSlayerState::Walk:
+			UpdateWalkState(DIR::Right);
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -93,46 +47,13 @@ void DemonSlayer::Update()
 	}
 	else
 	{
-		switch (state)
+		switch (mState)
 		{
-		case eDemonSlayerState::greatswordIdle:
-			greatswordLeftIdleMotion->UpdateAnimation();
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				dir = eMoveDir::Left;
-				state = eDemonSlayerState::greatswordWalk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				dir = eMoveDir::Right;
-				state = eDemonSlayerState::greatswordWalk;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
-
+		case eDemonSlayerState::Idle:
+			UpdateIdleState(DIR::Left);
 			break;
-		case eDemonSlayerState::greatswordWalk:
-			greatswordLeftWalkMotion->UpdateAnimation();
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				dir = eMoveDir::Left;
-				pos.x -= DELTA_TIME * moveSpeed;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				dir = eMoveDir::Right;
-				pos.x += DELTA_TIME * moveSpeed;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { pos.y -= DELTA_TIME * moveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { pos.y += DELTA_TIME * moveSpeed; }
-
-			if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { state = eDemonSlayerState::greatswordIdle; }
-			if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { state = eDemonSlayerState::greatswordIdle; }
-
+		case eDemonSlayerState::Walk:
+			UpdateWalkState(DIR::Left);
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -156,15 +77,15 @@ void DemonSlayer::Update()
 
 void DemonSlayer::Render(HDC hdc)
 {
-	if (dir == eMoveDir::Right)
+	if (mDir == eMoveDir::Right)
 	{
-		switch (state)
+		switch (mState)
 		{
-		case eDemonSlayerState::greatswordIdle:
-			greatswordRightIdleMotion->Render(hdc, pos);
+		case eDemonSlayerState::Idle:
+			RenderState(hdc, DIR::Right, STATE::Idle, mPos);
 			break;
-		case eDemonSlayerState::greatswordWalk:
-			greatswordRightWalkMotion->Render(hdc, pos);
+		case eDemonSlayerState::Walk:
+			RenderState(hdc, DIR::Right, STATE::Walk, mPos);
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -186,13 +107,13 @@ void DemonSlayer::Render(HDC hdc)
 	}
 	else
 	{
-		switch (state)
+		switch (mState)
 		{
-		case eDemonSlayerState::greatswordIdle:
-			greatswordLeftIdleMotion->Render(hdc, pos);
+		case eDemonSlayerState::Idle:
+			RenderState(hdc, DIR::Left, STATE::Idle, mPos);
 			break;
-		case eDemonSlayerState::greatswordWalk:
-			greatswordLeftWalkMotion->Render(hdc, pos);
+		case eDemonSlayerState::Walk:
+			RenderState(hdc, DIR::Left, STATE::Walk, mPos);
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -216,10 +137,131 @@ void DemonSlayer::Render(HDC hdc)
 
 void DemonSlayer::Release()
 {
-	SAFE_RELEASE(greatswordRightIdleMotion);
-	SAFE_RELEASE(greatswordLeftIdleMotion);
-	SAFE_RELEASE(greatswordRightWalkMotion);
-	SAFE_RELEASE(greatswordLeftWalkMotion);
-	SAFE_RELEASE(clubRightIdleMotion);
-	SAFE_RELEASE(clubLeftIdleMotion);
+	for (int i = 0; i < 2; ++i)
+	{
+		for (int j = 0; j < 5; ++j)
+		{
+			for (int k = 0; k < 256; ++k)
+			{
+				SAFE_RELEASE(mpMotion[i][j][k]);
+			}
+		}
+	}
+}
+
+void DemonSlayer::SetAnimation(int dir, int weaponType, int state, AnimationData data)
+{
+	mpMotion[dir][weaponType][state] = new Animation;
+	mpMotion[dir][weaponType][state]->Init(data);
+}
+
+void DemonSlayer::UpdateIdleState(int dir)
+{
+	switch (mWeaponType)
+	{
+	case DemonSlayer::eWeaponType::Greatsword:
+		mpMotion[dir][WEAPON_TYPE::Greatsword][STATE::Idle]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Club:
+		mpMotion[dir][WEAPON_TYPE::Club][STATE::Idle]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Shortsword:
+		mpMotion[dir][WEAPON_TYPE::Shortsword][STATE::Idle]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Catana:
+		mpMotion[dir][WEAPON_TYPE::Catana][STATE::Idle]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Snakesword:
+		mpMotion[dir][WEAPON_TYPE::Snakesword][STATE::Idle]->UpdateAnimation();
+		break;
+	default:
+		break;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	{
+		mDir = eMoveDir::Left;
+		mState = eDemonSlayerState::Walk;
+	}
+	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	{
+		mDir = eMoveDir::Right;
+		mState = eDemonSlayerState::Walk;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_UP))
+	{
+		mState = eDemonSlayerState::Walk;
+	}
+	else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
+	{
+		mState = eDemonSlayerState::Walk;
+	}
+}
+
+void DemonSlayer::UpdateWalkState(int dir)
+{
+	switch (mWeaponType)
+	{
+	case DemonSlayer::eWeaponType::Greatsword:
+		mpMotion[dir][WEAPON_TYPE::Greatsword][STATE::Walk]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Club:
+		mpMotion[dir][WEAPON_TYPE::Club][STATE::Walk]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Shortsword:
+		mpMotion[dir][WEAPON_TYPE::Shortsword][STATE::Walk]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Catana:
+		mpMotion[dir][WEAPON_TYPE::Catana][STATE::Walk]->UpdateAnimation();
+		break;
+	case DemonSlayer::eWeaponType::Snakesword:
+		mpMotion[dir][WEAPON_TYPE::Snakesword][STATE::Walk]->UpdateAnimation();
+		break;
+	default:
+		break;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	{
+		mDir = eMoveDir::Left;
+		mPos.x -= DELTA_TIME * mMoveSpeed;
+	}
+	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	{
+		mDir = eMoveDir::Right;
+		mPos.x += DELTA_TIME * mMoveSpeed;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
+	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
+
+	if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
+	if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
+	if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
+	if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { mState = eDemonSlayerState::Idle; }
+}
+
+void DemonSlayer::RenderState(HDC hdc, int dir, int state, POINTFLOAT pos)
+{
+	switch (mWeaponType)
+	{
+	case DemonSlayer::eWeaponType::Greatsword:
+		mpMotion[dir][WEAPON_TYPE::Greatsword][state]->Render(hdc, pos);
+		break;
+	case DemonSlayer::eWeaponType::Club:
+		mpMotion[dir][WEAPON_TYPE::Club][state]->Render(hdc, pos);
+		break;
+	case DemonSlayer::eWeaponType::Shortsword:
+		mpMotion[dir][WEAPON_TYPE::Shortsword][state]->Render(hdc, pos);
+		break;
+	case DemonSlayer::eWeaponType::Catana:
+		mpMotion[dir][WEAPON_TYPE::Catana][state]->Render(hdc, pos);
+		break;
+	case DemonSlayer::eWeaponType::Snakesword:
+		mpMotion[dir][WEAPON_TYPE::Snakesword][state]->Render(hdc, pos);
+		break;
+	default:
+		break;
+	}
 }

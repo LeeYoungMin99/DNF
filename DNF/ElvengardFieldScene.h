@@ -10,6 +10,6 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
 private:
-	BmpImage* elvengardFieldImage = nullptr;
+	BmpImage* mpElvengardFieldImage = nullptr;
 
 };

@@ -4,11 +4,11 @@
 
 HRESULT TitleScene::Init()
 {
-	titleImage = FROM_FILE(L"Image/TitleScene/Title.png");
-	loadingImage = FROM_FILE(L"Image/TitleScene/Loading.png");
-	loadingRotateImage = FROM_FILE(L"Image/TitleScene/LoadingRotate.png");
-	loadingBelt = FROM_FILE(L"Image/TitleScene/LoadingBelt.png");
-	neopleImage = FROM_FILE(L"Image/TitleScene/NeopleImage.png");
+	mpTitleImage = FROM_FILE(L"Image/TitleScene/Title.bmp");
+	mpLoadingImage = FROM_FILE(L"Image/TitleScene/Loading.png");
+	mpLoadingRotateImage = FROM_FILE(L"Image/TitleScene/LoadingRotate.png");
+	mpLoadingBelt = FROM_FILE(L"Image/TitleScene/LoadingBelt.png");
+	mpNeopleImage = FROM_FILE(L"Image/TitleScene/NeopleImage.png");
 
 	return S_OK;
 }
@@ -16,12 +16,12 @@ HRESULT TitleScene::Init()
 void TitleScene::Update()
 {
 	const float rotationTime = 0.05f;
-	elapsedTime += DELTA_TIME;
+	mElapsedTime += DELTA_TIME;
 
-	if (elapsedTime > rotationTime)
+	if (mElapsedTime > rotationTime)
 	{
-		rotateAngle += 10.0f;
-		elapsedTime -= rotationTime;
+		mRotateAngle += 10.0f;
+		mElapsedTime -= rotationTime;
 	}
 }
 
@@ -39,14 +39,14 @@ void TitleScene::Render(HDC hdc)
 	Matrix mt;
 	//g.Clear(RGB(0,0,0));
 
-	g.DrawImage(titleImage, 0, 0, WIN_SIZE_X, WIN_SIZE_Y);
-	g.DrawImage(loadingBelt, WIN_SIZE_X - beltImageSizeX, WIN_SIZE_Y - 100);
-	g.DrawImage(neopleImage, 0, WIN_SIZE_Y - neopleImageSizeY, neopleImageSizeX, neopleImageSizeY);
-	g.DrawImage(loadingImage, 690, WIN_SIZE_Y_HALF + loadingImageSizeY, loadingImageSizeX, loadingImageSizeY);
+	g.DrawImage(mpTitleImage, 0, 0);
+	g.DrawImage(mpLoadingBelt, WIN_SIZE_X - beltImageSizeX, WIN_SIZE_Y - 100);
+	g.DrawImage(mpNeopleImage, 0, WIN_SIZE_Y - neopleImageSizeY, neopleImageSizeX, neopleImageSizeY);
+	g.DrawImage(mpLoadingImage, 690, WIN_SIZE_Y_HALF + loadingImageSizeY, loadingImageSizeX, loadingImageSizeY);
 
-	mt.RotateAt(rotateAngle, PointF(800, 790));
+	mt.RotateAt(mRotateAngle, PointF(800, 790));
 	g.SetTransform(&mt);
-	g.DrawImage(loadingRotateImage, 777, 767, rotateImageSize, rotateImageSize);
+	g.DrawImage(mpLoadingRotateImage, 777, 767, rotateImageSize, rotateImageSize);
 }
 
 void TitleScene::Release()

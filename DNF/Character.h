@@ -13,7 +13,7 @@ public:
 	virtual void Release() override {}
 
 protected:
-	eMoveDir dir = eMoveDir::None;
-	float moveSpeed = 0.0f;
+	eMoveDir mDir = eMoveDir::None;
+	float mMoveSpeed = 0.0f;
 };
 

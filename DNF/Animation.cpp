@@ -4,32 +4,32 @@
 
 HRESULT Animation::Init(AnimationData data)
 {
-	animationImage = new BmpImage;
-	animationImage->Init(data.path, data.imageSizeX, data.imageSizeY, data.maxFrame, 1, true, RGB(255, 0, 255));
-	maxFrame = data.maxFrame;
-	motionSpeed = data.motionSpeed;
-	imageFrameSizeX = data.imageFrameSizeX;
-	imageFrameSizeY = data.imageFrameSizeY;
-	correctionPosX = data.correctionPosX;
-	correctionPosY = data.correctionPosY;
-	scale = data.scale;
-	loop = data.loop;
+	mpAnimationImage = new BmpImage;
+	mpAnimationImage->Init(data.path, data.imageSizeX, data.imageSizeY, data.maxFrame, 1, true, RGB(255, 0, 255));
+	mMaxFrame = data.maxFrame;
+	mMotionSpeed = data.motionSpeed;
+	mImageFrameSizeX = data.imageFrameSizeX;
+	mImageFrameSizeY = data.imageFrameSizeY;
+	mCorrectionPosX = data.correctionPosX;
+	mCorrectionPosY = data.correctionPosY;
+	mScale = data.scale;
+	mbLoop = data.loop;
 
 	return S_OK;
 }
 
 bool Animation::UpdateAnimation()
 {
-	elapsedTime += DELTA_TIME;
-	if (elapsedTime >= motionSpeed)
+	mElapsedTime += DELTA_TIME;
+	if (mElapsedTime >= mMotionSpeed)
 	{
-		elapsedTime -= motionSpeed;
-		++currFrame;
-		if (currFrame >= maxFrame)
+		mElapsedTime -= mMotionSpeed;
+		++mCurrFrame;
+		if (mCurrFrame >= mMaxFrame)
 		{
-			if (loop)
+			if (mbLoop)
 			{
-				currFrame = 0;
+				mCurrFrame = 0;
 				return false;
 			}
 			else
@@ -44,10 +44,10 @@ bool Animation::UpdateAnimation()
 
 void Animation::Render(HDC hdc, POINTFLOAT pos)
 {
-	animationImage->Render(hdc, (int)(pos.x - correctionPosX), (int)pos.y, currFrame, 0, scale);
+	mpAnimationImage->Render(hdc, (int)(pos.x - mCorrectionPosX), (int)pos.y, mCurrFrame, 0, mScale);
 }
 
 void Animation::Release()
 {
-	SAFE_RELEASE(animationImage);
+	SAFE_RELEASE(mpAnimationImage);
 }

@@ -6,7 +6,7 @@ class BmpImage;
 class MainGame : public GameEntity
 {
 private:
-	BmpImage* backBuffer = nullptr;
+	BmpImage* mpBackBuffer = nullptr;
 public:
 	virtual ~MainGame() {}
 

@@ -14,8 +14,8 @@ HRESULT MainGame::Init()
 
 	SceneManager::GetSingleton()->ChangeScene("CharacterSelectScene", "TitleScene");
 
-	backBuffer = new BmpImage;
-	backBuffer->Init("Image/BackGround.bmp", WIN_SIZE_X, WIN_SIZE_Y);
+	mpBackBuffer = new BmpImage;
+	mpBackBuffer->Init("Image/BackGround.bmp", WIN_SIZE_X, WIN_SIZE_Y);
 
 	return S_OK;
 }
@@ -31,17 +31,17 @@ void MainGame::Update()
 
 void MainGame::Render(HDC hdc)
 {
-	HDC hBackBufferDC = backBuffer->GetMemDC();
+	HDC hBackBufferDC = mpBackBuffer->GetMemDC();
 
 	MGR_SCENE->Render(hBackBufferDC);
 	MGR_TIMER->Render(hBackBufferDC);
 
-	backBuffer->Render(hdc);
+	mpBackBuffer->Render(hdc);
 }
 
 void MainGame::Release()
 {
-	SAFE_RELEASE(backBuffer);
+	SAFE_RELEASE(mpBackBuffer);
 
 	MGR_TIMER->Release();
 

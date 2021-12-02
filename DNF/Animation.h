@@ -12,18 +12,17 @@ public:
 	void Render(HDC hdc, POINTFLOAT pos);
 	virtual void Release() override;
 private:
-	BmpImage* animationImage = nullptr;
+	BmpImage* mpAnimationImage = nullptr;
 
-	int currFrame = 0;
-	int maxFrame = 0;
-	float motionSpeed = 0.0f;
-	int imageFrameSizeX = 0;
-	int imageFrameSizeY = 0;
-	int correctionPosX = 0;
-	int correctionPosY = 0;
-	float scale = 0.0f;
-	bool loop = false;
-	bool isFlip = false;
+	int mCurrFrame = 0;
+	int mMaxFrame = 0;
+	float mMotionSpeed = 0.0f;
+	int mImageFrameSizeX = 0;
+	int mImageFrameSizeY = 0;
+	int mCorrectionPosX = 0;
+	int mCorrectionPosY = 0;
+	float mScale = 0.0f;
+	bool mbLoop = false;
 
-	float elapsedTime = 0.0f;
+	float mElapsedTime = 0.0f;
 };

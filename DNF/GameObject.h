@@ -15,6 +15,6 @@ private:
 
 public:
 protected:
-	POINTFLOAT pos = {};
+	POINTFLOAT mPos = {};
 private:
 };
