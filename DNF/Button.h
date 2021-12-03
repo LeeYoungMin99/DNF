@@ -71,19 +71,22 @@ public:
 				mState = eButtonState::Hover;
 			break;
 		case Button::eButtonState::Hover:
-			if (MGR_KEY->IsOnceKeyDown(VK_LBUTTON))
-				mState = eButtonState::Click;
-			else if (false == PtInRect(&mCollisionRect, g_ptMouse))
+			if (false == PtInRect(&mCollisionRect, g_ptMouse))
 				mState = eButtonState::Idle;
+
+			if (MGR_KEY->IsStayKeyDown(VK_LBUTTON))
+				mState = eButtonState::Click;
 			break;
 		case Button::eButtonState::Click:
+			if (false == PtInRect(&mCollisionRect, g_ptMouse))
+				mState = eButtonState::Idle;
+
 			if (MGR_KEY->IsOnceKeyUp(VK_LBUTTON))
 			{
 				if (PtInRect(&mCollisionRect, g_ptMouse))
 				{
 					(_scene->*_callback)();
 				}
-				mState = eButtonState::Idle;
 			}
 			break;
 		case Button::eButtonState::None:
@@ -132,5 +135,4 @@ private:
 
 	Point mRenderPos = {};
 	RECT mCollisionRect = {};
-
 };
