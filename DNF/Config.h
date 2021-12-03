@@ -25,22 +25,23 @@
 #define DELTA_TIME TimerManager::GetSingleton()->GetDeltaTime()
 #define MGR_SCENE SceneManager::GetSingleton()
 #define MGR_KEY KeyManager::GetSingleton()
+#define MGR_IMAGE BmpImageManager::GetSingleton()
 #define FROM_FILE Image::FromFile 
+#define SCENE_TAG SceneManager::eSceneTag
 
-enum class eButtonType { Small, Middle, Large, Long, None, };
 enum class eMoveDir { Left = -1, Right = 1, None, };
 
 struct AnimationData
 {
-	AnimationData(const char* _path, int _maxFrame, float _motionSpeed, int _imageSizeX, int _imageSizeY, int _imageFrameSizeX, int _imageFrameSizeY, int _correctionPosX, int _correctionPosY, float _scale, bool _loop)
+	AnimationData(const char* _path, int _maxFrame, float _motionSpeed, int _imageSizeX, int _imageSizeY, int _correctionPosX, int _correctionPosY, float _scale, bool _loop)
 	{
 		path = _path;
 		maxFrame = _maxFrame;
 		motionSpeed = _motionSpeed;
 		imageSizeX = _imageSizeX;
 		imageSizeY = _imageSizeY;
-		imageFrameSizeX = _imageFrameSizeX;
-		imageFrameSizeY = _imageFrameSizeY;
+		imageFrameSizeX = _imageSizeX / _maxFrame;
+		imageFrameSizeY = _imageSizeY;
 		correctionPosX = _correctionPosX;
 		correctionPosY = _correctionPosY;
 		scale = _scale;

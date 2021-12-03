@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -40,6 +32,20 @@
     <Filter Include="MainGame\Scene">
       <UniqueIdentifier>{7b6229e5-a6c2-49af-9ffe-47ada8a95ee1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Character\PlayableCharacter">
+      <UniqueIdentifier>{6e771b53-1a98-4bbe-8c94-c452fdc4236a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Character\NonPlayableCharacter">
+      <UniqueIdentifier>{fb7c140d-8db5-4c47-8e2a-cbab9f3512c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="2D Framework\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -50,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>2D Framework\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="DemonSlayer.cpp">
-      <Filter>2D Framework\Character</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager</Filter>
@@ -70,7 +73,7 @@
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Framework\소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
@@ -83,6 +86,18 @@
     </ClCompile>
     <ClCompile Include="ElvengardFieldScene.cpp">
       <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SeriaRoomScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="BmpImageManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="DemonSlayer.cpp">
+      <Filter>2D Framework\Character\PlayableCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="Seria.cpp">
+      <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +115,6 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>2D Framework\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="DemonSlayer.h">
-      <Filter>2D Framework\Character</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>2D Framework\Character</Filter>
@@ -126,10 +138,10 @@
       <Filter>PCH</Filter>
     </ClInclude>
     <ClInclude Include="CommonFunction.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Config.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
@@ -142,6 +154,18 @@
     </ClInclude>
     <ClInclude Include="ElvengardFieldScene.h">
       <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SeriaRoomScene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="BmpImageManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="DemonSlayer.h">
+      <Filter>2D Framework\Character\PlayableCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="Seria.h">
+      <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

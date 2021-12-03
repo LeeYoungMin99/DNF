@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 
+class BmpImage;
 class TitleScene : public Scene
 {
 public:
@@ -14,7 +15,7 @@ private:
 	float mRotateAngle = 0.0f;
 	float mElapsedTime = 0.0f;
 
-	Image* mpTitleImage = nullptr;
+	BmpImage* mpTitleImage = nullptr;
 	Image* mpLoadingImage = nullptr;
 	Image* mpLoadingRotateImage = nullptr;
 	Image* mpNeopleImage = nullptr;

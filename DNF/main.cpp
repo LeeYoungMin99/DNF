@@ -36,7 +36,7 @@ int APIENTRY WinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstanc
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 #endif
-	//_CrtSetBreakAlloc(541);
+	//_CrtSetBreakAlloc(273);
 
 	// 윈도우를 생성하기 위한 기본 셋팅
 	g_hInstance = _hInstance;

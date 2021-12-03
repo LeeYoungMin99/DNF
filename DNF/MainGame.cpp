@@ -12,7 +12,7 @@ HRESULT MainGame::Init()
 	GdiplusStartup(&g_gpToken, &g_gpsi, NULL);
 	SetTimer(g_hWnd, 0, 10, NULL);
 
-	SceneManager::GetSingleton()->ChangeScene("CharacterSelectScene", "TitleScene");
+	SceneManager::GetSingleton()->ChangeScene(SCENE_TAG::CharacterSelectScene, SCENE_TAG::TitleScene);
 
 	mpBackBuffer = new BmpImage;
 	mpBackBuffer->Init("Image/BackGround.bmp", WIN_SIZE_X, WIN_SIZE_Y);
@@ -44,10 +44,9 @@ void MainGame::Release()
 	SAFE_RELEASE(mpBackBuffer);
 
 	MGR_TIMER->Release();
-
 	MGR_KEY->Release();
-
 	MGR_SCENE->Release();
+	MGR_IMAGE->Release();
 
 	GdiplusShutdown(g_gpToken);
 	KillTimer(g_hWnd, 0);

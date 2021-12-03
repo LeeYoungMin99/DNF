@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "CharacterSelectScene.h"
+#include "SeriaRoomScene.h"
 #include "ElvengardFieldScene.h"
 #pragma endregion
 
@@ -27,10 +28,12 @@ DWORD CALLBACK LoadingThread(LPVOID pvParam)
 
 void SceneManager::Init()
 {
-	AddScene("CharacterSelectScene", new CharacterSelectScene());
-	AddScene("ElvengardFieldScene", new ElvengardFieldScene());
-	AddScene("TitleScene", new TitleScene());
-	AddLoadingScene("TitleScene", new TitleScene());
+	AddScene(eSceneTag::TitleScene, new TitleScene());
+	AddScene(eSceneTag::CharacterSelectScene, new CharacterSelectScene());
+	AddScene(eSceneTag::SeriaRoomScene, new SeriaRoomScene());
+	AddScene(eSceneTag::ElvengardFieldScene, new ElvengardFieldScene());
+
+	AddLoadingScene(eSceneTag::TitleScene, new TitleScene());
 }
 
 void SceneManager::Release()
@@ -61,7 +64,7 @@ void SceneManager::Render(HDC hdc)
 		currScene->Render(hdc);
 }
 
-void SceneManager::AddScene(string key, Scene* scene)
+void SceneManager::AddScene(eSceneTag key, Scene* scene)
 {
 	if (scene == nullptr)	return;
 
@@ -73,7 +76,7 @@ void SceneManager::AddScene(string key, Scene* scene)
 	mapScenes.emplace(key, scene);
 }
 
-void SceneManager::AddLoadingScene(string key, Scene* scene)
+void SceneManager::AddLoadingScene(eSceneTag key, Scene* scene)
 {
 	if (scene == nullptr)	return;
 
@@ -85,7 +88,7 @@ void SceneManager::AddLoadingScene(string key, Scene* scene)
 	mapLoadingScenes.emplace(key, scene);
 }
 
-HRESULT SceneManager::ChangeScene(string sceneName)
+HRESULT SceneManager::ChangeScene(eSceneTag sceneName)
 {
 	auto it = mapScenes.find(sceneName);
 
@@ -105,7 +108,7 @@ HRESULT SceneManager::ChangeScene(string sceneName)
 	return E_FAIL;
 }
 
-HRESULT SceneManager::ChangeScene(string sceneName, string loadingSceneName)
+HRESULT SceneManager::ChangeScene(eSceneTag sceneName, eSceneTag loadingSceneName)
 {
 	auto it = mapScenes.find(sceneName);
 

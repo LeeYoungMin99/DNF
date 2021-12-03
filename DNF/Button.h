@@ -10,6 +10,7 @@ private:
 
 public:
 	enum class eButtonState { Idle, Hover, Click, None, };
+	enum class eButtonType { Small, Middle, Large, Long, None };
 	Button(scene_t* scene, callback_t callback)
 		: GameObject()
 	{
@@ -131,5 +132,5 @@ private:
 
 	Point mRenderPos = {};
 	RECT mCollisionRect = {};
-	
+
 };

@@ -5,9 +5,8 @@
 class Scene;
 class SceneManager : public Singleton<SceneManager>
 {
-private:
-	std::unordered_map<string, Scene*>	mapScenes;
-	std::unordered_map<string, Scene*>	mapLoadingScenes;
+public:
+	enum class eSceneTag { TitleScene, CharacterSelectScene, SeriaRoomScene, ElvengardFieldScene };
 
 public:
 	virtual ~SceneManager() = default;
@@ -21,10 +20,13 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
-	void AddScene(string key, Scene* scene);
-	void AddLoadingScene(string key, Scene* scene);
+	void AddScene(eSceneTag key, Scene* scene);
+	void AddLoadingScene(eSceneTag key, Scene* scene);
 
-	HRESULT ChangeScene(string sceneName);
-	HRESULT ChangeScene(string sceneName, string loadingSceneName);
+	HRESULT ChangeScene(eSceneTag sceneName);
+	HRESULT ChangeScene(eSceneTag sceneName, eSceneTag loadingSceneName);
+private:
+	unordered_map<eSceneTag, Scene*>	mapScenes;
+	unordered_map<eSceneTag, Scene*>	mapLoadingScenes;
 };
 

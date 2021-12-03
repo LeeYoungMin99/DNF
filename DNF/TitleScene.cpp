@@ -4,7 +4,7 @@
 
 HRESULT TitleScene::Init()
 {
-	mpTitleImage = FROM_FILE(L"Image/TitleScene/Title.bmp");
+	mpTitleImage = MGR_IMAGE->AddImage("Image/TitleScene/Title.bmp", 1600, 900);
 	mpLoadingImage = FROM_FILE(L"Image/TitleScene/Loading.png");
 	mpLoadingRotateImage = FROM_FILE(L"Image/TitleScene/LoadingRotate.png");
 	mpLoadingBelt = FROM_FILE(L"Image/TitleScene/LoadingBelt.png");
@@ -31,7 +31,7 @@ void TitleScene::Render(HDC hdc)
 	const int loadingImageSizeY = 213;
 	const int rotateImageSize = 45;
 	const float rotateImageSenter = rotateImageSize * 0.5f;
-	const int beltImageSizeX = 45;
+	const int beltImageSizeX = 170;
 	const int neopleImageSizeX = WIN_SIZE_X;
 	const int neopleImageSizeY = 34;
 
@@ -39,7 +39,7 @@ void TitleScene::Render(HDC hdc)
 	Matrix mt;
 	//g.Clear(RGB(0,0,0));
 
-	g.DrawImage(mpTitleImage, 0, 0);
+	mpTitleImage->Render(hdc,WIN_SIZE_X_HALF, WIN_SIZE_Y_HALF);
 	g.DrawImage(mpLoadingBelt, WIN_SIZE_X - beltImageSizeX, WIN_SIZE_Y - 100);
 	g.DrawImage(mpNeopleImage, 0, WIN_SIZE_Y - neopleImageSizeY, neopleImageSizeX, neopleImageSizeY);
 	g.DrawImage(mpLoadingImage, 690, WIN_SIZE_Y_HALF + loadingImageSizeY, loadingImageSizeX, loadingImageSizeY);
