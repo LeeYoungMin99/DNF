@@ -13,7 +13,6 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
 private:
-	void SetAnimation(int dir, int weaponType, int state, AnimationData data);
 	void UpdateIdleState(int dir);
 	void UpdateWalkState(int dir);
 	void RenderState(HDC hdc, int dir,int state, POINTFLOAT pos);

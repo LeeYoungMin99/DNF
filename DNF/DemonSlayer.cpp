@@ -4,19 +4,68 @@
 
 HRESULT DemonSlayer::Init()
 {
-	SetAnimation(DIR::Right, WEAPON_TYPE::Greatsword, STATE::Idle, AnimationData("Image/CharacterMotion/Greatsword/RightIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, -90, 0, 2.0f, true));
-	SetAnimation(DIR::Left, WEAPON_TYPE::Greatsword, STATE::Idle, AnimationData("Image/CharacterMotion/Greatsword/LeftIdle.bmp", 33, 0.1f, 12078, 220, 366, 220, 90, 0, 2.0f, true));
-	SetAnimation(DIR::Right, WEAPON_TYPE::Greatsword, STATE::Walk, AnimationData("Image/CharacterMotion/Greatsword/RightWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, -90, 0, 2.0f, true));
-	SetAnimation(DIR::Left, WEAPON_TYPE::Greatsword, STATE::Walk, AnimationData("Image/CharacterMotion/Greatsword/LeftWalk.bmp", 10, 0.1f, 3660, 220, 366, 220, 90, 0, 2.0f, true));
+	Animation motion;
 
+	mpMotion[DIR::Right][WEAPON_TYPE::Greatsword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Greatsword/RightIdle.bmp", 33, 0.1f, 12078, 220, -90, -165, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Greatsword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Greatsword/LeftIdle.bmp", 33, 0.1f, 12078, 220, -273, -165, 2.0f, true));
+	mpMotion[DIR::Right][WEAPON_TYPE::Greatsword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Greatsword/RightWalk.bmp", 10, 0.1f, 3660, 220, -90, -165, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Greatsword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Greatsword/LeftWalk.bmp", 10, 0.1f, 3660, 220, -273, -165, 2.0f, true));
+	
+	mpMotion[DIR::Right][WEAPON_TYPE::Club][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Club/RightIdle.bmp", 33, 0.1f, 15015, 311, -266, -124, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Club][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Club/LeftIdle.bmp", 33, 0.1f, 15015, 311, -187, -124, 2.0f, true));
+	mpMotion[DIR::Right][WEAPON_TYPE::Club][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Club/RightWalk.bmp", 10, 0.1f, 4550, 311, -266, -124, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Club][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Club/LeftWalk.bmp", 10, 0.1f, 4550, 311, -187, -124, 2.0f, true));
+	
+	mpMotion[DIR::Right][WEAPON_TYPE::Shortsword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Shortsword/RightIdle.bmp", 33, 0.1f, 9801, 221, -49, -189, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Shortsword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Shortsword/LeftIdle.bmp", 33, 0.1f, 9801, 221, -246, -189, 2.0f, true));
+	mpMotion[DIR::Right][WEAPON_TYPE::Shortsword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Shortsword/RightWalk.bmp", 10, 0.1f, 2970, 221, -49, -189, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Shortsword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Shortsword/LeftWalk.bmp", 10, 0.1f, 2970, 221, -246, -189, 2.0f, true));
+	
+	mpMotion[DIR::Right][WEAPON_TYPE::Catana][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Catana/RightIdle.bmp", 33, 0.1f, 10494, 214, -60, -172, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Catana][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Catana/LeftIdle.bmp", 33, 0.1f, 10494, 214, -255, -172, 2.0f, true));
+	mpMotion[DIR::Right][WEAPON_TYPE::Catana][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Catana/RightWalk.bmp", 10, 0.1f, 3180, 214, -60, -172, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Catana][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Catana/LeftWalk.bmp", 10, 0.1f, 3180, 214, -255, -172, 2.0f, true));
+	
+	mpMotion[DIR::Right][WEAPON_TYPE::Snakesword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Snakesword/RightIdle.bmp", 33, 0.1f, 13167, 453, -106, -407, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Snakesword][STATE::Idle] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Snakesword/LeftIdle.bmp", 33, 0.1f, 13167, 453, -291, -407, 2.0f, true));
+	mpMotion[DIR::Right][WEAPON_TYPE::Snakesword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Snakesword/RightWalk.bmp", 10, 0.1f, 3990, 453, -106, -407, 2.0f, true));
+	mpMotion[DIR::Left][WEAPON_TYPE::Snakesword][STATE::Walk] = motion.SetAnimation(AnimationData("Image/CharacterMotion/PlayableCharacter/Snakesword/LeftWalk.bmp", 10, 0.1f, 3990, 453, -291, -407, 2.0f, true));
+
+	{ 45, 115; }
 	mDir = eMoveDir::Right;
 	mMoveSpeed = 200.0f;
-
+	mPos = { 0,0 };
 	return S_OK;
 }
 
 void DemonSlayer::Update()
 {
+	if (MGR_KEY->IsOnceKeyDown('Q'))
+	{
+		mDir = eMoveDir::Left;
+	}
+	if (MGR_KEY->IsOnceKeyDown('E'))
+	{
+		mDir = eMoveDir::Right;
+	}
+	if (MGR_KEY->IsOnceKeyDown('A'))
+	{
+		mPos.x -= 1;
+	}
+	if (MGR_KEY->IsOnceKeyDown('D'))
+	{
+		mPos.x += 1;
+	}
+	if (MGR_KEY->IsOnceKeyDown('W'))
+	{
+		mPos.y -= 1;
+	}
+	if (MGR_KEY->IsOnceKeyDown('S'))
+	{
+		mPos.y += 1;
+	}
+
+
 	if (mDir == eMoveDir::Right)
 	{
 		switch (mState)
@@ -149,12 +198,6 @@ void DemonSlayer::Release()
 	}
 }
 
-void DemonSlayer::SetAnimation(int dir, int weaponType, int state, AnimationData data)
-{
-	mpMotion[dir][weaponType][state] = new Animation;
-	mpMotion[dir][weaponType][state]->Init(data);
-}
-
 void DemonSlayer::UpdateIdleState(int dir)
 {
 	switch (mWeaponType)
@@ -236,10 +279,11 @@ void DemonSlayer::UpdateWalkState(int dir)
 	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
 	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
 
-	if (MGR_KEY->IsOnceKeyUp(VK_LEFT) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
-	if (MGR_KEY->IsOnceKeyUp(VK_RIGHT) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_UP)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
-	if (MGR_KEY->IsOnceKeyUp(VK_UP) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_DOWN))) { mState = eDemonSlayerState::Idle; }
-	if (MGR_KEY->IsOnceKeyUp(VK_DOWN) && !(MGR_KEY->IsStayKeyDown(VK_LEFT)) && !(MGR_KEY->IsStayKeyDown(VK_RIGHT)) && !(MGR_KEY->IsStayKeyDown(VK_UP))) { mState = eDemonSlayerState::Idle; }
+	if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) && 
+		false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) && 
+		false ==(MGR_KEY->IsStayKeyDown(VK_UP)) && 
+		false == (MGR_KEY->IsStayKeyDown(VK_DOWN))) 
+	{ mState = eDemonSlayerState::Idle; }
 }
 
 void DemonSlayer::RenderState(HDC hdc, int dir, int state, POINTFLOAT pos)

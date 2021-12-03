@@ -44,10 +44,18 @@ bool Animation::UpdateAnimation()
 
 void Animation::Render(HDC hdc, POINTFLOAT pos)
 {
-	mpAnimationImage->Render(hdc, (int)(pos.x - mCorrectionPosX), (int)pos.y, mCurrFrame, 0, mScale);
+	mpAnimationImage->Render(hdc, (int)(pos.x + mCorrectionPosX), (int)(pos.y + mCorrectionPosY), mCurrFrame, 0, mScale);
 }
 
 void Animation::Release()
 {
 	SAFE_RELEASE(mpAnimationImage);
+}
+
+Animation* Animation::SetAnimation(AnimationData data)
+{
+	Animation* animation = new Animation;
+	animation->Init(data);
+
+	return animation;
 }

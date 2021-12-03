@@ -16,7 +16,9 @@ using namespace Gdiplus;
 #include "KeyManager.h"
 #include "TimerManager.h"
 #include "SceneManager.h"
+#include "BmpImageManager.h"
 #include "Timer.h"
+#include "BmpImage.h"
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

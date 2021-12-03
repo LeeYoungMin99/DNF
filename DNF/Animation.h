@@ -11,6 +11,8 @@ public:
 	bool UpdateAnimation();
 	void Render(HDC hdc, POINTFLOAT pos);
 	virtual void Release() override;
+
+	Animation* SetAnimation(AnimationData data);
 private:
 	BmpImage* mpAnimationImage = nullptr;
 
