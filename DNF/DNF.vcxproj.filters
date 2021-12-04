@@ -99,6 +99,9 @@
     <ClCompile Include="Seria.cpp">
       <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
     </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="Seria.h">
       <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

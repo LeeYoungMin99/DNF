@@ -34,12 +34,6 @@ void Seria::Update()
 		{
 			mState = eSeriaState::Idle;
 		}
-
-		if (MGR_KEY->IsOnceKeyDown(VK_LBUTTON))
-		{
-			cout << "버튼들 나와야 함" << endl;
-		}
-		break;
 	}
 }
 

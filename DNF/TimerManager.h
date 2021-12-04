@@ -4,9 +4,6 @@
 class Timer;
 class TimerManager : public Singleton<TimerManager>
 {
-private:
-	Timer* timer = nullptr;
-
 public:
 	virtual ~TimerManager() = default;
 
@@ -16,5 +13,7 @@ public:
 	void Release();
 
 	float GetDeltaTime();
+private:
+	Timer* timer = nullptr;
 };
 

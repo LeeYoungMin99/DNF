@@ -145,6 +145,7 @@
     <ClCompile Include="BmpImage.cpp" />
     <ClCompile Include="BmpImageManager.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
     <ClCompile Include="DemonSlayer.cpp" />
     <ClCompile Include="ElvengardFieldScene.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="BmpImage.h" />
     <ClInclude Include="BmpImageManager.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterSelectScene.h" />
     <ClInclude Include="CommonFunction.h" />
