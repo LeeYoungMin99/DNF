@@ -11,5 +11,7 @@ public:
 	virtual void Release() override;
 private:
 	BmpImage* mpElvengardFieldImage = nullptr;
+	BmpImage* mpFarBackgroundImage = nullptr;
+	BmpImage* mpMiddlerBackgroundImage = nullptr;
 
 };

@@ -10,11 +10,9 @@ public:
 	virtual void Update() override {}
 	virtual void Render(HDC hdc) override {}
 	virtual void Release() override {}
-protected:
-private:
+	
+	virtual bool OnCollided() {}
 
-public:
 protected:
 	POINTFLOAT mPos = {};
-private:
 };

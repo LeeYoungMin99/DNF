@@ -75,7 +75,7 @@ void CharacterSelectScene::Release()
 
 void CharacterSelectScene::StartGame()
 {
-	MGR_SCENE->ChangeScene(SCENE_TAG::SeriaRoomScene);
+	MGR_SCENE->ChangeScene(SCENE_TAG::ElvengardFieldScene);
 }
 
 void CharacterSelectScene::ShutdownGame()
