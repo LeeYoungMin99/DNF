@@ -17,6 +17,7 @@ using namespace Gdiplus;
 #include "TimerManager.h"
 #include "SceneManager.h"
 #include "BmpImageManager.h"
+#include "CameraManager.h"
 #include "Timer.h"
 #include "BmpImage.h"
 
