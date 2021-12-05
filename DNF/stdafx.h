@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <list>
 using namespace std;
 
 #pragma comment(lib, "winmm.lib")

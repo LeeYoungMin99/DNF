@@ -147,6 +147,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonSlayer.cpp" />
     <ClCompile Include="ElvengardFieldScene.cpp" />
     <ClCompile Include="KeyManager.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Seria.cpp" />
     <ClCompile Include="SeriaRoomScene.cpp" />
+    <ClCompile Include="SeriaTree.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
@@ -168,6 +170,7 @@
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterSelectScene.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DemonSlayer.h" />
@@ -176,9 +179,11 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="MapObject.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Seria.h" />
     <ClInclude Include="SeriaRoomScene.h" />
+    <ClInclude Include="SeriaTree.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Timer.h" />

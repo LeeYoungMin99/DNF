@@ -8,9 +8,6 @@
     <Filter Include="2D Framework">
       <UniqueIdentifier>{6cc04ffc-11f9-46dc-b5e1-6e71596d1f6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\Character">
-      <UniqueIdentifier>{c67ec574-d790-4632-b8d9-3b65a7f161ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\Animation">
       <UniqueIdentifier>{bba400b6-67c4-47b9-a58a-a68cc85e58bb}</UniqueIdentifier>
     </Filter>
@@ -32,12 +29,6 @@
     <Filter Include="MainGame\Scene">
       <UniqueIdentifier>{7b6229e5-a6c2-49af-9ffe-47ada8a95ee1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\Character\PlayableCharacter">
-      <UniqueIdentifier>{6e771b53-1a98-4bbe-8c94-c452fdc4236a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\Character\NonPlayableCharacter">
-      <UniqueIdentifier>{fb7c140d-8db5-4c47-8e2a-cbab9f3512c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\소스 파일">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -45,6 +36,33 @@
     <Filter Include="2D Framework\헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="2D Framework\Manager\Singleton">
+      <UniqueIdentifier>{406db383-55c7-4c38-bbe4-a7841a723022}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject">
+      <UniqueIdentifier>{91f874b9-60e2-4ba9-91d9-e258e847c13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\MapObject">
+      <UniqueIdentifier>{3e889cba-aaa2-4b6f-8f28-6c0bd5a121cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\MapObject\DestructibleMapObject">
+      <UniqueIdentifier>{7566e9c8-3fca-4b81-b67c-729814d0f5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\MapObject\IndestructibleMapObject">
+      <UniqueIdentifier>{690fb75a-4492-4184-98b2-dbbe40941008}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\Character">
+      <UniqueIdentifier>{c67ec574-d790-4632-b8d9-3b65a7f161ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\Character\PlayableCharacter">
+      <UniqueIdentifier>{6e771b53-1a98-4bbe-8c94-c452fdc4236a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\Character\NonPlayableCharacter">
+      <UniqueIdentifier>{fb7c140d-8db5-4c47-8e2a-cbab9f3512c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\Character\Monster">
+      <UniqueIdentifier>{74d9090e-4535-41cc-83aa-4828b9fc56ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -56,15 +74,6 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>2D Framework\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>2D Framework\Timer</Filter>
@@ -90,17 +99,32 @@
     <ClCompile Include="SeriaRoomScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BmpImageManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="DemonSlayer.cpp">
-      <Filter>2D Framework\Character\PlayableCharacter</Filter>
+      <Filter>2D Framework\GameObject\Character\PlayableCharacter</Filter>
     </ClCompile>
     <ClCompile Include="Seria.cpp">
-      <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
+      <Filter>2D Framework\GameObject\Character\NonPlayableCharacter</Filter>
+    </ClCompile>
+    <ClCompile Include="BmpImageManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
       <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SeriaTree.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,26 +137,11 @@
     <ClInclude Include="GameEntity.h">
       <Filter>2D Framework</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>2D Framework\Button</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>2D Framework\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>2D Framework\Manager</Filter>
+      <Filter>2D Framework\GameObject\Character</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>2D Framework\Timer</Filter>
@@ -161,17 +170,41 @@
     <ClInclude Include="SeriaRoomScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="BmpImageManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="DemonSlayer.h">
-      <Filter>2D Framework\Character\PlayableCharacter</Filter>
+      <Filter>2D Framework\GameObject\Character\PlayableCharacter</Filter>
     </ClInclude>
     <ClInclude Include="Seria.h">
-      <Filter>2D Framework\Character\NonPlayableCharacter</Filter>
+      <Filter>2D Framework\GameObject\Character\NonPlayableCharacter</Filter>
+    </ClInclude>
+    <ClInclude Include="BmpImageManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
       <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="MapObject.h">
+      <Filter>2D Framework\GameObject\MapObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SeriaTree.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

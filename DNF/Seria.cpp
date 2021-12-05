@@ -24,16 +24,11 @@ void Seria::Update()
 	switch (mState)
 	{
 	case Seria::eSeriaState::Idle:
-		if (PtInRect(&COLLISION_RECT, g_ptMouse))
-		{
-			mState = eSeriaState::Hover;
-		}
+		if (PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Hover; }
 		break;
 	case Seria::eSeriaState::Hover:
-		if (false == PtInRect(&COLLISION_RECT, g_ptMouse))
-		{
-			mState = eSeriaState::Idle;
-		}
+		if (false == PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Idle; }
+		break;
 	}
 }
 

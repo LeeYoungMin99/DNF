@@ -6,6 +6,8 @@ class Seria;
 class SeriaRoomScene : public Scene
 {
 public:
+	~SeriaRoomScene() = default;
+
 	virtual HRESULT Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

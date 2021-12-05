@@ -5,7 +5,6 @@ class Animation;
 class DemonSlayer : public Character
 {
 public:
-
 	~DemonSlayer() = default;
 
 	virtual HRESULT Init() override;
@@ -13,9 +12,11 @@ public:
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
 private:
-	void UpdateIdleState(int dir);
-	void UpdateWalkState(int dir);
+	void UpdateStateAnimation(int dir, int state);
 	void RenderState(HDC hdc, int dir,int state, POINTFLOAT pos);
+	virtual void OnCollidedBody(RECT intersectionRect) override;
+	virtual void OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage) override;
+
 private:
 #define DIR (int)DemonSlayer::eDir
 #define WEAPON_TYPE (int)DemonSlayer::eWeaponType

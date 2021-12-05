@@ -18,7 +18,6 @@ private:
 	Animation* mpHoverMotion = nullptr;
 
 	eSeriaState mState = eSeriaState::Idle;
-
 	
 	const int BODY_SIZE_X = 58;
 	const int BODY_SIZE_Y = 116;
