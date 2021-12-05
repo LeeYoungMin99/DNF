@@ -14,8 +14,11 @@ public:
 private:
 	void UpdateStateAnimation(int dir, int state);
 	void RenderState(HDC hdc, int dir,int state, POINTFLOAT pos);
+	void UpdateIdle();
+	
 	virtual void OnCollidedBody(RECT intersectionRect) override;
 	virtual void OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage) override;
+
 
 private:
 #define DIR (int)DemonSlayer::eDir

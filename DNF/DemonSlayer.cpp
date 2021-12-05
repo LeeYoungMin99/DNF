@@ -75,51 +75,11 @@ void DemonSlayer::Update()
 		{
 		case eDemonSlayerState::Idle:
 			UpdateStateAnimation(DIR::Right, STATE::Idle);
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mState = eDemonSlayerState::Walk;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
+			UpdateIdle();
 			break;
 		case eDemonSlayerState::Walk:
 			UpdateStateAnimation(DIR::Right, STATE::Walk);
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mPos.x -= DELTA_TIME * mMoveSpeed;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mPos.x += DELTA_TIME * mMoveSpeed;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
-
-			if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_UP)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_DOWN)))
-			{
-				mState = eDemonSlayerState::Idle;
-			}
+			UpdateWalk();
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -144,52 +104,12 @@ void DemonSlayer::Update()
 		switch (mState)
 		{
 		case eDemonSlayerState::Idle:
-			UpdateStateAnimation(DIR::Left, STATE::Idle);
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mState = eDemonSlayerState::Walk;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
+			UpdateStateAnimation(DIR::Left, STATE::Idle); 
+			UpdateIdle();
 			break;
 		case eDemonSlayerState::Walk:
 			UpdateStateAnimation(DIR::Left, STATE::Walk);
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mPos.x -= DELTA_TIME * mMoveSpeed;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mPos.x += DELTA_TIME * mMoveSpeed;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
-
-			if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_UP)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_DOWN)))
-			{
-				mState = eDemonSlayerState::Idle;
-			}
+			UpdateWalk();
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -222,27 +142,6 @@ void DemonSlayer::Render(HDC hdc)
 		{
 		case eDemonSlayerState::Idle:
 			RenderState(hdc, DIR::Right, STATE::Idle, mPos);
-
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mState = eDemonSlayerState::Walk;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN))
-			{
-				mState = eDemonSlayerState::Walk;
-			}
 			break;
 		case eDemonSlayerState::Walk:
 			RenderState(hdc, DIR::Right, STATE::Walk, mPos);
@@ -271,33 +170,9 @@ void DemonSlayer::Render(HDC hdc)
 		{
 		case eDemonSlayerState::Idle:
 			RenderState(hdc, DIR::Left, STATE::Idle, mPos);
-
-
 			break;
 		case eDemonSlayerState::Walk:
 			RenderState(hdc, DIR::Left, STATE::Walk, mPos);
-
-			if (MGR_KEY->IsStayKeyDown(VK_LEFT))
-			{
-				mDir = eMoveDir::Left;
-				mPos.x -= DELTA_TIME * mMoveSpeed;
-			}
-			else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
-			{
-				mDir = eMoveDir::Right;
-				mPos.x += DELTA_TIME * mMoveSpeed;
-			}
-
-			if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
-			else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
-
-			if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_UP)) &&
-				false == (MGR_KEY->IsStayKeyDown(VK_DOWN)))
-			{
-				mState = eDemonSlayerState::Idle;
-			}
 			break;
 		case eDemonSlayerState::Run:
 			break;
@@ -379,6 +254,48 @@ void DemonSlayer::RenderState(HDC hdc, int dir, int state, POINTFLOAT pos)
 		break;
 	default:
 		break;
+	}
+}
+
+void DemonSlayer::UpdateIdle()
+{
+	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	{
+		mDir = eMoveDir::Left;
+		mState = eDemonSlayerState::Walk;
+	}
+	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	{
+		mDir = eMoveDir::Right;
+		mState = eDemonSlayerState::Walk;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mState = eDemonSlayerState::Walk; }
+	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mState = eDemonSlayerState::Walk; }
+}
+
+void DemonSlayer::UpdateWalk()
+{
+	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	{
+		mDir = eMoveDir::Left;
+		mPos.x -= DELTA_TIME * mMoveSpeed;
+	}
+	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	{
+		mDir = eMoveDir::Right;
+		mPos.x += DELTA_TIME * mMoveSpeed;
+	}
+
+	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
+	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
+
+	if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) &&
+		false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) &&
+		false == (MGR_KEY->IsStayKeyDown(VK_UP)) &&
+		false == (MGR_KEY->IsStayKeyDown(VK_DOWN)))
+	{
+		mState = eDemonSlayerState::Idle;
 	}
 }
 
