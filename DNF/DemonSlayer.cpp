@@ -104,7 +104,7 @@ void DemonSlayer::Update()
 		switch (mState)
 		{
 		case eDemonSlayerState::Idle:
-			UpdateStateAnimation(DIR::Left, STATE::Idle); 
+			UpdateStateAnimation(DIR::Left, STATE::Idle);
 			UpdateIdle();
 			break;
 		case eDemonSlayerState::Walk:
@@ -214,19 +214,19 @@ void DemonSlayer::UpdateStateAnimation(int dir, int state)
 	switch (mWeaponType)
 	{
 	case DemonSlayer::eWeaponType::Greatsword:
-		mpMotion[dir][WEAPON_TYPE::Greatsword][STATE::Idle]->UpdateAnimation();
+		mpMotion[dir][WEAPON_TYPE::Greatsword][state]->UpdateAnimation();
 		break;
 	case DemonSlayer::eWeaponType::Club:
-		mpMotion[dir][WEAPON_TYPE::Club][STATE::Idle]->UpdateAnimation();
+		mpMotion[dir][WEAPON_TYPE::Club][state]->UpdateAnimation();
 		break;
 	case DemonSlayer::eWeaponType::Shortsword:
-		mpMotion[dir][WEAPON_TYPE::Shortsword][STATE::Idle]->UpdateAnimation();
+		mpMotion[dir][WEAPON_TYPE::Shortsword][state]->UpdateAnimation();
 		break;
 	case DemonSlayer::eWeaponType::Catana:
-		mpMotion[dir][WEAPON_TYPE::Catana][STATE::Idle]->UpdateAnimation();
+		mpMotion[dir][WEAPON_TYPE::Catana][state]->UpdateAnimation();
 		break;
 	case DemonSlayer::eWeaponType::Snakesword:
-		mpMotion[dir][WEAPON_TYPE::Snakesword][STATE::Idle]->UpdateAnimation();
+		mpMotion[dir][WEAPON_TYPE::Snakesword][state]->UpdateAnimation();
 		break;
 	default:
 		break;
@@ -279,12 +279,12 @@ void DemonSlayer::UpdateWalk()
 	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
 	{
 		mDir = eMoveDir::Left;
-		mPos.x -= DELTA_TIME * mMoveSpeed;
+		mPos.x += (DELTA_TIME * mMoveSpeed) * (int)mDir;
 	}
 	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
 	{
 		mDir = eMoveDir::Right;
-		mPos.x += DELTA_TIME * mMoveSpeed;
+		mPos.x += (DELTA_TIME * mMoveSpeed) * (int)mDir;
 	}
 
 	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
@@ -306,30 +306,16 @@ void DemonSlayer::OnCollidedBody(RECT intersectionRect)
 
 	if (width > height)
 	{
-		if (intersectionRect.bottom == mBodyCollisionRect.bottom)
-		{
-			mPos.y -= height;
-			SetBodyCollisionRect(mPos, { -40,-20,40,20 });
-		}
-		else
-		{
-			mPos.y += height;
-			SetBodyCollisionRect(mPos, { -40,-20,40,20 });
-		}
+		if (intersectionRect.bottom == mBodyCollisionRect.bottom) { mPos.y -= height; }
+		else { mPos.y += height; }
 	}
 	else
 	{
-		if (intersectionRect.left == mBodyCollisionRect.left)
-		{
-			mPos.x += width;
-			SetBodyCollisionRect(mPos, { -40,-20,40,20 });
-		}
-		else
-		{
-			mPos.x -= width;
-			SetBodyCollisionRect(mPos, { -40,-20,40,20 });
-		}
+		if (intersectionRect.left == mBodyCollisionRect.left) { mPos.x += width; }
+		else { mPos.x -= width; }
 	}
+
+	SetBodyCollisionRect(mPos, { -40,-20,40,20 });
 }
 
 void DemonSlayer::OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage)

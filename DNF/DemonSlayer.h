@@ -15,6 +15,7 @@ private:
 	void UpdateStateAnimation(int dir, int state);
 	void RenderState(HDC hdc, int dir,int state, POINTFLOAT pos);
 	void UpdateIdle();
+	void UpdateWalk();
 	
 	virtual void OnCollidedBody(RECT intersectionRect) override;
 	virtual void OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage) override;
