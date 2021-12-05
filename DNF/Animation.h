@@ -13,6 +13,7 @@ public:
 	virtual void Release() override;
 
 	Animation* SetAnimation(AnimationData data);
+	void InitFrame();
 private:
 	BmpImage* mpAnimationImage = nullptr;
 

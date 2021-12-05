@@ -21,28 +21,14 @@ void Seria::Update()
 	mpIdleMotion->UpdateAnimation();
 	mpHoverMotion->UpdateAnimation();
 
-	switch (mState)
-	{
-	case Seria::eSeriaState::Idle:
-		if (PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Hover; }
-		break;
-	case Seria::eSeriaState::Hover:
-		if (false == PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Idle; }
-		break;
-	}
+	if (mState == Seria::eSeriaState::Idle) { if (PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Hover; } }
+	else if (mState == Seria::eSeriaState::Hover) { if (false == PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Idle; } }
 }
 
 void Seria::Render(HDC hdc)
 {
-	switch (mState)
-	{
-	case Seria::eSeriaState::Idle:
-		mpIdleMotion->Render(hdc, mPos);
-		break;
-	case Seria::eSeriaState::Hover:
-		mpHoverMotion->Render(hdc, mPos);
-		break;
-	}
+	if (mState == Seria::eSeriaState::Idle) { mpIdleMotion->Render(hdc, mPos); }
+	else if (mState == Seria::eSeriaState::Idle) { mpHoverMotion->Render(hdc, mPos); }
 }
 
 void Seria::Release()

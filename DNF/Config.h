@@ -32,7 +32,7 @@
 #define FROM_FILE Image::FromFile 
 #define SCENE_TAG SceneManager::eSceneTag
 
-enum class eMoveDir { Left = -1, Right = 1, None, };
+enum class eMoveDir { Left = 0, Right = 1, None, };
 
 struct AnimationData
 {

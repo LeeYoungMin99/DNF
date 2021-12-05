@@ -59,3 +59,9 @@ Animation* Animation::SetAnimation(AnimationData data)
 
 	return animation;
 }
+
+void Animation::InitFrame()
+{
+	mCurrFrame = 0;
+	mElapsedTime = 0.0f;
+}
