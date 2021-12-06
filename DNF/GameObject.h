@@ -19,11 +19,12 @@ public:
 	virtual void OnCollidedBody(RECT intersectionRect) {}
 	virtual void OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage) {}
 
-	virtual const RECT* GetBodyCollisionRect() { return &mBodyCollisionRect; }
-	virtual const RECT* GetAttackCollisionRect() { return &mAttackCollisionRect; }
-	virtual const eObjectType GetObjectType() { return mObjectType; }
-	virtual void SetPos(float posX, float posY) { mPos.x = posX; mPos.y = posY; };
-	virtual void SetBodyCollisionRect(POINTFLOAT pos, CorrectionValue correction)
+	const RECT* GetBodyCollisionRect() { return &mBodyCollisionRect; }
+	const RECT* GetAttackCollisionRect() { return &mAttackCollisionRect; }
+	const eObjectType GetObjectType() { return mObjectType; }
+	void SetPos(float posX, float posY) { mPos.x = posX; mPos.y = posY; };
+	const POINTFLOAT GetPos() const { return mPos; }
+	void SetBodyCollisionRect(POINTFLOAT pos, CorrectionValue correction)
 	{
 		mBodyCollisionRect =
 		{ LONG(pos.x + GET_CAMERA_POS.x + correction.left),

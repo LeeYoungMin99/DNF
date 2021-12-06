@@ -142,30 +142,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Blacksmith.cpp" />
     <ClCompile Include="BmpImage.cpp" />
     <ClCompile Include="BmpImageManager.cpp" />
+    <ClCompile Include="BumpyTree.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonSlayer.cpp" />
+    <ClCompile Include="DungeonEntranceSign.cpp" />
     <ClCompile Include="ElvengardFieldScene.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Seria.cpp" />
     <ClCompile Include="SeriaRoomScene.cpp" />
     <ClCompile Include="SeriaTree.cpp" />
+    <ClCompile Include="Sign.cpp" />
+    <ClCompile Include="SmarmyTree.cpp" />
     <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="Tent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="Blacksmith.h" />
     <ClInclude Include="BmpImage.h" />
     <ClInclude Include="BmpImageManager.h" />
+    <ClInclude Include="BumpyTree.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Character.h" />
@@ -174,18 +183,23 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DemonSlayer.h" />
+    <ClInclude Include="DungeonEntranceSign.h" />
     <ClInclude Include="ElvengardFieldScene.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MapObject.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Seria.h" />
     <ClInclude Include="SeriaRoomScene.h" />
     <ClInclude Include="SeriaTree.h" />
+    <ClInclude Include="Sign.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SmarmyTree.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Tent.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="TitleScene.h" />

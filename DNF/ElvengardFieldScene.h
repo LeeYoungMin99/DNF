@@ -2,9 +2,7 @@
 #include "Scene.h"
 
 class BmpImage;
-class DemonSlayer;
 class CollisionManager;
-class SeriaTree;
 class ElvengardFieldScene : public Scene
 {
 public:
@@ -20,7 +18,4 @@ private:
 	BmpImage* mpMiddlerBackgroundImage = nullptr;
 
 	CollisionManager* mpCollisionManager = nullptr;
-	SeriaTree* mpSeriaTree = nullptr;
-
-	DemonSlayer* mpMyCharacter = nullptr;
 };

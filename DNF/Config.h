@@ -66,8 +66,8 @@ struct AnimationData
 
 struct CorrectionValue
 {
-	float left = 0.0f;
-	float top = 0.0f;
-	float right = 0.0f;
-	float bottom = 0.0f;
+	int left = 0;
+	int top = 0;
+	int right = 0;
+	int bottom = 0;
 };

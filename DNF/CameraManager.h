@@ -20,4 +20,3 @@ private:
 	const int camSizeX = WIN_SIZE_X;
 	const int camSizeY = WIN_SIZE_Y;
 };
-

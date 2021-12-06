@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <list>
+#include <queue>
 using namespace std;
 
 #pragma comment(lib, "winmm.lib")

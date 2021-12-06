@@ -50,3 +50,8 @@ void CollisionManager::AddObject(GameObject* obj)
 {
 	objects.push_back(obj);
 }
+
+void CollisionManager::SetObjects(const vector<GameObject*>& _objects)
+{
+	objects = _objects;
+}

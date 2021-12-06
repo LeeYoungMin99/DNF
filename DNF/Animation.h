@@ -7,7 +7,7 @@ class Animation : public GameObject
 public:
 	~Animation() = default;
 
-	virtual HRESULT Init(AnimationData data);
+	HRESULT Init(AnimationData data);
 	bool UpdateAnimation();
 	void Render(HDC hdc, POINTFLOAT pos);
 	virtual void Release() override;

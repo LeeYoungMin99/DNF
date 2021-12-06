@@ -64,6 +64,9 @@
     <Filter Include="2D Framework\GameObject\Character\Monster">
       <UniqueIdentifier>{74d9090e-4535-41cc-83aa-4828b9fc56ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField">
+      <UniqueIdentifier>{ae631027-ac9b-46e4-aeb2-2ef3900f0bdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -124,7 +127,28 @@
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="SeriaTree.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject</Filter>
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="Sign.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonEntranceSign.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SmarmyTree.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="BumpyTree.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="Tent.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="Blacksmith.cpp">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -204,7 +228,28 @@
       <Filter>2D Framework\GameObject\MapObject</Filter>
     </ClInclude>
     <ClInclude Include="SeriaTree.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject</Filter>
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="Sign.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonEntranceSign.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="BumpyTree.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="SmarmyTree.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="Tent.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="Blacksmith.h">
+      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

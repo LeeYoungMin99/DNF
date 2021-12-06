@@ -11,8 +11,9 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 	virtual void Release() override;
-	
+
 	void AddObject(GameObject* obj);
+	void SetObjects(const vector<GameObject*>& _objects);
 private:
-	list<GameObject*> objects = {};
+	vector<GameObject*> objects = {};
 };
