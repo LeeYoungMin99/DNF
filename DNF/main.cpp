@@ -77,6 +77,8 @@ int APIENTRY WinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstanc
 		DispatchMessage(&message);
 	}
 
+	Input::Init(g_hWnd);
+
 	// 메인게임 해제
 	g_mainGame.Release();
 	return (int)(message.wParam);
@@ -90,8 +92,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_TIMER:
+		Input::Update();
 		g_mainGame.Update();
-
 		break;
 	case WM_PAINT:		// 윈도우 화면이 다시 그려지는 경우 발생하는 메시지
 		hdc = BeginPaint(g_hWnd, &ps);

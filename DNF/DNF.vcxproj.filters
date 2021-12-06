@@ -114,9 +114,6 @@
     <ClCompile Include="CameraManager.cpp">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClCompile>
@@ -149,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="Blacksmith.cpp">
       <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,9 +206,6 @@
     <ClInclude Include="CameraManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
@@ -250,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Blacksmith.h">
       <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

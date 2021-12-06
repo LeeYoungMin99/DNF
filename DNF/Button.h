@@ -74,14 +74,14 @@ public:
 			if (false == PtInRect(&mCollisionRect, g_ptMouse))
 				mState = eButtonState::Idle;
 
-			if (MGR_KEY->IsStayKeyDown(VK_LBUTTON))
+			if (Input::GetButton(VK_LBUTTON))
 				mState = eButtonState::Click;
 			break;
 		case Button::eButtonState::Click:
 			if (false == PtInRect(&mCollisionRect, g_ptMouse))
 				mState = eButtonState::Idle;
 
-			if (MGR_KEY->IsOnceKeyUp(VK_LBUTTON))
+			if (Input::GetButtonUp(VK_LBUTTON))
 			{
 				if (PtInRect(&mCollisionRect, g_ptMouse))
 				{

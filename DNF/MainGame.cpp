@@ -5,7 +5,6 @@
 
 HRESULT MainGame::Init()
 {
-	MGR_KEY->Init();
 	MGR_TIMER->Init();
 	MGR_SCENE->Init();
 
@@ -44,7 +43,6 @@ void MainGame::Release()
 	SAFE_RELEASE(mpBackBuffer);
 
 	MGR_TIMER->Release();
-	MGR_KEY->Release();
 	MGR_SCENE->Release();
 	MGR_IMAGE->Release();
 

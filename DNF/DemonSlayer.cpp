@@ -43,12 +43,12 @@ HRESULT DemonSlayer::Init()
 
 void DemonSlayer::Update()
 {
-	if (MGR_KEY->IsOnceKeyDown('Q')) { mDir = eMoveDir::Left; }
-	if (MGR_KEY->IsOnceKeyDown('E')) { mDir = eMoveDir::Right; }
-	if (MGR_KEY->IsOnceKeyDown('A')) { mPos.x -= 1; }
-	if (MGR_KEY->IsOnceKeyDown('D')) { mPos.x += 1; }
-	if (MGR_KEY->IsOnceKeyDown('W')) { mPos.y -= 1; }
-	if (MGR_KEY->IsOnceKeyDown('S')) { mPos.y += 1; }
+	if (Input::GetButtonDown('Q')) { mDir = eMoveDir::Left; }
+	if (Input::GetButtonDown('E')) { mDir = eMoveDir::Right; }
+	if (Input::GetButtonDown('A')) { mPos.x -= 1; }
+	if (Input::GetButtonDown('D')) { mPos.x += 1; }
+	if (Input::GetButtonDown('W')) { mPos.y -= 1; }
+	if (Input::GetButtonDown('S')) { mPos.y += 1; }
 
 	if (mState == eDemonSlayerState::Idle) { UpdateIdle(); }
 	else if (mState == eDemonSlayerState::Walk) { UpdateWalk(); }
@@ -79,43 +79,43 @@ void DemonSlayer::Release()
 
 void DemonSlayer::UpdateIdle()
 {
-	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	if (Input::GetButton(VK_LEFT))
 	{
 		mpMotion[(int)mDir][(int)mWeaponType][(int)mState]->InitFrame();
 		mState = eDemonSlayerState::Walk;
 		mDir = eMoveDir::Left;
 	}
-	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	else if (Input::GetButton(VK_RIGHT))
 	{
 		mpMotion[(int)mDir][(int)mWeaponType][(int)mState]->InitFrame();
 		mState = eDemonSlayerState::Walk;
 		mDir = eMoveDir::Right;
 	}
 
-	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mState = eDemonSlayerState::Walk; }
-	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mState = eDemonSlayerState::Walk; }
+	if (Input::GetButton(VK_UP)) { mState = eDemonSlayerState::Walk; }
+	else if (Input::GetButton(VK_DOWN)) { mState = eDemonSlayerState::Walk; }
 }
 
 void DemonSlayer::UpdateWalk()
 {
-	if (MGR_KEY->IsStayKeyDown(VK_LEFT))
+	if (Input::GetButton(VK_LEFT))
 	{
 		mDir = eMoveDir::Left;
 		mPos.x -= DELTA_TIME * mMoveSpeed;
 	}
-	else if (MGR_KEY->IsStayKeyDown(VK_RIGHT))
+	else if (Input::GetButton(VK_RIGHT))
 	{
 		mDir = eMoveDir::Right;
 		mPos.x += DELTA_TIME * mMoveSpeed;
 	}
 
-	if (MGR_KEY->IsStayKeyDown(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
-	else if (MGR_KEY->IsStayKeyDown(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
+	if (Input::GetButton(VK_UP)) { mPos.y -= DELTA_TIME * mMoveSpeed; }
+	else if (Input::GetButton(VK_DOWN)) { mPos.y += DELTA_TIME * mMoveSpeed; }
 
-	if (false == (MGR_KEY->IsStayKeyDown(VK_LEFT)) &&
-		false == (MGR_KEY->IsStayKeyDown(VK_RIGHT)) &&
-		false == (MGR_KEY->IsStayKeyDown(VK_UP)) &&
-		false == (MGR_KEY->IsStayKeyDown(VK_DOWN)))
+	if (false == (Input::GetButton(VK_LEFT)) &&
+		false == (Input::GetButton(VK_RIGHT)) &&
+		false == (Input::GetButton(VK_UP)) &&
+		false == (Input::GetButton(VK_DOWN)))
 	{
 		mpMotion[(int)mDir][(int)mWeaponType][(int)mState]->InitFrame();
 		mState = eDemonSlayerState::Idle;

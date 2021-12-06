@@ -38,8 +38,8 @@ HRESULT ElvengardFieldScene::Init()
 
 void ElvengardFieldScene::Update()
 {
-	if (MGR_KEY->IsStayKeyDown('A')) { MGR_CAM->AddCameraPos(10, 0); }
-	if (MGR_KEY->IsStayKeyDown('D')) { MGR_CAM->AddCameraPos(-10, 0); }
+	if (Input::GetButton('A')) { MGR_CAM->AddCameraPos(10, 0); }
+	if (Input::GetButton('D')) { MGR_CAM->AddCameraPos(-10, 0); }
 
 	for (auto obj : mObjects) { obj->Update(); }
 	

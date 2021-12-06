@@ -25,7 +25,6 @@
 #define MGR_TIMER TimerManager::GetSingleton()
 #define MGR_IMAGE BmpImageManager::GetSingleton()
 #define MGR_SCENE SceneManager::GetSingleton()
-#define MGR_KEY KeyManager::GetSingleton()
 #define MGR_CAM CameraManager::GetSingleton()
 #define GET_CAMERA_POS CameraManager::GetSingleton()->GetCameraPos()
 
