@@ -17,10 +17,10 @@ HRESULT CharacterSelectScene::Init()
 	mpStartButton = new Button(this, &CharacterSelectScene::StartGame);
 	mpShutdownButton = new Button(this, &CharacterSelectScene::ShutdownGame);
 
-	mpCreateCharacterButton->Init(Button::eButtonType::Small, POINT{ CREATE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
-	mpDeleteCharacterButton->Init(Button::eButtonType::Small, POINT{ DELETE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
-	mpStartButton->Init(Button::eButtonType::Large, POINT{ START_BUTTON_POS_X,BUTTON_CENTER }, LARGE_BUTTON_SIZE_X, LARGE_BUTTON_SIZE_Y);
-	mpShutdownButton->Init(Button::eButtonType::Small, POINT{ SHUTDOWN_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
+	mpCreateCharacterButton->Init(Button::eButtonType::Scene, POINT{ CREATE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
+	mpDeleteCharacterButton->Init(Button::eButtonType::Scene, POINT{ DELETE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
+	mpStartButton->Init(Button::eButtonType::Scene, POINT{ START_BUTTON_POS_X,BUTTON_CENTER }, LARGE_BUTTON_SIZE_X, LARGE_BUTTON_SIZE_Y);
+	mpShutdownButton->Init(Button::eButtonType::Scene, POINT{ SHUTDOWN_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
 	mpMyCharacter = new DemonSlayer;
 	mpMyCharacter->Init();
 

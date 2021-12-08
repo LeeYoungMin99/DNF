@@ -1,23 +1,26 @@
 #pragma once
 #include "GameObject.h"
 
-template <typename SceneType>
+template <typename Type>
 class Button : public GameObject
 {
 private:
-	using scene_t = SceneType;
-	using callback_t = void(SceneType::*)();
+	using t = Type;
+	using callback_t = void(Type::*)();
 
 public:
 	enum class eButtonState { Idle, Hover, Click, None, };
-	enum class eButtonType { Small, Middle, Large, Long, None };
-	Button(scene_t* scene, callback_t callback)
+	enum class eButtonType { GameObject, Scene, None, };
+
+	Button(t* type, callback_t callback)
 		: GameObject()
 	{
-		static_assert(is_base_of_v<Scene, SceneType>, "Button can be used in a scene");
+		if (is_base_of_v<Scene, Type>)				{ mType = eButtonType::Scene; }
+		else if (is_base_of_v<GameObject, Type>)	{ mType = eButtonType::GameObject; }
+		else										{ static_assert(true, "버튼 이닛할때 잘못넣음"); }
 
-		_scene = scene;
-		_callback = callback;
+		mpType = type;
+		mpCallback = callback;
 	}
 	virtual ~Button() = default;
 
@@ -25,27 +28,24 @@ public:
 	{
 		this->mPos = { float(pos.x),float(pos.y) };
 
+		TCHAR str[50] = {};
+		TCHAR str1[50] = {};
+		TCHAR str2[50] = {};
+		wcsncpy(str, L"Image/Button/", 13);
+		wcscat(str, L"SmallButton");
+		wcscat(str, L"PutImage.png");
+
 		switch (type)
 		{
-		case eButtonType::Small:
+		case eButtonType::Scene:
+			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/SmallButtonIdleImage.png");
+			this->mpButtonPutImage = FROM_FILE(str);
+			this->mpButtonClickImage = FROM_FILE(L"Image/Button/SmallButtonClickImage.png");
+			break;
+		case eButtonType::GameObject:
 			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/SmallButtonIdleImage.png");
 			this->mpButtonPutImage = FROM_FILE(L"Image/Button/SmallButtonPutImage.png");
 			this->mpButtonClickImage = FROM_FILE(L"Image/Button/SmallButtonClickImage.png");
-			break;
-		case eButtonType::Middle:
-			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/MiddleButtonIdleImage.png");
-			this->mpButtonPutImage = FROM_FILE(L"Image/Button/MiddleButtonPutImage.png");
-			this->mpButtonClickImage = FROM_FILE(L"Image/Button/MiddleButtonClickImage.png");
-			break;
-		case eButtonType::Large:
-			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/LargeButtonIdleImage.png");
-			this->mpButtonPutImage = FROM_FILE(L"Image/Button/LargeButtonPutImage.png");
-			this->mpButtonClickImage = FROM_FILE(L"Image/Button/LargeButtonClickImage.png");
-			break;
-		case eButtonType::Long:
-			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/LongButtonIdleImage.png");
-			this->mpButtonPutImage = FROM_FILE(L"Image/Button/LongButtonPutImage.png");
-			this->mpButtonClickImage = FROM_FILE(L"Image/Button/LongButtonClickImage.png");
 			break;
 		case eButtonType::None:
 		default:
@@ -85,7 +85,7 @@ public:
 			{
 				if (PtInRect(&mCollisionRect, g_ptMouse))
 				{
-					(_scene->*_callback)();
+					(mpType->*mpCallback)();
 				}
 			}
 			break;
@@ -123,8 +123,8 @@ public:
 	}
 
 private:
-	scene_t* _scene;
-	callback_t _callback;
+	t* mpType;
+	callback_t mpCallback;
 
 	int mSizeX = 0;
 	int mSizeY = 0;
@@ -132,6 +132,7 @@ private:
 	Image* mpButtonPutImage = nullptr;
 	Image* mpButtonClickImage = nullptr;
 	eButtonState mState = eButtonState::None;
+	eButtonType mType = eButtonType::None;
 
 	Point mRenderPos = {};
 	RECT mCollisionRect = {};
