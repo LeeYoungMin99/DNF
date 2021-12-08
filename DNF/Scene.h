@@ -2,6 +2,8 @@
 #include "GameEntity.h"
 
 class GameObject;
+class CollisionManager;
+class Gate;
 class Scene : public GameEntity
 {
 	struct cmp
@@ -17,10 +19,18 @@ public:
 	virtual void Render(HDC hdc) override {}
 	virtual void Release() override {}
 
+	virtual void SetAreaTag(int area)
+	{
+		mAreaTag = area;
+	}
 protected:
-	void AddObject(GameObject* obj, POINTFLOAT pos);
+	void AddObject(GameObject* obj, POINTFLOAT pos, int areaTag);
+	void AddGate(Gate* obj, POINTFLOAT pos, int areaTag, Scene* scene, CollisionManager* collisionManager, int connectedArea);
 
 protected:
+	int mAreaTag = 0;
+	int mPreviousArea = 0;
+
 	vector<GameObject*> mObjects = {};
 	priority_queue<GameObject*, vector<GameObject*>, cmp> mRenderOrder = {};
 };

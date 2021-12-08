@@ -35,7 +35,7 @@ HRESULT DemonSlayer::Init()
 
 	{ 45, 115; }
 	mDir = eMoveDir::Right;
-	mMoveSpeed = 200.0f;
+	mMoveSpeed = 1000.0f;
 	mPos = { 0,0 };
 	mObjectType = eObjectType::Character;
 	return S_OK;

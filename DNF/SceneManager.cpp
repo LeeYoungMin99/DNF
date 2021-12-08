@@ -5,8 +5,7 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "CharacterSelectScene.h"
-#include "SeriaRoomScene.h"
-#include "ElvengardFieldScene.h"
+#include "TownScene.h"
 #pragma endregion
 
 Scene* SceneManager::currScene = nullptr;
@@ -30,8 +29,7 @@ void SceneManager::Init()
 {
 	AddScene(eSceneTag::TitleScene, new TitleScene());
 	AddScene(eSceneTag::CharacterSelectScene, new CharacterSelectScene());
-	AddScene(eSceneTag::SeriaRoomScene, new SeriaRoomScene());
-	AddScene(eSceneTag::ElvengardFieldScene, new ElvengardFieldScene());
+	AddScene(eSceneTag::TownScene, new TownScene());
 
 	AddLoadingScene(eSceneTag::TitleScene, new TitleScene());
 }

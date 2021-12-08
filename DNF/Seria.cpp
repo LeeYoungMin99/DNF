@@ -7,22 +7,18 @@ HRESULT Seria::Init()
 	mpIdleMotion = mpIdleMotion->SetAnimation(AnimationData("Image/CharacterMotion/NonPlayableCharacter/Seria/Idle.bmp", 12, 0.2f, 684, 118, -(BODY_SIZE_X / 2), -(BODY_SIZE_Y / 2), 2.0f, true));
 	mpHoverMotion = mpHoverMotion->SetAnimation(AnimationData("Image/CharacterMotion/NonPlayableCharacter/Seria/Hover.bmp", 12, 0.2f, 684, 118, -(BODY_SIZE_X / 2), -(BODY_SIZE_Y / 2), 2.0f, true));
 
-	const float posX = (float)WIN_SIZE_X_HALF;
-	const float posY = (float)(WIN_SIZE_Y_HALF - (BODY_SIZE_Y / 2));
-
-	mPos = { posX, posY };
 	return S_OK;
 }
 
 void Seria::Update()
 {
-	const RECT COLLISION_RECT = { LONG(mPos.x - BODY_SIZE_X),LONG(mPos.y - BODY_SIZE_Y),LONG(mPos.x + BODY_SIZE_X),LONG(mPos.y + BODY_SIZE_Y) };
-
 	mpIdleMotion->UpdateAnimation();
 	mpHoverMotion->UpdateAnimation();
 
-	if (mState == Seria::eSeriaState::Idle) { if (PtInRect(&COLLISION_RECT, Input::GetMousePosition())) { mState = eSeriaState::Hover; } }
-	else if (mState == Seria::eSeriaState::Hover) { if (false == PtInRect(&COLLISION_RECT, Input::GetMousePosition())) { mState = eSeriaState::Idle; } }
+	SetBodyCollisionRect(mPos, { BODY_COLLISION_LEFT,BODY_COLLISION_TOP,BODY_COLLISION_RIGHT,BODY_COLLISION_BOTTOM });
+
+	if (mState == Seria::eSeriaState::Idle) { if (PtInRect(&mBodyCollisionRect, Input::GetMousePosition())) { mState = eSeriaState::Hover; } }
+	else if (mState == Seria::eSeriaState::Hover) { if (false == PtInRect(&mBodyCollisionRect, Input::GetMousePosition())) { mState = eSeriaState::Idle; } }
 }
 
 void Seria::Render(HDC hdc)

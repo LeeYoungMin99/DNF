@@ -96,12 +96,6 @@
     <ClCompile Include="CharacterSelectScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="ElvengardFieldScene.cpp">
-      <Filter>MainGame\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="SeriaRoomScene.cpp">
-      <Filter>MainGame\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="DemonSlayer.cpp">
       <Filter>2D Framework\GameObject\Character\PlayableCharacter</Filter>
     </ClCompile>
@@ -147,6 +141,12 @@
     <ClCompile Include="Input.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="TownScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Gate.cpp">
+      <Filter>2D Framework\소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -180,12 +180,6 @@
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
     <ClInclude Include="CharacterSelectScene.h">
-      <Filter>MainGame\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="ElvengardFieldScene.h">
-      <Filter>MainGame\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="SeriaRoomScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
     <ClInclude Include="DemonSlayer.h">
@@ -241,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TownScene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Gate.h">
+      <Filter>2D Framework\헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

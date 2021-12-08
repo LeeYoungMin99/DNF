@@ -16,10 +16,13 @@ void CollisionManager::Update()
 		for (auto obj2 : objects)
 		{
 			if (obj1 == obj2) { continue; }
+			if (obj1->GetAreaTag() != mAreaTag) { continue; }
+			if (obj2->GetAreaTag() != mAreaTag) { continue; }
 
 			if (IntersectRect(&intersectionRect, ((*obj1).GetBodyCollisionRect()), ((*obj2).GetBodyCollisionRect())))
 			{
 				(*obj1).OnCollidedBody(intersectionRect);
+				(*obj2).OnCollidedBody(intersectionRect);
 			}
 		}
 	}
@@ -29,12 +32,19 @@ void CollisionManager::Update()
 		for (auto obj2 : objects)
 		{
 			if (obj1->GetObjectType() == obj2->GetObjectType()) { continue; }
+			if (obj1->GetAreaTag() != mAreaTag) { continue; }
+			if (obj2->GetAreaTag() != mAreaTag) { continue; }
 
 			if (IntersectRect(&intersectionRect, ((*obj1).GetAttackCollisionRect()), ((*obj2).GetBodyCollisionRect())))
 			{
 
 			}
 		}
+	}
+
+	if (mNextAreaTag != mAreaTag)
+	{
+		mAreaTag = mNextAreaTag;
 	}
 }
 

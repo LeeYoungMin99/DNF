@@ -32,6 +32,8 @@ public:
 			LONG(pos.x + GET_CAMERA_POS.x + correction.right),
 			LONG(pos.y + GET_CAMERA_POS.y + correction.bottom) };
 	}
+	void SetAreaTag(int areaTag) { mAreaTag = areaTag; }
+	int GetAreaTag() { return mAreaTag; }
 
 protected:
 	eObjectType mObjectType = eObjectType::None;
@@ -39,6 +41,7 @@ protected:
 	RECT mBodyCollisionRect = {};
 	POINTFLOAT mPos = {};
 
+	int mAreaTag = 0;
 	int mStrikingPower = 0;
 	int mDefensivePower = 0;
 };

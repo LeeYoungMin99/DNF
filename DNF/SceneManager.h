@@ -6,7 +6,7 @@ class Scene;
 class SceneManager : public Singleton<SceneManager>
 {
 public:
-	enum class eSceneTag { TitleScene, CharacterSelectScene, SeriaRoomScene, ElvengardFieldScene };
+	enum class eSceneTag { TitleScene, CharacterSelectScene, TownScene, };
 
 public:
 	virtual ~SceneManager() = default;

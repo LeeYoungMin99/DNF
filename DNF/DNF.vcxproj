@@ -152,14 +152,13 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="DemonSlayer.cpp" />
     <ClCompile Include="DungeonEntranceSign.cpp" />
-    <ClCompile Include="ElvengardFieldScene.cpp" />
+    <ClCompile Include="Gate.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Seria.cpp" />
-    <ClCompile Include="SeriaRoomScene.cpp" />
     <ClCompile Include="SeriaTree.cpp" />
     <ClCompile Include="Sign.cpp" />
     <ClCompile Include="SmarmyTree.cpp" />
@@ -167,6 +166,7 @@
     <ClCompile Include="Tent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TownScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -182,16 +182,15 @@
     <ClInclude Include="Config.h" />
     <ClInclude Include="DemonSlayer.h" />
     <ClInclude Include="DungeonEntranceSign.h" />
-    <ClInclude Include="ElvengardFieldScene.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Gate.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MapObject.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Seria.h" />
-    <ClInclude Include="SeriaRoomScene.h" />
     <ClInclude Include="SeriaTree.h" />
     <ClInclude Include="Sign.h" />
     <ClInclude Include="Singleton.h" />
@@ -200,6 +199,7 @@
     <ClInclude Include="Tent.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TownScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
