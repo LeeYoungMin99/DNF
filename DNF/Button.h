@@ -15,9 +15,9 @@ public:
 	Button(t* type, callback_t callback)
 		: GameObject()
 	{
-		if (is_base_of_v<Scene, Type>)				{ mType = eButtonType::Scene; }
-		else if (is_base_of_v<GameObject, Type>)	{ mType = eButtonType::GameObject; }
-		else										{ static_assert(true, "버튼 이닛할때 잘못넣음"); }
+		if (is_base_of_v<Scene, Type>) { mType = eButtonType::Scene; }
+		else if (is_base_of_v<GameObject, Type>) { mType = eButtonType::GameObject; }
+		else { static_assert(true, "버튼 이닛할때 잘못넣음"); }
 
 		mpType = type;
 		mpCallback = callback;
@@ -67,23 +67,23 @@ public:
 		switch (mState)
 		{
 		case Button::eButtonState::Idle:
-			if (PtInRect(&mCollisionRect, g_ptMouse))
+			if (PtInRect(&mCollisionRect, Input::GetMousePosition()))
 				mState = eButtonState::Hover;
 			break;
 		case Button::eButtonState::Hover:
-			if (false == PtInRect(&mCollisionRect, g_ptMouse))
+			if (false == PtInRect(&mCollisionRect, Input::GetMousePosition()))
 				mState = eButtonState::Idle;
 
 			if (Input::GetButton(VK_LBUTTON))
 				mState = eButtonState::Click;
 			break;
 		case Button::eButtonState::Click:
-			if (false == PtInRect(&mCollisionRect, g_ptMouse))
+			if (false == PtInRect(&mCollisionRect, Input::GetMousePosition()))
 				mState = eButtonState::Idle;
 
 			if (Input::GetButtonUp(VK_LBUTTON))
 			{
-				if (PtInRect(&mCollisionRect, g_ptMouse))
+				if (PtInRect(&mCollisionRect, Input::GetMousePosition()))
 				{
 					(mpType->*mpCallback)();
 				}

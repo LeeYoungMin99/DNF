@@ -21,7 +21,7 @@
 #define DBG_NEW new
 #endif
 
-#define DELTA_TIME TimerManager::GetSingleton()->GetDeltaTime()
+#define DELTA_TIME Timer::GetDeltaTime()
 #define MGR_TIMER TimerManager::GetSingleton()
 #define MGR_IMAGE BmpImageManager::GetSingleton()
 #define MGR_SCENE SceneManager::GetSingleton()

@@ -21,8 +21,8 @@ void Seria::Update()
 	mpIdleMotion->UpdateAnimation();
 	mpHoverMotion->UpdateAnimation();
 
-	if (mState == Seria::eSeriaState::Idle) { if (PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Hover; } }
-	else if (mState == Seria::eSeriaState::Hover) { if (false == PtInRect(&COLLISION_RECT, g_ptMouse)) { mState = eSeriaState::Idle; } }
+	if (mState == Seria::eSeriaState::Idle) { if (PtInRect(&COLLISION_RECT, Input::GetMousePosition())) { mState = eSeriaState::Hover; } }
+	else if (mState == Seria::eSeriaState::Hover) { if (false == PtInRect(&COLLISION_RECT, Input::GetMousePosition())) { mState = eSeriaState::Idle; } }
 }
 
 void Seria::Render(HDC hdc)

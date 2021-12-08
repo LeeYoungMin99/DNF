@@ -49,17 +49,6 @@ public:
 		};
 	} IMAGE_INFO, *LPIMAGE_INFO;
 
-	//struct testImageInfo : public tagImageInfo
-	//{
-
-	//};
-
-	//tagImageInfo imageInfo;
-	//IMAGE_INFO imageInfo2;
-
-	//tagImageInfo* imageInfo;
-	//LPIMAGE_INFO imageInfo3;
-
 private:
 	LPIMAGE_INFO imageInfo = nullptr;
 	bool isTransparent = false;

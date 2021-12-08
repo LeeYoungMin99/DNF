@@ -166,7 +166,6 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Tent.cpp" />
     <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +179,6 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterSelectScene.h" />
     <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="DemonSlayer.h" />
     <ClInclude Include="DungeonEntranceSign.h" />
@@ -201,7 +199,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Tent.h" />
     <ClInclude Include="Timer.h" />
-    <ClInclude Include="TimerManager.h" />
     <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

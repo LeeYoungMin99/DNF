@@ -15,7 +15,7 @@ using namespace std;
 #pragma comment(lib,"gdiplus.lib")
 using namespace Gdiplus;
 
-#include "TimerManager.h"
+#include "Timer.h"
 #include "SceneManager.h"
 #include "BmpImageManager.h"
 #include "CameraManager.h"
@@ -25,6 +25,5 @@ using namespace Gdiplus;
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
-extern POINT g_ptMouse;
 extern GdiplusStartupInput g_gpsi;
 extern ULONG_PTR g_gpToken;

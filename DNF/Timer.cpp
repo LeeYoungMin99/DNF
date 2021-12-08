@@ -1,60 +1,48 @@
 #include "stdafx.h"
-#include "Config.h"
+
 #include "Timer.h"
 
-void Timer::Init()
+using namespace std;
+using namespace std::chrono;
+
+high_resolution_clock::time_point Timer::_prevTime = {};
+float Timer::_deltaTime = 0.0f;
+float Timer::_timeScale = 1.0f;
+
+void Timer::SetTimeScale(float timeScale)
 {
-	timeScale = 0.0f;	
-	deltaTime = 0.0f;	
-
-	isHardware = false;	
-
-	periodFrequency = 0;	
-	currTime = 0;		
-	lastTime = 0;		
-
-	fps = 0;
-	fpsFrameCount = 0;
-	fpsTimeElapsed = 0.0f;
-
-	if (QueryPerformanceFrequency((LARGE_INTEGER*)&periodFrequency))
-	{
-		isHardware = true;
-		QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-		lastTime = currTime;
-		timeScale = 1.0f / periodFrequency;
-	}
-	else
-	{
-		isHardware = false;
-		currTime = timeGetTime();
-		timeScale = 0.001f;
-	}
-
-	lastTime = currTime;
+	_timeScale = timeScale;
 }
 
-void Timer::Tick()
+float Timer::GetTimeScale() noexcept
 {
-	if (isHardware)
+	return _timeScale;
+}
+
+float Timer::GetDeltaTime() noexcept
+{
+	return _deltaTime * _timeScale;
+}
+
+void Timer::Init() noexcept
+{
+	_prevTime = high_resolution_clock::now();
+}
+
+bool Timer::CanUpdate() noexcept
+{
+	auto current = high_resolution_clock::now();
+
+	duration<float> elapsed = current - _prevTime;
+
+	if (MS_PER_UPDATE * 0.001f > elapsed.count())
 	{
-		QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
-	}
-	else
-	{
-		currTime = timeGetTime();
+		return false;
 	}
 
-	deltaTime = (currTime - lastTime) * timeScale;
+	_deltaTime = elapsed.count();
 
-	++fpsFrameCount;
-	fpsTimeElapsed += deltaTime;
-	if (fpsTimeElapsed >= 1.0f)
-	{
-		fps = fpsFrameCount;
-		fpsFrameCount = 0;
-		fpsTimeElapsed = 0.0f;
-	}
+	_prevTime = current;
 
-	lastTime = currTime;
+	return true;
 }

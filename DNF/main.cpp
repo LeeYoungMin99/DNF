@@ -1,7 +1,6 @@
 // main.cpp
 
 #include "stdafx.h"
-#include "CommonFunction.h"
 #include "MainGame.h"
 
 #ifdef _DEBUG
@@ -15,7 +14,6 @@
 #endif
 
 // 전역변수
-POINT		g_ptMouse;
 HINSTANCE	g_hInstance;
 HWND		g_hWnd;
 LPWSTR		g_lpszClass = (LPWSTR)TEXT("DNF");
@@ -32,7 +30,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstan
 {
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
 #endif
 	//_CrtSetBreakAlloc(273);
 
@@ -58,24 +55,48 @@ int APIENTRY wWinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstan
 		WIN_START_POS_X, WIN_START_POS_Y, WIN_SIZE_X, WIN_SIZE_Y,
 		NULL, NULL, _hInstance, NULL);
 
-	SetWindowSize(WIN_START_POS_X, WIN_START_POS_Y,
-		WIN_SIZE_X, WIN_SIZE_Y);
+	RECT cr = { 0, 0, WIN_SIZE_X, WIN_SIZE_Y };
+	AdjustWindowRect(&cr, WS_OVERLAPPEDWINDOW, FALSE);
+	SetWindowPos(g_hWnd, HWND_TOPMOST, 100, 100, cr.right - cr.left, cr.bottom - cr.top, SWP_NOMOVE | SWP_NOZORDER);
 
 	// 메인게임 초기화
 	g_mainGame.Init();
 
 	// 윈도우 출력
 	ShowWindow(g_hWnd, nCmdShow);
+	UpdateWindow(g_hWnd);
 
 	// 메시지 큐에 있는 메시지 처리
 	MSG message;
-	while (GetMessage(&message, 0, 0, 0))
-	{
-		TranslateMessage(&message);
-		DispatchMessage(&message);
-	}
 
-	Input::Init(g_hWnd);
+	HDC hdc;
+	PAINTSTRUCT ps;
+
+	while (TRUE)
+	{
+		if (PeekMessage(&message, nullptr, NULL, NULL, PM_REMOVE))
+		{
+			if (message.message == WM_QUIT)
+			{
+				break;
+			}
+
+			TranslateMessage(&message);
+			DispatchMessage(&message);
+		}
+		else
+		{
+			if (Timer::CanUpdate())
+			{
+				Input::Update();
+				g_mainGame.Update();
+
+				hdc = BeginPaint(g_hWnd, &ps);
+				g_mainGame.Render(hdc);
+				EndPaint(g_hWnd, &ps);
+			}
+		}
+	}
 
 	// 메인게임 해제
 	g_mainGame.Release();
@@ -84,26 +105,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstan
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
-	HDC hdc;
-	PAINTSTRUCT ps;
 
 	switch (iMessage)
 	{
-	case WM_TIMER:
-		Input::Update();
-		g_mainGame.Update();
-		break;
-	case WM_PAINT:		// 윈도우 화면이 다시 그려지는 경우 발생하는 메시지
-		hdc = BeginPaint(g_hWnd, &ps);
-
-		g_mainGame.Render(hdc);
-
-		EndPaint(g_hWnd, &ps);
-		break;
-	case WM_MOUSEMOVE:
-		g_ptMouse.x = LOWORD(lParam);
-		g_ptMouse.y = HIWORD(lParam);
-		break;
 	case WM_DESTROY:	// 닫기 버튼 메시지처리 (프로그램 종료)
 		PostQuitMessage(0);
 		return 0;

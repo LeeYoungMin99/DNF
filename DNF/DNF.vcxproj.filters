@@ -117,9 +117,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClCompile>
-    <ClCompile Include="TimerManager.cpp">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
@@ -173,9 +170,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>PCH</Filter>
     </ClInclude>
-    <ClInclude Include="CommonFunction.h">
-      <Filter>2D Framework\헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>2D Framework\헤더 파일</Filter>
     </ClInclude>
@@ -210,9 +204,6 @@
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
-    <ClInclude Include="TimerManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
