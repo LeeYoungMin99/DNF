@@ -40,7 +40,7 @@ void ElvengardFieldScene::Update()
 {
 	if (Input::GetButton('A')) { MGR_CAM->AddCameraPos(10, 0); }
 	if (Input::GetButton('D')) { MGR_CAM->AddCameraPos(-10, 0); }
-
+	
 	for (auto obj : mObjects) { obj->Update(); }
 	
 	mpCollisionManager->Update();

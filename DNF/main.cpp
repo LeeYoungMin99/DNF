@@ -14,13 +14,11 @@
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
 
-using namespace Gdiplus;
-
 // 전역변수
 POINT		g_ptMouse;
 HINSTANCE	g_hInstance;
 HWND		g_hWnd;
-LPSTR		g_lpszClass = (LPSTR)TEXT("DNF");
+LPWSTR		g_lpszClass = (LPWSTR)TEXT("DNF");
 MainGame	g_mainGame;
 
 GdiplusStartupInput g_gpsi;
@@ -29,8 +27,8 @@ ULONG_PTR g_gpToken;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage,
 	WPARAM wParam, LPARAM lParam);
 
-int APIENTRY WinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstance,
-	_In_ LPSTR _lpszCmdParam, _In_ int nCmdShow)
+int APIENTRY wWinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstance,
+	_In_ LPWSTR _lpszCmdParam, _In_ int nCmdShow)
 {
 #ifdef _DEBUG
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -102,10 +100,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		EndPaint(g_hWnd, &ps);
 		break;
+	case WM_MOUSEMOVE:
+		g_ptMouse.x = LOWORD(lParam);
+		g_ptMouse.y = HIWORD(lParam);
+		break;
 	case WM_DESTROY:	// 닫기 버튼 메시지처리 (프로그램 종료)
 		PostQuitMessage(0);
 		return 0;
 	}
 
-	return g_mainGame.MainProc(hWnd, iMessage, wParam, lParam);
+	return DefWindowProc(hWnd, iMessage, wParam, lParam);
 }

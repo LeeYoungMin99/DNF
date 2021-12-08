@@ -28,7 +28,7 @@ void Seria::Update()
 void Seria::Render(HDC hdc)
 {
 	if (mState == Seria::eSeriaState::Idle) { mpIdleMotion->Render(hdc, mPos); }
-	else if (mState == Seria::eSeriaState::Idle) { mpHoverMotion->Render(hdc, mPos); }
+	else if (mState == Seria::eSeriaState::Hover) { mpHoverMotion->Render(hdc, mPos); }
 }
 
 void Seria::Release()

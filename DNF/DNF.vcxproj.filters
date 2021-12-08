@@ -150,6 +150,9 @@
     <ClCompile Include="Input.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
