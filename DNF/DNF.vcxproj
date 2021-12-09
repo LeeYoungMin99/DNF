@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)External\json-cpp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)External\json-cpp\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)DNF\External\json-cpp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)DNF\External\json-cpp\lib\jsoncppd;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)External\json-cpp\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)External\json-cpp\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)DNF\External\json-cpp\lib\jsoncpp;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)DNF\External\json-cpp\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)External\json-cpp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)External\json-cpp\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)DNF\External\json-cpp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)DNF\External\json-cpp\lib\jsoncppd;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)External\json-cpp\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)External\json-cpp\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)DNF\External\json-cpp\lib\jsoncpp;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)DNF\External\json-cpp\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,7 +96,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -125,7 +125,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,7 +170,10 @@
     <ClCompile Include="SeriaTree.cpp" />
     <ClCompile Include="Sign.cpp" />
     <ClCompile Include="SmarmyTree.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="Tent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />

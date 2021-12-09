@@ -17,7 +17,7 @@ void Input::Update() noexcept
 
 	for (size_t vkey = 0; vkey < 256; ++vkey)
 	{
-		if (GetAsyncKeyState(vkey) & 0x8000)
+		if (GetAsyncKeyState((int)vkey) & 0x8000)
 		{
 			_currentKeyStates[vkey] = true;
 		}
