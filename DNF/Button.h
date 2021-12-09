@@ -28,18 +28,11 @@ public:
 	{
 		this->mPos = { float(pos.x),float(pos.y) };
 
-		TCHAR str[50] = {};
-		TCHAR str1[50] = {};
-		TCHAR str2[50] = {};
-		wcsncpy(str, L"Image/Button/", 13);
-		wcscat(str, L"SmallButton");
-		wcscat(str, L"PutImage.png");
-
 		switch (type)
 		{
 		case eButtonType::Scene:
 			this->mpButtonIdleImage = FROM_FILE(L"Image/Button/SmallButtonIdleImage.png");
-			this->mpButtonPutImage = FROM_FILE(str);
+			this->mpButtonPutImage = FROM_FILE(L"Image/Button/SmallButtonPutImage.png");
 			this->mpButtonClickImage = FROM_FILE(L"Image/Button/SmallButtonClickImage.png");
 			break;
 		case eButtonType::GameObject:

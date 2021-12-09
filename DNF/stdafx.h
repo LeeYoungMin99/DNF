@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <queue>
 using namespace std;
@@ -28,6 +29,7 @@ extern HINSTANCE g_hInstance;
 extern GdiplusStartupInput g_gpsi;
 extern ULONG_PTR g_gpToken;
 
+#include <json/json.h>
 #ifdef _DEBUG
 #pragma comment(lib, "jsoncppd.lib")
 #else
