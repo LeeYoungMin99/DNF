@@ -18,14 +18,11 @@ public:
 	virtual void Update() override {}
 	virtual void Render(HDC hdc) override {}
 	virtual void Release() override {}
-
-	virtual void SetAreaTag(int area)
-	{
-		mAreaTag = area;
-	}
+	virtual void SetAreaTag(int area) { mAreaTag = area; }
 protected:
 	void AddObject(GameObject* obj, POINTFLOAT pos, int areaTag);
 	void AddGate(Gate* obj, POINTFLOAT pos, int areaTag, Scene* scene, CollisionManager* collisionManager, int connectedArea);
+	void InitPos(POINTFLOAT charPos, POINT camPos, POINT maxCamPos, POINT minCamPos);
 
 protected:
 	int mAreaTag = 0;

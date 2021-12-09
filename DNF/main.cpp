@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "MainGame.h"
 
+#include <json/json.h>
+
 #ifdef _DEBUG
 #include <crtdbg.h>
 #endif
@@ -32,7 +34,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE _hInstance, _In_opt_ HINSTANCE _hPrevInstan
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 	//_CrtSetBreakAlloc(273);
-
+	Json::Value computer;
+	
 	// 윈도우를 생성하기 위한 기본 셋팅
 	g_hInstance = _hInstance;
 	WNDCLASS wndClass;

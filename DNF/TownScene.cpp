@@ -26,7 +26,7 @@ HRESULT TownScene::Init()
 	AddGate(new Gate, { 1400,700 }, (int)eAreaTag::SeriaRoom, this, mpCollisionManager, (int)eAreaTag::Field);
 
 	AddObject(new SeriaTree, { 100.0f, 400.0f }, (int)eAreaTag::Field);
-	AddObject(new SmarmyTree, { 400.0f, 335.0f }, (int)eAreaTag::Field);
+	AddObject(new SmarmyTree, { 350.0f, 250.0f }, (int)eAreaTag::Field);
 	AddObject(new Sign, { 780.0f, 490.0f }, (int)eAreaTag::Field);
 	AddObject(new DungeonEntranceSign, { -500.0f, 550.0f }, (int)eAreaTag::Field);
 	AddObject(new DungeonEntranceSign, { -650.0f, 950.0f }, (int)eAreaTag::Field);
@@ -35,14 +35,12 @@ HRESULT TownScene::Init()
 	AddObject(new Blacksmith, { 1050.0f, 200.0f }, (int)eAreaTag::Field);
 	AddObject(new BumpyTree, { 2050.0f, 390.0f }, (int)eAreaTag::Field);
 	AddObject(new BumpyTree, { 2600.0f, 390.0f }, (int)eAreaTag::Field);
-	AddGate(new Gate, { 2000,800 }, (int)eAreaTag::Field, this, mpCollisionManager, (int)eAreaTag::SeriaRoom);
+	AddGate(new Gate, { 350,500 }, (int)eAreaTag::Field, this, mpCollisionManager, (int)eAreaTag::SeriaRoom);
 
 	mAreaTag = (int)eAreaTag::SeriaRoom;
 	mPreviousArea = mAreaTag;
 
-	MGR_CAM->SetCameraMaxPos(0, 0);
-	MGR_CAM->SetCameraMinPos(0, 0);
-	MGR_CAM->SetCameraPos(0, 0);
+	InitPos({ 800.0f, 850.0f }, { 0, 0 }, { 0, 0 }, { 0 , 0 });
 
 	mpCollisionManager->SetObjects(mObjects);
 	mpCollisionManager->SetAreaTag(mAreaTag);
@@ -61,52 +59,18 @@ void TownScene::Update()
 		switch ((eAreaTag)mPreviousArea)
 		{
 		case eAreaTag::SeriaRoom:
-			if (mAreaTag == (int)eAreaTag::Field)
-			{
-				mObjects[0]->SetPos(500.0f, 650.0f);
-				mObjects[0]->SetAreaTag(mAreaTag);
-				MGR_CAM->SetCameraMaxPos((3360 / 2) - 800, 0);
-				MGR_CAM->SetCameraMinPos(-(3360 / 2) + 800, 0);
-				MGR_CAM->SetCameraPos(-300, 0);
-			}
+			if (mAreaTag == (int)eAreaTag::Field) { InitPos({ 500.0f, 750.0f }, { -300, 0 }, { (3360 / 2) - 800, 0 }, { -(3360 / 2) + 800, 0 }); }
 			break;
 		case eAreaTag::Field:
-			if (mAreaTag == (int)eAreaTag::SeriaRoom)
-			{
-				mObjects[0]->SetPos(800.0f, 850.0f);
-				mObjects[0]->SetAreaTag(mAreaTag);
-				MGR_CAM->SetCameraMaxPos(0, 0);
-				MGR_CAM->SetCameraMinPos(0, 0);
-				MGR_CAM->SetCameraPos(0, 0);
-			}
-			if (mAreaTag == (int)eAreaTag::DungeonEntrance)
-			{
-				MGR_CAM->SetCameraMaxPos(0, 0);
-				MGR_CAM->SetCameraMinPos(0, 0);
-				MGR_CAM->SetCameraPos(0, 0);
-			}
+			if (mAreaTag == (int)eAreaTag::SeriaRoom) { InitPos({ 800.0f, 850.0f }, { 0, 0 }, { 0, 0 }, { 0, 0 }); }
+			else if (mAreaTag == (int)eAreaTag::DungeonEntrance) {}
 			break;
 		case eAreaTag::DungeonEntrance:
-			if (mAreaTag == (int)eAreaTag::Field)
-			{
-				MGR_CAM->SetCameraMaxPos(0, 0);
-				MGR_CAM->SetCameraMinPos(0, 0);
-				MGR_CAM->SetCameraPos(0, 0);
-			}
-			if (mAreaTag == (int)eAreaTag::DungeonSelect)
-			{
-				MGR_CAM->SetCameraMaxPos(0, 0);
-				MGR_CAM->SetCameraMinPos(0, 0);
-				MGR_CAM->SetCameraPos(0, 0);
-			}
+			if (mAreaTag == (int)eAreaTag::Field) {}
+			else if (mAreaTag == (int)eAreaTag::DungeonSelect) {}
 			break;
 		case eAreaTag::DungeonSelect:
-			if (mAreaTag == (int)eAreaTag::DungeonEntrance)
-			{
-				MGR_CAM->SetCameraMaxPos(0, 0);
-				MGR_CAM->SetCameraMinPos(0, 0);
-				MGR_CAM->SetCameraPos(0, 0);
-			}
+			if (mAreaTag == (int)eAreaTag::DungeonEntrance) {}
 		case eAreaTag::None:
 		default:
 			break;
@@ -120,7 +84,6 @@ void TownScene::Update()
 	mpCollisionManager->Update();
 
 	for (auto obj : mObjects) { if (obj->GetAreaTag() == mAreaTag) { mRenderOrder.push(obj); } }
-
 }
 
 void TownScene::Render(HDC hdc)

@@ -27,3 +27,9 @@ extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 extern GdiplusStartupInput g_gpsi;
 extern ULONG_PTR g_gpToken;
+
+#ifdef _DEBUG
+#pragma comment(lib, "jsoncppd.lib")
+#else
+#pragma comment(lib, "jsoncpp.lib")
+#endif
