@@ -13,10 +13,12 @@ GameObject::GameObject(Scene* scene,const wstring& tag)
 
 GameObject::~GameObject() noexcept
 {
-	for (auto& comp : mComponents)
+	Component* pTemp = nullptr;
+	for (auto it = mComponents.begin(); it != mComponents.end(); )
 	{
-		delete comp;
-		comp = nullptr;
+		pTemp = (*it);
+		it = mComponents.erase(it);
+		delete pTemp;
 	}
 	mComponents.clear();
 	mpScene = nullptr;
@@ -38,11 +40,11 @@ void GameObject::Update()
 	}
 }
 
-void GameObject::Render(HDC hdc)
+void GameObject::Render()
 {
 	for (Component* comp : mComponents)
 	{
-		comp->Render(hdc);
+		comp->Render();
 	}
 }
 

@@ -3,15 +3,15 @@
 #include "GameObject.h"
 
 Component::Component(GameObject* owner, INT32 order) noexcept
-	: mOwner{ owner }, mOrder{ order }
+	: mpOwner{ owner }, mOrder{ order }
 {
-	mOwner->AddComponent(this);
+	mpOwner->AddComponent(this);
 }
 
 Component::~Component() noexcept
 {
-	mOwner->RemoveComponent(this);
-	mOwner = nullptr;
+	mpOwner->RemoveComponent(this);
+	mpOwner = nullptr;
 }
 
 INT32 Component::GetOrder() const noexcept
@@ -27,7 +27,7 @@ void Component::Update()
 {
 }
 
-void Component::Render(HDC hdc)
+void Component::Render()
 {
 }
 

@@ -149,16 +149,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimatorComponent.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonComponent.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CreateCharacterButton.cpp" />
+    <ClCompile Include="DeleteCharacterButton.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameShutDownButton.cpp" />
+    <ClCompile Include="GameStartButton.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="RectComponent.cpp" />
+    <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -167,21 +178,32 @@
     <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimatorComponent.h" />
     <ClInclude Include="BasicGameFramework.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CharacterSelectScene.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CreateCharacterButton.h" />
+    <ClInclude Include="DeleteCharacterButton.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameShutDownButton.h" />
+    <ClInclude Include="GameStartButton.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="RectComponent.h" />
+    <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Timer.h" />

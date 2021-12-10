@@ -2,10 +2,6 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-Scene::Scene()
-{
-}
-
 Scene::~Scene()
 {
 	for (auto& obj : mObjects)
@@ -32,11 +28,11 @@ void Scene::Update()
 	}
 }
 
-void Scene::Render(HDC hdc)
+void Scene::Render()
 {
 	for (GameObject* obj : mObjects)
 	{
-		obj->Render(hdc);
+		obj->Render();
 	}
 }
 

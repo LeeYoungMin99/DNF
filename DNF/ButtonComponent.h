@@ -5,12 +5,10 @@ class RectComponent;
 class ButtonComponent : public Component
 {
 public:
-	using Component::Component;
+	ButtonComponent(RectComponent* rectComponent, GameObject* owner, INT32 order = 100);
 	virtual ~ButtonComponent() noexcept = default;
 
 	virtual void Update() override;
-
-	void SetRectComponent(RectComponent* rectComponent) noexcept;
 private:
 	RectComponent* mpRectComponent = nullptr;
 };

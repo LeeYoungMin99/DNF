@@ -26,6 +26,9 @@
     <Filter Include="Main">
       <UniqueIdentifier>{f07486f7-f1cf-48b0-b1ba-5f74af12e87c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\GameObject\Button">
+      <UniqueIdentifier>{2ec78207-b693-4fb4-98a2-9bbb4b411e87}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -61,8 +64,41 @@
     <ClCompile Include="TitleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="RectComponent.cpp" />
+    <ClCompile Include="ButtonComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RectComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStartButton.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="GameShutDownButton.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CreateCharacterButton.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteCharacterButton.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatorComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -119,8 +155,41 @@
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="RectComponent.h" />
+    <ClInclude Include="ButtonComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RectComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStartButton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="GameShutDownButton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CreateCharacterButton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteCharacterButton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

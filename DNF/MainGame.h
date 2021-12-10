@@ -19,17 +19,13 @@ private:
 
 	void				processInput();
 	void				update();
-	void				physicsUpdate();
 	void				render();
 private:
 	HINSTANCE			_hInst = {};
 	HWND				_hWnd = {};
 	WCHAR				_title[MAX_LOADSTRING] = {};
 	WCHAR				_windowName[MAX_LOADSTRING] = {};
-	HDC					_hDC = {};
-	HDC					_backDC = {};
-	HBITMAP				_backBitmap = {};
 
-	Resolution			_res = { 1280, 720 };
+	Resolution			_res = { 1067, 600 };
 };
 

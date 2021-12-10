@@ -8,10 +8,10 @@ public:
 	virtual ~RectComponent() noexcept = default;
 
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	virtual void Render() override;
 
 	void SetRect(RECT rect) noexcept;
-	RECT GetRect() const;
+	const RECT* GetRectAddress() const;
 private:
 	void TurnoffRender() noexcept;
 	void TurnonRender() noexcept;

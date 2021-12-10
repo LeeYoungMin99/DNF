@@ -7,6 +7,7 @@
 void Button::Init()
 {
 	RectComponent* bodyCollisionRect = new RectComponent(this);
+	ButtonComponent* button = new ButtonComponent(bodyCollisionRect,this);
 }
 
 void Button::SetState(eButtonState state)

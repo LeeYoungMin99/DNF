@@ -3,6 +3,7 @@
 
 #pragma region Scenes
 #include "TitleScene.h"
+#include "CharacterSelectScene.h"
 #pragma endregion
 
 SceneManager::~SceneManager()
@@ -21,9 +22,10 @@ SceneManager::~SceneManager()
 void SceneManager::Init()
 {
 	mScenes[L"Title"] = new TitleScene();
+	mScenes[L"CharacterSelect"] = new CharacterSelectScene();
 	//mScenes[L"Temp"] = new TempScene();
 
-	mpCurrScene = mScenes[L"Title"];
+	mpCurrScene = mScenes[L"CharacterSelect"];
 	mpCurrScene->Init();
 }
 
@@ -32,9 +34,9 @@ void SceneManager::Update()
 	if (mpCurrScene) { mpCurrScene->Update(); }
 }
 
-void SceneManager::Render(HDC hdc)
+void SceneManager::Render()
 {
-	if (mpCurrScene) { mpCurrScene->Render(hdc); }
+	if (mpCurrScene) { mpCurrScene->Render(); }
 }
 
 void SceneManager::Release()

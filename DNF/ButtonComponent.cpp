@@ -3,9 +3,15 @@
 #include "RectComponent.h"
 #include "Button.h"
 
+ButtonComponent::ButtonComponent(RectComponent* rectComponent, GameObject* owner, INT32 order)
+	:Component(owner, order)
+{
+	mpRectComponent = rectComponent;
+}
+
 void ButtonComponent::Update()
 {
-	if (PtInRect(&(mpRectComponent->GetRect()), Input::GetMousePosition()))
+	if (PtInRect(mpRectComponent->GetRectAddress(), Input::GetMousePosition()))
 	{
 		((Button*)mpOwner)->SetState(Button::eButtonState::Hover);
 
@@ -18,9 +24,4 @@ void ButtonComponent::Update()
 	{
 		((Button*)mpOwner)->SetState(Button::eButtonState::Idle);
 	}
-}
-
-void ButtonComponent::SetRectComponent(RectComponent* rectComponent) noexcept
-{
-	mpRectComponent = rectComponent;
 }
