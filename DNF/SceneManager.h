@@ -1,32 +1,27 @@
 #pragma once
-#include "Config.h"
 #include "Singleton.h"
+#include "GameEntity.h"
 
 class Scene;
-class SceneManager : public Singleton<SceneManager>
+class SceneManager : public Singleton<SceneManager>, public GameEntity
 {
 public:
-	enum class eSceneTag { TitleScene, CharacterSelectScene, TownScene, };
+	SceneManager() = default;
+	virtual ~SceneManager();
 
-public:
-	virtual ~SceneManager() = default;
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+	virtual void Release() override;
 
-	static Scene* currScene;		// ÇöÀç Ãâ·Â ÁßÀÎ ¾À
-	static Scene* readyScene;		// ÁØºñ ÁßÀÎ ¾À
-	static Scene* loadingScene;	// ·Îµù ¾À
+	bool IsSetNextScene() const ;
 
-	void Init();
-	void Release();
-	void Update();
-	void Render(HDC hdc);
-
-	void AddScene(eSceneTag key, Scene* scene);
-	void AddLoadingScene(eSceneTag key, Scene* scene);
-
-	HRESULT ChangeScene(eSceneTag sceneName);
-	HRESULT ChangeScene(eSceneTag sceneName, eSceneTag loadingSceneName);
+	void SetNextScene(const std::wstring& name);
+	void ChangeScene();
 private:
-	unordered_map<eSceneTag, Scene*>	mapScenes;
-	unordered_map<eSceneTag, Scene*>	mapLoadingScenes;
+	Scene* mpCurrScene = nullptr;
+	Scene* mpNextScene = nullptr;
+
+	unordered_map<wstring, Scene*>	mScenes;
 };
 

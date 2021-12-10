@@ -1,17 +1,35 @@
 #pragma once
-#include "GameEntity.h"
 
-// 우리가 구성할 게임 월드
-class BmpImage;
-class MainGame : public GameEntity
+#include "Type.h"
+
+class MainGame
 {
-private:
-	BmpImage* mpBackBuffer = nullptr;
-public:
-	virtual ~MainGame() {}
+	enum { MAX_LOADSTRING = 100 };
 
-	HRESULT Init();
-	void Update();
-	void Render(HDC hdc);
-	void Release();
+	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+public:
+	~MainGame() noexcept;
+
+	bool				Init(HINSTANCE hInst);
+	INT32				Run();
+
+private:
+	ATOM				registerClass();
+
+	void				processInput();
+	void				update();
+	void				physicsUpdate();
+	void				render();
+private:
+	HINSTANCE			_hInst = {};
+	HWND				_hWnd = {};
+	WCHAR				_title[MAX_LOADSTRING] = {};
+	WCHAR				_windowName[MAX_LOADSTRING] = {};
+	HDC					_hDC = {};
+	HDC					_backDC = {};
+	HBITMAP				_backBitmap = {};
+
+	Resolution			_res = { 1280, 720 };
 };
+

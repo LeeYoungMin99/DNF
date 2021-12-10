@@ -2,146 +2,68 @@
 #include "SceneManager.h"
 
 #pragma region Scenes
-#include "Scene.h"
 #include "TitleScene.h"
-#include "CharacterSelectScene.h"
-#include "TownScene.h"
 #pragma endregion
 
-Scene* SceneManager::currScene = nullptr;
-Scene* SceneManager::readyScene = nullptr;
-Scene* SceneManager::loadingScene = nullptr;
-
-DWORD CALLBACK LoadingThread(LPVOID pvParam)
+SceneManager::~SceneManager()
 {
-	// 레디씬을 초기화한다.
-	SceneManager::readyScene->Init();
-	SceneManager::currScene = SceneManager::readyScene;
+	mpCurrScene = nullptr;
+	mpNextScene = nullptr;
 
-	SceneManager::loadingScene->Release();
-	SceneManager::loadingScene = nullptr;
-	SceneManager::readyScene = nullptr;
+	for (auto& scene : mScenes)
+	{
+		delete scene.second;
+	}
 
-	return 0;
+	mScenes.clear();
 }
 
 void SceneManager::Init()
 {
-	AddScene(eSceneTag::TitleScene, new TitleScene());
-	AddScene(eSceneTag::CharacterSelectScene, new CharacterSelectScene());
-	AddScene(eSceneTag::TownScene, new TownScene());
+	mScenes[L"Title"] = new TitleScene();
+	//mScenes[L"Temp"] = new TempScene();
 
-	AddLoadingScene(eSceneTag::TitleScene, new TitleScene());
-}
-
-void SceneManager::Release()
-{
-	for (auto& elem : mapScenes)
-	{
-		SAFE_RELEASE(elem.second);
-	}
-
-	for (auto& elem : mapLoadingScenes)
-	{
-		SAFE_RELEASE(elem.second);
-	}
-
-	mapScenes.clear();
-	mapLoadingScenes.clear();
+	mpCurrScene = mScenes[L"Title"];
+	mpCurrScene->Init();
 }
 
 void SceneManager::Update()
 {
-	if (currScene)
-		currScene->Update();
+	if (mpCurrScene) { mpCurrScene->Update(); }
 }
 
 void SceneManager::Render(HDC hdc)
 {
-	if (currScene)
-		currScene->Render(hdc);
+	if (mpCurrScene) { mpCurrScene->Render(hdc); }
 }
 
-void SceneManager::AddScene(eSceneTag key, Scene* scene)
+void SceneManager::Release()
 {
-	if (scene == nullptr)	return;
-
-	if (mapScenes.find(key) != mapScenes.end())
-	{
-		return;
-	}
-
-	mapScenes.emplace(key, scene);
+	if (mpCurrScene) { mpCurrScene->Release(); }
 }
 
-void SceneManager::AddLoadingScene(eSceneTag key, Scene* scene)
+bool SceneManager::IsSetNextScene() const
 {
-	if (scene == nullptr)	return;
-
-	if (mapLoadingScenes.find(key) != mapLoadingScenes.end())
-	{
-		return;
-	}
-
-	mapLoadingScenes.emplace(key, scene);
+	return mpNextScene != nullptr;
 }
 
-HRESULT SceneManager::ChangeScene(eSceneTag sceneName)
+void SceneManager::SetNextScene(const std::wstring& name)
 {
-	auto it = mapScenes.find(sceneName);
+	//ASSERT_CRASH(_nextScene == nullptr);
+	//ASSERT_CRASH(_scenes.end() != _scenes.find(name));
 
-	if (it == mapScenes.end())
-		return E_FAIL;
-
-	if (SUCCEEDED((it->second)->Init()))
-	{
-		if (currScene)
-			currScene->Release();
-
-		currScene = it->second;
-
-		return S_OK;
-	}
-
-	return E_FAIL;
+	mpNextScene = mScenes[name];
 }
 
-HRESULT SceneManager::ChangeScene(eSceneTag sceneName, eSceneTag loadingSceneName)
+void SceneManager::ChangeScene()
 {
-	auto it = mapScenes.find(sceneName);
-
-	if (it == mapScenes.end())
-		return E_FAIL;
-
-	// 로딩씬 확인
-	auto itLoading = mapLoadingScenes.find(loadingSceneName);
-	if (itLoading == mapLoadingScenes.end())
+	if (mpNextScene)
 	{
-		return ChangeScene(sceneName);
+		mpCurrScene->Release();
+
+		mpCurrScene = mpNextScene;
+		mpCurrScene->Init();
+
+		mpNextScene = nullptr;
 	}
-
-	// 로딩씬 있을 때
-	if (SUCCEEDED((itLoading->second)->Init()))
-	{
-		if (currScene)
-			currScene->Release();
-
-		readyScene = it->second;
-		loadingScene = itLoading->second;
-
-		currScene = loadingScene;
-
-		// 멀티쓰레드 처리
-		DWORD loadThread;
-		HANDLE hThread = CreateThread(NULL, 0,
-			LoadingThread/*실행 시킬 함수포인터(함수이름)*/,
-			NULL /*실행 시킬 함수에 들어갈 매개변수*/,
-			0, &loadThread);
-
-		CloseHandle(hThread);
-
-		return S_OK;
-	}
-
-	return E_FAIL;
 }

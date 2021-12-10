@@ -149,68 +149,50 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="Blacksmith.cpp" />
-    <ClCompile Include="BmpImage.cpp" />
-    <ClCompile Include="BmpImageManager.cpp" />
-    <ClCompile Include="BumpyTree.cpp" />
     <ClCompile Include="Button.cpp" />
-    <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="DemonSlayer.cpp" />
-    <ClCompile Include="DungeonEntranceSign.cpp" />
-    <ClCompile Include="Gate.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="RectComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
-    <ClCompile Include="Seria.cpp" />
-    <ClCompile Include="SeriaTree.cpp" />
-    <ClCompile Include="Sign.cpp" />
-    <ClCompile Include="SmarmyTree.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Tent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
-    <ClCompile Include="TownScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="Blacksmith.h" />
-    <ClInclude Include="BmpImage.h" />
-    <ClInclude Include="BmpImageManager.h" />
-    <ClInclude Include="BumpyTree.h" />
+    <ClInclude Include="BasicGameFramework.h" />
     <ClInclude Include="Button.h" />
-    <ClInclude Include="CameraManager.h" />
-    <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterSelectScene.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="DemonSlayer.h" />
-    <ClInclude Include="DungeonEntranceSign.h" />
+    <ClInclude Include="Component.h" />
+    <ClInclude Include="framework.h" />
     <ClInclude Include="GameEntity.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="Gate.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Macro.h" />
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="MapObject.h" />
+    <ClInclude Include="RectComponent.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
-    <ClInclude Include="Seria.h" />
-    <ClInclude Include="SeriaTree.h" />
-    <ClInclude Include="Sign.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="SmarmyTree.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Tent.h" />
+    <ClInclude Include="targetver.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="TownScene.h" />
+    <ClInclude Include="Type.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="BasicGameFramework.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BasicGameFramework.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

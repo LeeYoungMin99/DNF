@@ -1,94 +1,35 @@
 #include "stdafx.h"
 #include "CharacterSelectScene.h"
+#include "GameObject.h"
 #include "Button.h"
-#include "DemonSlayer.h"
-#include "BmpImage.h"
 
-HRESULT CharacterSelectScene::Init()
+void CharacterSelectScene::Init()
 {
-	mpSlotBackgroundImage = FROM_FILE(L"Image/CharacterSelectScene/SlotBackgroundImage.png");
-	mpSlotFloorImage = FROM_FILE(L"Image/CharacterSelectScene/SlotFloorImage.png");
+	// Sprite라는 게임오브젝트 만들어서 
+	// 백그라운드 레이어에 백그라운드 그려야함.
 
-	mpBackgroundImage = new BmpImage;
-	mpBackgroundImage->Init("Image/CharacterSelectScene/BackgroundImage.bmp", WIN_SIZE_X, WIN_SIZE_Y);
+	Button* gameStartButton = new Button(this, L"StartButton");
+	// Sprite라는 게임오브젝트 만들어서
+	// 슬롯 레이어에 캐릭터 슬롯 그려야함.
 
-	mpCreateCharacterButton = new Button(this, &CharacterSelectScene::CreateCharacter);
-	mpDeleteCharacterButton = new Button(this, &CharacterSelectScene::DeleteCharacter);
-	mpStartButton = new Button(this, &CharacterSelectScene::StartGame);
-	mpShutdownButton = new Button(this, &CharacterSelectScene::ShutdownGame);
 
-	mpCreateCharacterButton->Init(Button::eButtonType::Scene, POINT{ CREATE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
-	mpDeleteCharacterButton->Init(Button::eButtonType::Scene, POINT{ DELETE_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
-	mpStartButton->Init(Button::eButtonType::Scene, POINT{ START_BUTTON_POS_X,BUTTON_CENTER }, LARGE_BUTTON_SIZE_X, LARGE_BUTTON_SIZE_Y);
-	mpShutdownButton->Init(Button::eButtonType::Scene, POINT{ SHUTDOWN_BUTTON_POS_X,BUTTON_CENTER }, SMALL_BUTTON_SIZE_X, SMALL_BUTTON_SIZE_Y);
-	mpMyCharacter = new DemonSlayer;
-	mpMyCharacter->Init();
+	// Button 이라는 게임오브젝트 만들어서
+	// Animation 컴포넌트를 만들어서 동적할당 해주고
+	// 애니메이션 렌더해줘야하고...
+	// Button 이라는 컴포넌트를 만들어서 동적할당 해주고
+	// 클릭했을때 행동 정의 해줘야하고...
+	// 캐릭터 슬롯이란건 버튼인가? 아니면 슬롯이라는 게임오브젝트인가?
 
-	return S_OK;
+
+	Scene::Init();
 }
-
 
 void CharacterSelectScene::Update()
 {
-	SAFE_UPDATAE(mpMyCharacter);
-	SAFE_UPDATAE(mpCreateCharacterButton);
-	SAFE_UPDATAE(mpDeleteCharacterButton);
-	SAFE_UPDATAE(mpStartButton);
-	SAFE_UPDATAE(mpShutdownButton);
+	Scene::Update();
 }
 
 void CharacterSelectScene::Render(HDC hdc)
 {
-	Graphics g(hdc);
-	Font fontSmallButton(L"gasinamuM", 8);
-	Font fontLargeButton(L"UttumBatangBold", 15, FontStyleBold);
-	SolidBrush b(Color(170, 134, 77));
-
-	mpBackgroundImage->Render(hdc, WIN_SIZE_X_HALF, WIN_SIZE_Y_HALF);
-	g.DrawImage(mpSlotBackgroundImage, 0, WIN_SIZE_Y_HALF);
-	for (int i = 0; i < 7; ++i)
-		g.DrawImage(mpSlotFloorImage, (WIN_SIZE_X / 7) * i + 30, WIN_SIZE_Y - 200, 150, 51);
-
-	mpCreateCharacterButton->Render(hdc);
-	mpDeleteCharacterButton->Render(hdc);
-	mpStartButton->Render(hdc);
-	mpShutdownButton->Render(hdc);
-
-	mpMyCharacter->Render(hdc);
-
-	g.DrawString(L"캐릭터생성", -1, &fontSmallButton, PointF(CREATE_STRING_POS_X, BUTTON_STRING_CENTER), &b);
-	g.DrawString(L"캐릭터삭제", -1, &fontSmallButton, PointF(DELETE_STRING_POS_X, BUTTON_STRING_CENTER), &b);
-	g.DrawString(L"게임시작", -1, &fontLargeButton, PointF(START_STRING_POS_X, START_STRING_POS_Y), &b);
-	g.DrawString(L"(Space)", -1, &fontSmallButton, PointF(START_KET_STRING_POS_X, START_KET_STRING_POS_Y), &b);
-	g.DrawString(L"게임종료", -1, &fontSmallButton, PointF(SHUTDOWN_STRING_POS_X, BUTTON_STRING_CENTER), &b);
-}
-
-void CharacterSelectScene::Release()
-{
-	SAFE_RELEASE(mpBackgroundImage);
-	SAFE_RELEASE(mpMyCharacter);
-	SAFE_RELEASE(mpCreateCharacterButton);
-	SAFE_RELEASE(mpDeleteCharacterButton);
-	SAFE_RELEASE(mpStartButton);
-	SAFE_RELEASE(mpShutdownButton);
-}
-
-void CharacterSelectScene::StartGame()
-{
-	MGR_SCENE->ChangeScene(SCENE_TAG::TownScene);
-}
-
-void CharacterSelectScene::ShutdownGame()
-{
-	cout << "게임 종료 할거임!!!" << endl;
-}
-
-void CharacterSelectScene::CreateCharacter()
-{
-	MGR_SCENE->ChangeScene(SCENE_TAG::TitleScene);
-}
-
-void CharacterSelectScene::DeleteCharacter()
-{
-	cout << "캐릭터 삭제 할거임!!!" << endl;
+	Scene::Render(hdc);
 }

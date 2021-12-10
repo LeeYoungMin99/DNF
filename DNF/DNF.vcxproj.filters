@@ -8,239 +8,128 @@
     <Filter Include="2D Framework">
       <UniqueIdentifier>{6cc04ffc-11f9-46dc-b5e1-6e71596d1f6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\Animation">
-      <UniqueIdentifier>{bba400b6-67c4-47b9-a58a-a68cc85e58bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\Button">
-      <UniqueIdentifier>{18f676db-4515-4895-9bec-b41cdbfdff3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\Manager">
       <UniqueIdentifier>{5a101994-89c2-4528-9330-df0df74c1418}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\Timer">
-      <UniqueIdentifier>{2ebf743a-fde6-4070-a8f4-8e1e0d0ef61b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="PCH">
-      <UniqueIdentifier>{9867eb7e-1be2-488e-948c-6914ae4dcf57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame">
-      <UniqueIdentifier>{f07486f7-f1cf-48b0-b1ba-5f74af12e87c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Scene">
-      <UniqueIdentifier>{7b6229e5-a6c2-49af-9ffe-47ada8a95ee1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="2D Framework\헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="2D Framework\Manager\Singleton">
-      <UniqueIdentifier>{406db383-55c7-4c38-bbe4-a7841a723022}</UniqueIdentifier>
     </Filter>
     <Filter Include="2D Framework\GameObject">
       <UniqueIdentifier>{91f874b9-60e2-4ba9-91d9-e258e847c13e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\GameObject\MapObject">
-      <UniqueIdentifier>{3e889cba-aaa2-4b6f-8f28-6c0bd5a121cf}</UniqueIdentifier>
+    <Filter Include="2D Framework\Component">
+      <UniqueIdentifier>{4c055dba-27b7-49d6-8535-cf78fbafb46c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\GameObject\MapObject\DestructibleMapObject">
-      <UniqueIdentifier>{7566e9c8-3fca-4b81-b67c-729814d0f5b6}</UniqueIdentifier>
+    <Filter Include="Util">
+      <UniqueIdentifier>{43bdab52-0a64-4577-b7d0-111dfb4b37b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\GameObject\MapObject\IndestructibleMapObject">
-      <UniqueIdentifier>{690fb75a-4492-4184-98b2-dbbe40941008}</UniqueIdentifier>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{7b6229e5-a6c2-49af-9ffe-47ada8a95ee1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\GameObject\Character">
-      <UniqueIdentifier>{c67ec574-d790-4632-b8d9-3b65a7f161ff}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\GameObject\Character\PlayableCharacter">
-      <UniqueIdentifier>{6e771b53-1a98-4bbe-8c94-c452fdc4236a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\GameObject\Character\NonPlayableCharacter">
-      <UniqueIdentifier>{fb7c140d-8db5-4c47-8e2a-cbab9f3512c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\GameObject\Character\Monster">
-      <UniqueIdentifier>{74d9090e-4535-41cc-83aa-4828b9fc56ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField">
-      <UniqueIdentifier>{ae631027-ac9b-46e4-aeb2-2ef3900f0bdf}</UniqueIdentifier>
+    <Filter Include="Main">
+      <UniqueIdentifier>{f07486f7-f1cf-48b0-b1ba-5f74af12e87c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>2D Framework\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="BmpImage.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>2D Framework\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>2D Framework\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>PCH</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>2D Framework\소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="MainGame.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>MainGame\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterSelectScene.cpp">
-      <Filter>MainGame\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="DemonSlayer.cpp">
-      <Filter>2D Framework\GameObject\Character\PlayableCharacter</Filter>
-    </ClCompile>
-    <ClCompile Include="Seria.cpp">
-      <Filter>2D Framework\GameObject\Character\NonPlayableCharacter</Filter>
-    </ClCompile>
-    <ClCompile Include="BmpImageManager.cpp">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraManager.cpp">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="SeriaTree.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
-    </ClCompile>
-    <ClCompile Include="Sign.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
-    </ClCompile>
-    <ClCompile Include="DungeonEntranceSign.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>MainGame\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="SmarmyTree.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClCompile Include="Component.cpp">
+      <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="BumpyTree.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Tent.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="Blacksmith.cpp">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="Input.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TownScene.cpp">
-      <Filter>MainGame\Scene</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="Gate.cpp">
-      <Filter>2D Framework\소스 파일</Filter>
+    <ClCompile Include="CharacterSelectScene.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="RectComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animation.h">
-      <Filter>2D Framework\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="BmpImage.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="GameEntity.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>2D Framework\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>2D Framework\GameObject\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>2D Framework\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="stdafx.h">
-      <Filter>PCH</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>2D Framework\헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="MainGame.h">
-      <Filter>MainGame</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>MainGame\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterSelectScene.h">
-      <Filter>MainGame\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="DemonSlayer.h">
-      <Filter>2D Framework\GameObject\Character\PlayableCharacter</Filter>
-    </ClInclude>
-    <ClInclude Include="Seria.h">
-      <Filter>2D Framework\GameObject\Character\NonPlayableCharacter</Filter>
-    </ClInclude>
-    <ClInclude Include="BmpImageManager.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraManager.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>2D Framework\Manager\Singleton</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>2D Framework\Manager</Filter>
+      <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>2D Framework\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="MapObject.h">
-      <Filter>2D Framework\GameObject\MapObject</Filter>
-    </ClInclude>
-    <ClInclude Include="SeriaTree.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
-    </ClInclude>
-    <ClInclude Include="Sign.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>MainGame\Scene</Filter>
+      <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="DungeonEntranceSign.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClInclude Include="BasicGameFramework.h">
+      <Filter>리소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="BumpyTree.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClInclude Include="Component.h">
+      <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="SmarmyTree.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClInclude Include="Singleton.h">
+      <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Tent.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClInclude Include="Timer.h">
+      <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Blacksmith.h">
-      <Filter>2D Framework\GameObject\MapObject\IndestructibleMapObject\ElvengardField</Filter>
+    <ClInclude Include="Macro.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Util</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TownScene.h">
-      <Filter>MainGame\Scene</Filter>
+    <ClInclude Include="Resource.h">
+      <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="Gate.h">
-      <Filter>2D Framework\헤더 파일</Filter>
+    <ClInclude Include="stdafx.h">
+      <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="GameEntity.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterSelectScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="RectComponent.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="BasicGameFramework.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BasicGameFramework.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

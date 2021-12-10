@@ -2,32 +2,19 @@
 #include "GameEntity.h"
 
 class GameObject;
-class CollisionManager;
-class Gate;
 class Scene : public GameEntity
 {
-	struct cmp
-	{
-		bool operator()(const GameObject* lhs, const GameObject* rhs) const;
-	};
-
 public:
-	virtual ~Scene() = default;
+	Scene();
+	virtual ~Scene();
 
-	virtual HRESULT Init() override { return S_OK; }
-	virtual void Update() override {}
-	virtual void Render(HDC hdc) override {}
-	virtual void Release() override {}
-	virtual void SetAreaTag(int area) { mAreaTag = area; }
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+	virtual void Release() override;
+
+	void				AddObject(GameObject* obj);
+	void				RemoveObject(const wstring& tag);
 protected:
-	void AddObject(GameObject* obj, POINTFLOAT pos, int areaTag);
-	void AddGate(Gate* obj, POINTFLOAT pos, int areaTag, Scene* scene, CollisionManager* collisionManager, int connectedArea);
-	void InitPos(POINTFLOAT charPos, POINT camPos, POINT maxCamPos, POINT minCamPos);
-
-protected:
-	int mAreaTag = 0;
-	int mPreviousArea = 0;
-
-	vector<GameObject*> mObjects = {};
-	priority_queue<GameObject*, vector<GameObject*>, cmp> mRenderOrder = {};
+	vector<GameObject*>		mObjects;
 };

@@ -1,47 +1,54 @@
 #pragma once
 #include "GameEntity.h"
 
+class Scene;
+class Layer;
+class Component;
 class GameObject : public GameEntity
 {
-protected:
-	enum class eAttackElementType { None, Fire, Ice, Lightning, Darkness };
-	enum class eObjectType { None, Character, Monster, DestructibleMapObject, IndestructibleMapObject };
-	enum class eAttackType { None, Club, Knife };
-
 public:
-	virtual ~GameObject() = default;
+	GameObject(Scene* scene, const std::wstring& tag);
+	virtual ~GameObject() noexcept;
 
-	virtual HRESULT Init() override { return S_OK; }
-	virtual void Update() override {}
-	virtual void Render(HDC hdc) override {}
-	virtual void Release() override {}
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+	virtual void Release() override;
 
-	virtual void OnCollidedBody(RECT intersectionRect) {}
-	virtual void OnCollidedAttack(eAttackType attackType, eAttackElementType elementType, int damage) {}
-
-	const RECT* GetBodyCollisionRect() { return &mBodyCollisionRect; }
-	const RECT* GetAttackCollisionRect() { return &mAttackCollisionRect; }
-	const eObjectType GetObjectType() { return mObjectType; }
-	void SetPos(float posX, float posY) { mPos.x = posX; mPos.y = posY; };
-	const POINTFLOAT GetPos() const { return mPos; }
-	void SetBodyCollisionRect(POINTFLOAT pos, CorrectionValue correction)
+	void AddComponent(Component* component);
+	void RemoveComponent(Component* component);
+	std::vector<Component*>& GetComponents() noexcept;
+	template <typename T>
+	T* GetComponent()
 	{
-		mBodyCollisionRect =
-		{ LONG(pos.x + GET_CAMERA_POS.x + correction.left),
-			LONG(pos.y + GET_CAMERA_POS.y + correction.top),
-			LONG(pos.x + GET_CAMERA_POS.x + correction.right),
-			LONG(pos.y + GET_CAMERA_POS.y + correction.bottom) };
+		static_assert(std::is_base_of_v<Component, T>, "T for GetComponent() must be component");
+
+		for (Component* comp : mComponents)
+		{
+			if (dynamic_cast<T*>(comp))
+			{
+				return static_cast<T*>(comp);
+			}
+		}
 	}
-	void SetAreaTag(int areaTag) { mAreaTag = areaTag; }
-	int GetAreaTag() { return mAreaTag; }
 
-protected:
-	eObjectType mObjectType = eObjectType::None;
-	RECT mAttackCollisionRect = {};
-	RECT mBodyCollisionRect = {};
-	POINTFLOAT mPos = {};
+	void SetTag(const std::wstring& tag) noexcept;
+	void SetPosition(POINT pos) noexcept;
+	void SetPosition(LONG x, LONG y) noexcept;
+	void SetX(LONG x) noexcept;
+	void SetY(LONG y) noexcept;
+	void GetAreaNumber(int areaNumber) noexcept;
 
-	int mAreaTag = 0;
-	int mStrikingPower = 0;
-	int mDefensivePower = 0;
+	std::wstring	GetTag() const noexcept;
+	POINT GetPosition() const noexcept;
+	LONG GetX() const noexcept;
+	LONG GetY() const noexcept;
+	Scene* GetScene() noexcept;
+	int GetAreaNumber() noexcept;
+private:
+	POINT mPos = {};
+	Scene* mpScene = nullptr;
+	int mAreaNumber = 0;
+	std::wstring mTag = L"";
+	std::vector<Component*> mComponents;
 };
