@@ -27,6 +27,7 @@
 #include <vector>
 #include <algorithm>
 #include <unordered_map>
+#include <queue>
 #include <string>
 #include <type_traits>
 
@@ -47,6 +48,8 @@
 #include <dwrite_3.h>
 #include <wincodec.h>
 
+#include <dwrite.h>
+
 // Direct2D를 쓰기 위해서 필요한 헤더
 #include <d2d1.h>
 // C++에서 유용한 함수들, 클래스들이 정의
@@ -62,6 +65,7 @@ extern IWICImagingFactory* gpImagingFactory;
 
 // 전처리문
 #pragma comment(lib, "D2D1.lib")
+#pragma comment(lib, "Dwrite.lib")
 
 #define SAFE_RELEASE(p)	{ if (p) { p->Release(); delete p; p = nullptr; } }
 #define SAFE_DELETE(p)	{ if (p) { delete p; p = nullptr; } }

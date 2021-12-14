@@ -29,6 +29,9 @@
     <Filter Include="2D Framework\GameObject\Button">
       <UniqueIdentifier>{2ec78207-b693-4fb4-98a2-9bbb4b411e87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\GameObject\Charactor">
+      <UniqueIdentifier>{762179c6-4359-4f93-9861-07b0d707ca9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -85,7 +88,6 @@
     <ClCompile Include="DeleteCharacterButton.cpp">
       <Filter>2D Framework\GameObject\Button</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp" />
     <ClCompile Include="SpriteComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
@@ -98,7 +100,30 @@
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Image.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="TownScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -109,9 +134,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="BasicGameFramework.h">
-      <Filter>리소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
       <Filter>2D Framework\Component</Filter>
@@ -176,7 +198,6 @@
     <ClInclude Include="DeleteCharacterButton.h">
       <Filter>2D Framework\GameObject\Button</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h" />
     <ClInclude Include="SpriteComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
@@ -189,7 +210,33 @@
     <ClInclude Include="AnimatorComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="Image.h">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="TownScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovementComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

@@ -14,7 +14,7 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	bool IsSetNextScene() const ;
+	bool IsSetNextScene() const;
 
 	void SetNextScene(const std::wstring& name);
 	void ChangeScene();
@@ -22,6 +22,6 @@ private:
 	Scene* mpCurrScene = nullptr;
 	Scene* mpNextScene = nullptr;
 
-	unordered_map<wstring, Scene*>	mScenes;
+	unordered_map<wstring, Scene*>	mpScenes;
 };
 

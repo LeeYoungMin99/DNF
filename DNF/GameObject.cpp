@@ -112,6 +112,16 @@ void GameObject::SetY(LONG y) noexcept
 	mPos.y = y;
 }
 
+void GameObject::AddX(LONG x) noexcept
+{
+	mPos.x += x;
+}
+
+void GameObject::AddY(LONG y) noexcept
+{
+	mPos.y += y;
+}
+
 void GameObject::GetAreaNumber(int areaNumber) noexcept
 {
 	mAreaNumber = areaNumber;

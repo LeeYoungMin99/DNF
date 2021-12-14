@@ -153,6 +153,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonComponent.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CreateCharacterButton.cpp" />
     <ClCompile Include="DeleteCharacterButton.cpp" />
@@ -164,22 +165,28 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerAttackComponent.cpp" />
+    <ClCompile Include="PlayerMovementComponent.cpp" />
     <ClCompile Include="RectComponent.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TownScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatorComponent.h" />
-    <ClInclude Include="BasicGameFramework.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CharacterSelectScene.h" />
@@ -196,6 +203,8 @@
     <ClInclude Include="Macro.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerAttackComponent.h" />
+    <ClInclude Include="PlayerMovementComponent.h" />
     <ClInclude Include="RectComponent.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Resource.h" />
@@ -203,11 +212,14 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TextComponent.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TownScene.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>
   <ItemGroup>

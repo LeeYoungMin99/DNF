@@ -5,7 +5,7 @@ class TitleScene : public Scene
 {
 public:
 	using Scene::Scene;
-	virtual ~TitleScene() noexcept = default;
+	virtual ~TitleScene() = default;
 
 	virtual void Init() override;
 	virtual void Update() override;

@@ -2,7 +2,6 @@
 #include "GameEntity.h"
 
 class Scene;
-class Layer;
 class Component;
 class GameObject : public GameEntity
 {
@@ -30,6 +29,8 @@ public:
 				return static_cast<T*>(comp);
 			}
 		}
+
+		return nullptr;
 	}
 
 	void SetTag(const std::wstring& tag) noexcept;
@@ -37,6 +38,8 @@ public:
 	void SetPosition(LONG x, LONG y) noexcept;
 	void SetX(LONG x) noexcept;
 	void SetY(LONG y) noexcept;
+	void AddX(LONG x) noexcept;
+	void AddY(LONG y) noexcept;
 	void GetAreaNumber(int areaNumber) noexcept;
 
 	std::wstring	GetTag() const noexcept;

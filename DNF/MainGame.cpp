@@ -7,6 +7,7 @@
 
 ID2D1HwndRenderTarget* gpRenderTarget = nullptr;
 IWICImagingFactory* gpImagingFactory = nullptr;
+ID2D1HwndRenderTarget* gpTextRenderTarget = nullptr;
 
 LRESULT MainGame::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {

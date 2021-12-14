@@ -2,7 +2,15 @@
 #include "AnimatorComponent.h"
 
 #include "SpriteComponent.h"
+#include "Character.h"
+#include "Player.h"
 #include "Image.h"
+#include <typeinfo>
+
+void AnimatorComponent::Init()
+{
+	PlayIdle();
+}
 
 void AnimatorComponent::Update()
 {
@@ -10,17 +18,19 @@ void AnimatorComponent::Update()
 
 	if (mElapsedTime >= mAnimationSpeed)
 	{
-		currSprite->currFrameX += 1;
+		mElapsedTime -= mAnimationSpeed;
 
-		if (currSprite->currFrameX > mMaxFrameX)
+		mpCurrSprite->mCurrFrame += 1;
+		mCurrFrame = mpCurrSprite->mCurrFrame;
+		if (mpCurrSprite->mCurrFrame >= mMaxFrameX)
 		{
 			if (mbIsLoop)
 			{
-				currSprite->currFrameX = 0;
+				mpCurrSprite->mCurrFrame = 0;
 			}
 			else
 			{
-				Stop(L"Idle");
+				PlayIdle();
 			}
 		}
 	}
@@ -28,38 +38,34 @@ void AnimatorComponent::Update()
 
 void AnimatorComponent::AddSprite(SpriteComponent* spriteComp, wstring tag)
 {
-	mSprites.emplace(tag, spriteComp);
+	mpSprites.emplace(tag, spriteComp);
 }
 
 void AnimatorComponent::Play(wstring tag)
 {
-	if ((currSprite = FindSprite(tag)) == nullptr)
+	if (mpCurrSprite != nullptr)
 	{
-		Play(L"Idle");
+		mpCurrSprite->mCurrFrame = 0;
+		mCurrFrame = 0;
 	}
 
-	mAnimationSpeed = currSprite->GetSprite()->GetAnimationSpeed();
-	mMaxFrameX = currSprite->GetSprite()->GetMaxFrameX();
-	mMaxFrameY = currSprite->GetSprite()->GetMaxFrameY();
-	mbIsLoop = currSprite->GetSprite()->GetIsLoop();
-}
-
-void AnimatorComponent::Stop(wstring tag)
-{
-	currSprite->currFrameX = 0;
-	currSprite->currFrameY = 0;
-
-	if ((currSprite = FindSprite(tag)) == nullptr)
+	if ((mpCurrSprite = FindSprite(tag)) == nullptr)
 	{
-		Play(L"Idle");
+		PlayIdle();
 	}
+
+	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
+	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
+	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
+	mCurrSpriteTag = tag;
 }
+
 
 SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
 {
-	auto it = mSprites.find(tag);
+	auto it = mpSprites.find(tag);
 
-	if (it == mSprites.end())
+	if (it == mpSprites.end())
 	{
 		return nullptr;
 	}
@@ -67,7 +73,51 @@ SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
 	return it->second;
 }
 
-SpriteComponent* AnimatorComponent::GetCurrSprite()
+void AnimatorComponent::SetCurrFrame(int frame) noexcept
 {
-	return currSprite;
+	mpCurrSprite->mCurrFrame = frame;
+}
+
+SpriteComponent* AnimatorComponent::GetCurrSprite() noexcept
+{
+	return mpCurrSprite;
+}
+
+wstring AnimatorComponent::GetCurrSpriteTag() noexcept
+{
+	return mCurrSpriteTag;
+}
+
+void AnimatorComponent::PlayIdle()
+{
+	if (dynamic_cast<Character*>(mpOwner))
+	{
+		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
+		{
+			Play(L"LeftIdle");
+			mCurrSpriteTag = L"LeftIdle";
+
+			if (dynamic_cast<Player*>(mpOwner))
+			{
+				((Player*)mpOwner)->SetState(Character::eState::Idle);
+				((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
+			}
+		}
+		else
+		{
+			Play(L"RightIdle");
+			mCurrSpriteTag = L"RightIdle";
+
+			if (dynamic_cast<Player*>(mpOwner))
+			{
+				((Player*)mpOwner)->SetState(Character::eState::Idle);
+				((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
+			}
+		}
+	}
+	else
+	{
+		Play(L"Idle");
+		mCurrSpriteTag = L"Idle";
+	}
 }

@@ -4,7 +4,8 @@
 class AnimatorComponent;
 class RendererComponent : public Component
 {
-	RendererComponent(AnimatorComponent* animatorComp, GameObject* owner, INT32 order = 100);
+public:
+	RendererComponent(AnimatorComponent* animatorComp, GameObject* owner, INT32 order = 100) noexcept;
 	virtual ~RendererComponent() noexcept = default;
 
 	virtual void Render() override;

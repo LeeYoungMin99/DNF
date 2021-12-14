@@ -14,9 +14,9 @@ void RectComponent::Render()
 {
 	if (mbIsRender)
 	{
-		ID2D1SolidColorBrush* pBrush = nullptr;
-		gpRenderTarget->CreateSolidColorBrush(D2D1::ColorF(1, 1, 1, 1), &pBrush);
-		gpRenderTarget->DrawRectangle(D2D1::RectF((FLOAT)(mRect.left), (FLOAT)(mRect.top), (FLOAT)(mRect.right), (FLOAT)(mRect.bottom)), pBrush, 10);
+		ID2D1SolidColorBrush* mpBrush = nullptr;
+		gpRenderTarget->CreateSolidColorBrush(D2D1::ColorF(1, 1, 1, 1), &mpBrush);
+		gpRenderTarget->DrawRectangle(D2D1::RectF((FLOAT)(mRect.left), (FLOAT)(mRect.top), (FLOAT)(mRect.right), (FLOAT)(mRect.bottom)), mpBrush, 1);
 	}
 }
 
@@ -35,7 +35,12 @@ void RectComponent::SetRect(RECT rect) noexcept
 	mRect = rect;
 }
 
-const RECT* RectComponent::GetRectAddress() const
+const RECT* RectComponent::GetRectAddress() const noexcept
 {
 	return &mRect;
+}
+
+const RECT RectComponent::GetRect() const noexcept
+{
+	return mRect;
 }

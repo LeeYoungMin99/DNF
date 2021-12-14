@@ -5,13 +5,13 @@
 #include "ImageManager.h"
 #include "Image.h"
 
-SpriteComponent::SpriteComponent(wstring path, GameObject* owner, INT32 order)
+SpriteComponent::SpriteComponent(wstring path, GameObject* owner, INT32 order) noexcept
 	:Component(owner, order)
 {
 	mpSprite = ImageManager::GetSingleton()->FindImage(path);
 }
 
-Image* SpriteComponent::GetSprite() const
+Image* SpriteComponent::GetSprite() const noexcept
 {
 	return mpSprite;
 }

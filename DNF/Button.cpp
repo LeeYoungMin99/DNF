@@ -6,11 +6,11 @@
 
 void Button::Init()
 {
-	RectComponent* bodyCollisionRect = new RectComponent(this);
-	ButtonComponent* button = new ButtonComponent(bodyCollisionRect,this);
+	ButtonComponent* button = new ButtonComponent(new RectComponent(this), this);
+	GameObject::Init();
 }
 
-void Button::SetState(eButtonState state)
+void Button::SetState(eButtonState state) noexcept
 {
 	mState = state;
 }

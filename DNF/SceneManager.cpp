@@ -4,6 +4,7 @@
 #pragma region Scenes
 #include "TitleScene.h"
 #include "CharacterSelectScene.h"
+#include "TownScene.h"
 #pragma endregion
 
 SceneManager::~SceneManager()
@@ -11,21 +12,21 @@ SceneManager::~SceneManager()
 	mpCurrScene = nullptr;
 	mpNextScene = nullptr;
 
-	for (auto& scene : mScenes)
+	for (auto& scene : mpScenes)
 	{
 		delete scene.second;
 	}
 
-	mScenes.clear();
+	mpScenes.clear();
 }
 
 void SceneManager::Init()
 {
-	mScenes[L"Title"] = new TitleScene();
-	mScenes[L"CharacterSelect"] = new CharacterSelectScene();
-	//mScenes[L"Temp"] = new TempScene();
+	mpScenes[L"Title"] = new TitleScene();
+	mpScenes[L"CharacterSelect"] = new CharacterSelectScene();
+	mpScenes[L"Town"] = new TownScene();
 
-	mpCurrScene = mScenes[L"CharacterSelect"];
+	mpCurrScene = mpScenes[L"Title"];
 	mpCurrScene->Init();
 }
 
@@ -51,10 +52,10 @@ bool SceneManager::IsSetNextScene() const
 
 void SceneManager::SetNextScene(const std::wstring& name)
 {
-	//ASSERT_CRASH(_nextScene == nullptr);
-	//ASSERT_CRASH(_scenes.end() != _scenes.find(name));
+	ASSERT_CRASH(mpNextScene == nullptr);
+	ASSERT_CRASH(mpScenes.end() != mpScenes.find(name));
 
-	mpNextScene = mScenes[name];
+	mpNextScene = mpScenes[name];
 }
 
 void SceneManager::ChangeScene()
