@@ -9,7 +9,11 @@
 
 void AnimatorComponent::Init()
 {
-	PlayIdle();
+	mpCurrSprite = FindSprite(L"Idle");
+	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
+	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
+	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
+	mCurrSpriteTag = L"Idle";
 }
 
 void AnimatorComponent::Update()
@@ -20,13 +24,12 @@ void AnimatorComponent::Update()
 	{
 		mElapsedTime -= mAnimationSpeed;
 
-		mpCurrSprite->mCurrFrame += 1;
-		mCurrFrame = mpCurrSprite->mCurrFrame;
-		if (mpCurrSprite->mCurrFrame >= mMaxFrameX)
+		mpCurrSprite->SetNextFrame();
+		if (mpCurrSprite->GetCurrFrame() >= mMaxFrameX)
 		{
 			if (mbIsLoop)
 			{
-				mpCurrSprite->mCurrFrame = 0;
+				mpCurrSprite->SetCurrFrame(0);
 			}
 			else
 			{
@@ -43,11 +46,7 @@ void AnimatorComponent::AddSprite(SpriteComponent* spriteComp, wstring tag)
 
 void AnimatorComponent::Play(wstring tag)
 {
-	if (mpCurrSprite != nullptr)
-	{
-		mpCurrSprite->mCurrFrame = 0;
-		mCurrFrame = 0;
-	}
+	mpCurrSprite->SetCurrFrame(0);
 
 	if ((mpCurrSprite = FindSprite(tag)) == nullptr)
 	{
@@ -60,6 +59,13 @@ void AnimatorComponent::Play(wstring tag)
 	mCurrSpriteTag = tag;
 }
 
+//struct AnimInfo
+//{
+//	float AnimationSpeed;
+//	int MaxFrameX;
+//	bool IsLoop;
+//	wstring Tag;
+//};
 
 SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
 {
@@ -75,7 +81,7 @@ SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
 
 void AnimatorComponent::SetCurrFrame(int frame) noexcept
 {
-	mpCurrSprite->mCurrFrame = frame;
+	mpCurrSprite->SetCurrFrame(frame);
 }
 
 SpriteComponent* AnimatorComponent::GetCurrSprite() noexcept
@@ -88,36 +94,19 @@ wstring AnimatorComponent::GetCurrSpriteTag() noexcept
 	return mCurrSpriteTag;
 }
 
+int AnimatorComponent::GetCurrFrame() noexcept
+{
+	return mpCurrSprite->GetCurrFrame();
+}
+
 void AnimatorComponent::PlayIdle()
 {
-	if (dynamic_cast<Character*>(mpOwner))
-	{
-		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
-		{
-			Play(L"LeftIdle");
-			mCurrSpriteTag = L"LeftIdle";
+	Play(L"Idle");
+	mCurrSpriteTag = L"Idle";
 
-			if (dynamic_cast<Player*>(mpOwner))
-			{
-				((Player*)mpOwner)->SetState(Character::eState::Idle);
-				((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
-			}
-		}
-		else
-		{
-			Play(L"RightIdle");
-			mCurrSpriteTag = L"RightIdle";
-
-			if (dynamic_cast<Player*>(mpOwner))
-			{
-				((Player*)mpOwner)->SetState(Character::eState::Idle);
-				((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
-			}
-		}
-	}
-	else
+	if (dynamic_cast<Player*>(mpOwner))
 	{
-		Play(L"Idle");
-		mCurrSpriteTag = L"Idle";
+		((Player*)mpOwner)->SetState(Character::eState::Idle);
+		((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
 	}
 }

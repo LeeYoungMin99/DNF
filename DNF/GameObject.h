@@ -38,9 +38,10 @@ public:
 	void SetPosition(LONG x, LONG y) noexcept;
 	void SetX(LONG x) noexcept;
 	void SetY(LONG y) noexcept;
+	void SetAreaNumber(int areaNumber) noexcept;
+
 	void AddX(LONG x) noexcept;
 	void AddY(LONG y) noexcept;
-	void GetAreaNumber(int areaNumber) noexcept;
 
 	std::wstring	GetTag() const noexcept;
 	POINT GetPosition() const noexcept;
@@ -52,6 +53,7 @@ private:
 	POINT mPos = {};
 	Scene* mpScene = nullptr;
 	int mAreaNumber = 0;
+
 	std::wstring mTag = L"";
 	std::vector<Component*> mComponents;
 };

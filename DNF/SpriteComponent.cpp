@@ -15,3 +15,18 @@ Image* SpriteComponent::GetSprite() const noexcept
 {
 	return mpSprite;
 }
+
+int SpriteComponent::GetCurrFrame() const noexcept
+{
+	return mCurrFrame;
+}
+
+void SpriteComponent::SetNextFrame() noexcept
+{
+	++mCurrFrame;
+}
+
+void SpriteComponent::SetCurrFrame(int frame) noexcept
+{
+	mCurrFrame = frame;
+}

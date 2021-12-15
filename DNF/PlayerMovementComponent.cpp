@@ -220,43 +220,27 @@ void PlayerMovementComponent::Update()
 	Player::eDirX	dirX = pOwner->GetDirX();
 	Player::eDirY	dirY = pOwner->GetDirY();
 
-	if (state == Player::eState::Walk &&
-		(prevState != state || prevDirX != dirX))
+	if (prevState != state)
 	{
-		SetAnimation(L"Walk");
+		if (state == Player::eState::Walk)
+		{
+			SetAnimation(L"Walk");
+		}
+		else if (state == Player::eState::Run)
+		{
+			SetAnimation(L"Run");
+		}
+		else
+		{
+			SetAnimation(L"Jump");
+		}
 	}
-	else if (state == Player::eState::Run &&
-		(prevState != state || prevDirX != dirX))
-	{
-		SetAnimation(L"Run");
-	}
-	else if (state != Player::eState::JumpAttack &&
-		(prevState != state || prevDirX != dirX))
-	{
-		int currFrame = pAniComp->mCurrFrame;
-		SetAnimation(L"Jump");
-		pAniComp->SetCurrFrame(currFrame);
-	}
-
 	Move((int)state, (int)dirX, (int)dirY, deltaTime);
 }
 
 void PlayerMovementComponent::SetAnimation(const wchar_t* tag)
 {
-	if (((Player*)mpOwner)->GetDirX() == Player::eDirX::Left)
-	{
-		wchar_t left[32] = {};
-		wsprintfW(left, L"Left%s", tag);
-
-		((Player*)mpOwner)->GetComponent<AnimatorComponent>()->Play(left);
-	}
-	else
-	{
-		wchar_t right[32] = {};
-		wsprintfW(right, L"Right%s", tag);
-
-		((Player*)mpOwner)->GetComponent<AnimatorComponent>()->Play(right);
-	}
+	((Player*)mpOwner)->GetComponent<AnimatorComponent>()->Play(tag);
 }
 
 void PlayerMovementComponent::Move(int state, int dirX, int dirY, float deltaTime) noexcept

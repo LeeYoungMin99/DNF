@@ -93,13 +93,13 @@ INT32 MainGame::Run()
 		}
 		else
 		{
+			if (SceneManager::GetSingleton()->IsSetNextScene())
+			{
+				SceneManager::GetSingleton()->ChangeScene();
+			}
+
 			if (Timer::CanUpdate())
 			{
-				if (SceneManager::GetSingleton()->IsSetNextScene())
-				{
-					SceneManager::GetSingleton()->ChangeScene();
-				}
-
 				processInput();
 				update();
 				render();

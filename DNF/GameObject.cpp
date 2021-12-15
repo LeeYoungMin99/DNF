@@ -3,7 +3,7 @@
 #include "Component.h"
 #include "Scene.h"
 
-GameObject::GameObject(Scene* scene,const wstring& tag)
+GameObject::GameObject(Scene* scene, const wstring& tag)
 	:
 	mpScene{ scene },
 	mTag{ tag }
@@ -122,7 +122,7 @@ void GameObject::AddY(LONG y) noexcept
 	mPos.y += y;
 }
 
-void GameObject::GetAreaNumber(int areaNumber) noexcept
+void GameObject::SetAreaNumber(int areaNumber) noexcept
 {
 	mAreaNumber = areaNumber;
 }

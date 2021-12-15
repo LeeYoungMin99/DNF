@@ -9,9 +9,12 @@ public:
 	virtual ~SpriteComponent() noexcept = default;
 
 	Image* GetSprite() const noexcept;
-public:
-	int mCurrFrame = 0;
+	int GetCurrFrame() const noexcept;
+
+	void SetNextFrame() noexcept;
+	void SetCurrFrame(int frame) noexcept;
 private:
+	int mCurrFrame = 0;
 	Image* mpSprite = nullptr;
 };
 

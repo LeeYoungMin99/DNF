@@ -5,6 +5,7 @@
 #include "SpriteComponent.h"
 #include "AnimatorComponent.h"
 #include "RendererComponent.h"
+
 #include "Image.h"
 
 void GameStartButton::Init()
@@ -18,14 +19,14 @@ void GameStartButton::Init()
 void GameStartButton::Update()
 {
 	Button::Update();
-	
+
 	if (mState == Button::eButtonState::Idle)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 0;
+		GetComponent<SpriteComponent>()->SetCurrFrame(0);
 	}
 	else if (mState == Button::eButtonState::Hover)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 1;
+		GetComponent<SpriteComponent>()->SetCurrFrame(1);
 		if (Input::GetButtonUp(VK_LBUTTON))
 		{
 			SceneManager::GetSingleton()->SetNextScene(L"Town");
@@ -33,6 +34,6 @@ void GameStartButton::Update()
 	}
 	else if (mState == Button::eButtonState::Click)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 2;
+		GetComponent<SpriteComponent>()->SetCurrFrame(2);
 	}
 }

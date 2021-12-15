@@ -22,16 +22,21 @@ void RendererComponent::Render()
 	LONG renderPosZ = 0;
 	FLOAT renderSizeX = renderPosX + imageFrameSizeX;
 	FLOAT renderSizeY = renderPosY + imageFrameSizeY;
-	FLOAT mCurrFrame = mpAnimatorComp->GetCurrSprite()->mCurrFrame * imageFrameSizeX;
+	FLOAT mCurrFrame = mpAnimatorComp->GetCurrSprite()->GetCurrFrame() * imageFrameSizeX;
 	FLOAT nextFrame = mCurrFrame + imageFrameSizeX;
 
 	if (dynamic_cast<Character*>(mpOwner))
 	{
 		renderPosZ = ((Character*)mpOwner)->GetZ();
-	}
 
+		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
+			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.0f, 1, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
+
+	}
 	gpRenderTarget->DrawBitmap(mpAnimatorComp->GetCurrSprite()->GetSprite()->GetBitmap()
 		, D2D1::RectF((FLOAT)renderPosX, (FLOAT)renderPosY - renderPosZ, renderSizeX, renderSizeY - renderPosZ)
 		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
 		, D2D1::RectF(mCurrFrame, 0, nextFrame, imageFrameSizeY));
+
+	gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(1.0f, 1.0f, D2D1_POINT_2F{ 0,0 }));
 }

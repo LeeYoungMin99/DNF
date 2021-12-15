@@ -18,6 +18,8 @@ public:
 
 public:
 	HRESULT Init(LPCWCHAR path, int maxFrameX, int correctX = 0, int correctY = 0, float animationSpeed = 0.0f, bool loop = false);
+
+	void Render(int x, int y);
 	void Release();
 
 	ID2D1Bitmap* GetBitmap() noexcept;

@@ -44,6 +44,21 @@ HRESULT Image::Init(LPCWCHAR path, int maxFrameX, int correctX, int correctY, fl
 	return S_OK;
 }
 
+void Image::Render(int x, int y)
+{
+	LONG posX = x;
+	LONG posY = y;
+	FLOAT imageFrameSizeX = mpImageInfo->imageFrameSize.width;
+	FLOAT imageFrameSizeY = mpImageInfo->imageFrameSize.height;
+	FLOAT renderSizeX = posX + imageFrameSizeX;
+	FLOAT renderSizeY = posY + imageFrameSizeY;
+
+	gpRenderTarget->DrawBitmap(mpImageInfo->pBitmap
+		, D2D1::RectF((FLOAT)posX, (FLOAT)posY, renderSizeX, renderSizeY)
+		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
+		, D2D1::RectF(0, 0, imageFrameSizeX, imageFrameSizeY));
+}
+
 void Image::Release()
 {
 	SAFE_DELETE(mpImageInfo);

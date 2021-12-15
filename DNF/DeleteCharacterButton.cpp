@@ -22,11 +22,11 @@ void DeleteCharacterButton::Update()
 
 	if (mState == Button::eButtonState::Idle)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 0;
+		GetComponent<SpriteComponent>()->SetCurrFrame(0);
 	}
 	else if (mState == Button::eButtonState::Hover)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 1;
+		GetComponent<SpriteComponent>()->SetCurrFrame(1);
 		if (Input::GetButtonUp(VK_LBUTTON))
 		{
 			cout << "캐릭터 삭제하는 내용" << endl;
@@ -34,6 +34,6 @@ void DeleteCharacterButton::Update()
 	}
 	else if (mState == Button::eButtonState::Click)
 	{
-		GetComponent<SpriteComponent>()->mCurrFrame = 2;
+		GetComponent<SpriteComponent>()->SetCurrFrame(2);
 	}
 }

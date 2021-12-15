@@ -11,8 +11,8 @@ void PlayerAttackComponent::Update()
 	Character::eState	prevState = ((Character*)mpOwner)->GetState();
 	Character::eDirX	prevDirX = ((Character*)mpOwner)->GetDirX();
 	Player::eAttackType prevAtkType = ((Player*)mpOwner)->GetAttackType();
-	AnimatorComponent*	pAniComp = mpOwner->GetComponent<AnimatorComponent>();
-	int					currFrame = pAniComp->mCurrFrame;
+	AnimatorComponent* pAniComp = mpOwner->GetComponent<AnimatorComponent>();
+	int					currFrame = pAniComp->GetCurrFrame();
 
 	if (Input::GetButton('0'))
 	{
@@ -109,18 +109,5 @@ void PlayerAttackComponent::Update()
 
 void PlayerAttackComponent::SetAnimation(const wchar_t* tag)
 {
-	wchar_t left[50] = {};
-	wchar_t right[50] = {};
-
-	wsprintfW(left, L"Left%s", tag);
-	wsprintfW(right, L"Right%s", tag);
-
-	if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
-	{
-		((Character*)mpOwner)->GetComponent<AnimatorComponent>()->Play(left);
-	}
-	else
-	{
-		((Character*)mpOwner)->GetComponent<AnimatorComponent>()->Play(right);
-	}
+	((Character*)mpOwner)->GetComponent<AnimatorComponent>()->Play(tag);
 }
