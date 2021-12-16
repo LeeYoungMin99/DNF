@@ -124,17 +124,14 @@
     <ClCompile Include="TownScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="UIManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHeathBar.cpp">
       <Filter>2D Framework\GameObject\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStatusUI.cpp">
-      <Filter>2D Framework\GameObject\UI</Filter>
+    <ClCompile Include="PlayerStatusUIComponent.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,14 +246,11 @@
     <ClInclude Include="Seria.h">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClInclude>
-    <ClInclude Include="UIManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerHeathBar.h">
       <Filter>2D Framework\GameObject\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStatusUI.h">
-      <Filter>2D Framework\GameObject\UI</Filter>
+    <ClInclude Include="PlayerStatusUIComponent.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

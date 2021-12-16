@@ -167,7 +167,7 @@
     <ClCompile Include="PlayerAttackComponent.cpp" />
     <ClCompile Include="PlayerHeathBar.cpp" />
     <ClCompile Include="PlayerMovementComponent.cpp" />
-    <ClCompile Include="PlayerStatusUI.cpp" />
+    <ClCompile Include="PlayerStatusUIComponent.cpp" />
     <ClCompile Include="RectComponent.cpp" />
     <ClCompile Include="RendererComponent.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -184,7 +184,6 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="TownScene.cpp" />
-    <ClCompile Include="UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimatorComponent.h" />
@@ -208,7 +207,7 @@
     <ClInclude Include="PlayerAttackComponent.h" />
     <ClInclude Include="PlayerHeathBar.h" />
     <ClInclude Include="PlayerMovementComponent.h" />
-    <ClInclude Include="PlayerStatusUI.h" />
+    <ClInclude Include="PlayerStatusUIComponent.h" />
     <ClInclude Include="RectComponent.h" />
     <ClInclude Include="RendererComponent.h" />
     <ClInclude Include="Resource.h" />
@@ -226,7 +225,6 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="TownScene.h" />
     <ClInclude Include="Type.h" />
-    <ClInclude Include="UIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico" />

@@ -6,6 +6,7 @@
 #include "RendererComponent.h"
 #include "PlayerMovementComponent.h"
 #include "PlayerAttackComponent.h"
+#include "PlayerStatusUIComponent.h"
 
 void Player::Init()
 {
@@ -31,6 +32,7 @@ void Player::Init()
 	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 102);
 	PlayerMovementComponent* movementComp = new PlayerMovementComponent(this, 100);
 	PlayerAttackComponent* attackComp = new PlayerAttackComponent(this, 99);
+	PlayerStatusUIComponent* statusComp = new PlayerStatusUIComponent(this, 103);
 
 	Character::Init();
 }
