@@ -2,39 +2,60 @@
 #include "CreateCharacterButton.h"
 
 #include "SceneManager.h"
+
 #include "SpriteComponent.h"
 #include "AnimatorComponent.h"
 #include "RendererComponent.h"
+#include "ButtonComponent.h"
 #include "RectComponent.h"
 #include "TextComponent.h"
-#include "Image.h"
 
 void CreateCharacterButton::Init()
 {
-	AnimatorComponent* animatorComp = new AnimatorComponent(this);
-	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButton.png", this), L"Idle");
-	RendererComponent* rendererComp = new RendererComponent(animatorComp, this);
+	AnimatorComponent* animatorComp = new AnimatorComponent(this, 99);
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonIdle.png", this), L"Idle");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonHover.png", this), L"Hover");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonClick.png", this), L"Click");
+	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 100);
+
+	mpAnimatorComp = animatorComp;
+
+	GameObject::Init();
+	RectComponent* collisionRect = new RectComponent(this);
+	SetPosition({ 318 ,559 });
+	collisionRect->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
+
 	TextComponent* textComp = new TextComponent(L"캐릭터생성", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
-	Button::Init();
+	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
+
+	ButtonComponent::ButtonFunction btnFunction(
+		&CreateCharacterButton::SetIdle,
+		&CreateCharacterButton::SetHover,
+		&CreateCharacterButton::SetClick,
+		&CreateCharacterButton::SetExecute);
+
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
 }
 
-void CreateCharacterButton::Update()
+void CreateCharacterButton::SetIdle()
 {
-	Button::Update();
-	if (mState == Button::eButtonState::Idle)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(0);
-	}
-	else if (mState == Button::eButtonState::Hover)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(1);
-		if (Input::GetButtonUp(VK_LBUTTON))
-		{
-			SceneManager::GetSingleton()->SetNextScene(L"CreateCharacter");
-		}
-	}
-	else if (mState == Button::eButtonState::Click)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(2);
-	}
+	mpAnimatorComp->Play(L"Idle");
+	mpAnimatorComp->Pause();
+}
+
+void CreateCharacterButton::SetHover()
+{
+	mpAnimatorComp->Play(L"Hover");
+	mpAnimatorComp->Pause();
+}
+
+void CreateCharacterButton::SetClick()
+{
+	mpAnimatorComp->Play(L"Click");
+	mpAnimatorComp->Pause();
+}
+
+void CreateCharacterButton::SetExecute()
+{
+	cout << "실행" << endl;
 }

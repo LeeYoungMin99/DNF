@@ -18,6 +18,9 @@ void AnimatorComponent::Init()
 
 void AnimatorComponent::Update()
 {
+	if (mbPause)
+		return;
+
 	mElapsedTime += Timer::GetDeltaTime();
 
 	if (mElapsedTime >= mAnimationSpeed)
@@ -57,6 +60,11 @@ void AnimatorComponent::Play(wstring tag)
 	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
 	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
 	mCurrSpriteTag = tag;
+}
+
+void AnimatorComponent::Pause()
+{
+	mbPause = true;
 }
 
 //struct AnimInfo

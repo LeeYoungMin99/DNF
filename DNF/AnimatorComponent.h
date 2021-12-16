@@ -13,6 +13,7 @@ public:
 
 	void AddSprite(SpriteComponent* spriteComp, wstring tag);
 	void Play(wstring tag);
+	void Pause();
 	void PlayIdle();
 
 	SpriteComponent* FindSprite(wstring tag);
@@ -32,6 +33,7 @@ private:
 	float mElapsedTime = 0.0f;
 	float mAnimationSpeed = 0.0f;
 	int mMaxFrameX = 0;
-	bool mbIsLoop = 0;
+	bool mbIsLoop = false;
+	bool mbPause = false;
 };
 

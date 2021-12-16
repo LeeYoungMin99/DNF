@@ -29,10 +29,12 @@ void RendererComponent::Render()
 	{
 		renderPosZ = ((Character*)mpOwner)->GetZ();
 
-		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
-			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.0f, 1, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
+		gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(1.3f, 1.3, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
 
+		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
+			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.3f, 1.3, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
 	}
+	
 	gpRenderTarget->DrawBitmap(mpAnimatorComp->GetCurrSprite()->GetSprite()->GetBitmap()
 		, D2D1::RectF((FLOAT)renderPosX, (FLOAT)renderPosY - renderPosZ, renderSizeX, renderSizeY - renderPosZ)
 		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR

@@ -14,8 +14,16 @@ ImageManager::~ImageManager()
 
 void ImageManager::Init()
 {
-	AddImage(L"Image/Button/SmallButton.png", 3, 1);
-	AddImage(L"Image/Button/LargeButton.png", 3, 1);
+	AddImage(L"Image/Button/SmallButtonIdle.png",1);
+	AddImage(L"Image/Button/SmallButtonHover.png", 1);
+	AddImage(L"Image/Button/SmallButtonClick.png", 1);
+	AddImage(L"Image/Button/StartButtonIdle.png", 1);
+	AddImage(L"Image/Button/StartButtonHover.png", 1);
+	AddImage(L"Image/Button/StartButtonClick.png", 1);
+
+
+	AddImage(L"Image/CharacterMotion/Seria/Idle.png", 12, -27, -116, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, -28, -117, 0.2f, true);
 
 	// UI
 	AddImage(L"Image/UI/PlayerStatus.png", 1, 1);

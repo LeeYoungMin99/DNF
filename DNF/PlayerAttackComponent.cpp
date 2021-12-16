@@ -8,15 +8,16 @@
 
 void PlayerAttackComponent::Update()
 {
-	Character::eState	prevState = ((Character*)mpOwner)->GetState();
-	Character::eDirX	prevDirX = ((Character*)mpOwner)->GetDirX();
-	Player::eAttackType prevAtkType = ((Player*)mpOwner)->GetAttackType();
-	AnimatorComponent* pAniComp = mpOwner->GetComponent<AnimatorComponent>();
+	Player* pOwner = (Player*)mpOwner;
+	Character::eState	prevState = pOwner->GetState();
+	Character::eDirX	prevDirX = pOwner->GetDirX();
+	Player::eAttackType prevAtkType = pOwner->GetAttackType();
+	AnimatorComponent* pAniComp = pOwner->GetComponent<AnimatorComponent>();
 	int					currFrame = pAniComp->GetCurrFrame();
 
 	if (Input::GetButton('0'))
 	{
-		((Player*)mpOwner)->SetState(Player::eState::Damaged);
+		pOwner->SetState(Player::eState::Damaged);
 		return;
 	}
 
@@ -25,8 +26,8 @@ void PlayerAttackComponent::Update()
 	{
 		if (Input::GetButton('X'))
 		{
-			((Character*)mpOwner)->SetState(Character::eState::Attack);
-			((Player*)mpOwner)->SetAttackType(Player::eAttackType::NormalAttack1);
+			pOwner->SetState(Character::eState::Attack);
+			pOwner->SetAttackType(Player::eAttackType::NormalAttack1);
 			SetAnimation(L"NormalAttack1");
 
 			return;
@@ -36,8 +37,8 @@ void PlayerAttackComponent::Update()
 	{
 		if (Input::GetButton('X'))
 		{
-			((Character*)mpOwner)->SetState(Character::eState::Attack);
-			((Player*)mpOwner)->SetAttackType(Player::eAttackType::DashAttack1);
+			pOwner->SetState(Character::eState::Attack);
+			pOwner->SetAttackType(Player::eAttackType::DashAttack1);
 			SetAnimation(L"DashAttack1");
 
 			return;
@@ -47,8 +48,8 @@ void PlayerAttackComponent::Update()
 	{
 		if (Input::GetButton('X'))
 		{
-			((Character*)mpOwner)->SetState(Character::eState::JumpAttack);
-			((Player*)mpOwner)->SetAttackType(Player::eAttackType::JumpAttack);
+			pOwner->SetState(Character::eState::JumpAttack);
+			pOwner->SetAttackType(Player::eAttackType::JumpAttack);
 			SetAnimation(L"JumpAttack");
 
 			return;
@@ -62,7 +63,7 @@ void PlayerAttackComponent::Update()
 			{
 				if (currFrame >= 3)
 				{
-					((Player*)mpOwner)->SetAttackType(Player::eAttackType::NormalAttack2);
+					pOwner->SetAttackType(Player::eAttackType::NormalAttack2);
 					SetAnimation(L"NormalAttack2");
 				}
 			}
@@ -70,7 +71,7 @@ void PlayerAttackComponent::Update()
 			{
 				if (currFrame >= 4)
 				{
-					((Player*)mpOwner)->SetAttackType(Player::eAttackType::NormalAttack3);
+					pOwner->SetAttackType(Player::eAttackType::NormalAttack3);
 					SetAnimation(L"NormalAttack3");
 				}
 			}
@@ -78,7 +79,7 @@ void PlayerAttackComponent::Update()
 			{
 				if (currFrame >= 4)
 				{
-					((Player*)mpOwner)->SetAttackType(Player::eAttackType::NormalAttack4);
+					pOwner->SetAttackType(Player::eAttackType::NormalAttack4);
 					SetAnimation(L"NormalAttack4");
 				}
 			}
@@ -86,7 +87,7 @@ void PlayerAttackComponent::Update()
 			{
 				if (currFrame >= 3)
 				{
-					((Player*)mpOwner)->SetAttackType(Player::eAttackType::NormalAttack5);
+					pOwner->SetAttackType(Player::eAttackType::NormalAttack5);
 					SetAnimation(L"NormalAttack5");
 				}
 			}
@@ -94,7 +95,7 @@ void PlayerAttackComponent::Update()
 			{
 				if (currFrame >= 4)
 				{
-					((Player*)mpOwner)->SetAttackType(Player::eAttackType::DashAttack2);
+					pOwner->SetAttackType(Player::eAttackType::DashAttack2);
 					SetAnimation(L"DashAttack2");
 				}
 			}

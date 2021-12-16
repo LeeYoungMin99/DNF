@@ -73,9 +73,6 @@
     <ClCompile Include="RectComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClCompile>
     <ClCompile Include="GameStartButton.cpp">
       <Filter>2D Framework\GameObject\Button</Filter>
     </ClCompile>
@@ -124,6 +121,7 @@
     <ClCompile Include="PlayerAttackComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
+    <ClCompile Include="Seria.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -183,9 +181,6 @@
     <ClInclude Include="RectComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClInclude>
     <ClInclude Include="GameStartButton.h">
       <Filter>2D Framework\GameObject\Button</Filter>
     </ClInclude>
@@ -237,6 +232,7 @@
     <ClInclude Include="PlayerAttackComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
+    <ClInclude Include="Seria.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

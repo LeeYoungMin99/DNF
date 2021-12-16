@@ -1,39 +1,61 @@
 #include "stdafx.h"
 #include "DeleteCharacterButton.h"
 
+#include "SceneManager.h"
+
 #include "SpriteComponent.h"
 #include "AnimatorComponent.h"
 #include "RendererComponent.h"
+#include "ButtonComponent.h"
+#include "RectComponent.h"
 #include "TextComponent.h"
-#include "Image.h"
 
 void DeleteCharacterButton::Init()
 {
-	AnimatorComponent* animatorComp = new AnimatorComponent(this);
-	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButton.png", this), L"Idle");
-	RendererComponent* rendererComp = new RendererComponent(animatorComp, this);
+	AnimatorComponent* animatorComp = new AnimatorComponent(this, 99);
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonIdle.png", this), L"Idle");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonHover.png", this), L"Hover");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/SmallButtonClick.png", this), L"Click");
+	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 100);
+
+	mpAnimatorComp = animatorComp;
+
+	GameObject::Init();
+	RectComponent* collisionRect = new RectComponent(this);
+	SetPosition({ 384 ,559 });
+	collisionRect->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
+
 	TextComponent* textComp = new TextComponent(L"캐릭터삭제", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
-	Button::Init();
+	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
+
+	ButtonComponent::ButtonFunction btnFunction(
+		&DeleteCharacterButton::SetIdle,
+		&DeleteCharacterButton::SetHover,
+		&DeleteCharacterButton::SetClick,
+		&DeleteCharacterButton::SetExecute);
+
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
 }
 
-void DeleteCharacterButton::Update()
+void DeleteCharacterButton::SetIdle()
 {
-	Button::Update();
+	mpAnimatorComp->Play(L"Idle");
+	mpAnimatorComp->Pause();
+}
 
-	if (mState == Button::eButtonState::Idle)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(0);
-	}
-	else if (mState == Button::eButtonState::Hover)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(1);
-		if (Input::GetButtonUp(VK_LBUTTON))
-		{
-			cout << "캐릭터 삭제하는 내용" << endl;
-		}
-	}
-	else if (mState == Button::eButtonState::Click)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(2);
-	}
+void DeleteCharacterButton::SetHover()
+{
+	mpAnimatorComp->Play(L"Hover");
+	mpAnimatorComp->Pause();
+}
+
+void DeleteCharacterButton::SetClick()
+{
+	mpAnimatorComp->Play(L"Click");
+	mpAnimatorComp->Pause();
+}
+
+void DeleteCharacterButton::SetExecute()
+{
+	cout << "실행" << endl;
 }

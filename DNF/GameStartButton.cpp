@@ -2,38 +2,56 @@
 #include "GameStartButton.h"
 
 #include "SceneManager.h"
+
 #include "SpriteComponent.h"
 #include "AnimatorComponent.h"
 #include "RendererComponent.h"
-
-#include "Image.h"
+#include "ButtonComponent.h"
+#include "RectComponent.h"
 
 void GameStartButton::Init()
 {
-	AnimatorComponent* animatorComp = new AnimatorComponent(this);
-	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/LargeButton.png", this), L"Idle");
-	RendererComponent* rendererComp = new RendererComponent(animatorComp, this);
-	Button::Init();
+	AnimatorComponent* animatorComp = new AnimatorComponent(this, 99);
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/StartButtonIdle.png", this), L"Idle");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/StartButtonHover.png", this), L"Hover");
+	animatorComp->AddSprite(new SpriteComponent(L"Image/Button/StartButtonClick.png", this), L"Click");
+	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 100);
+
+	mpAnimatorComp = animatorComp;
+
+	GameObject::Init();
+	RectComponent* collisionRect = new RectComponent(this);
+	SetPosition({ 450,548 });
+	collisionRect->SetRect({ GetX(),GetY(),GetX() + 170,GetY() + 47 });
+
+	ButtonComponent::ButtonFunction btnFunction(
+		&GameStartButton::SetIdle,
+		&GameStartButton::SetHover,
+		&GameStartButton::SetClick,
+		&GameStartButton::SetExecute);
+
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
 }
 
-void GameStartButton::Update()
+void GameStartButton::SetIdle()
 {
-	Button::Update();
+	mpAnimatorComp->Play(L"Idle");
+	mpAnimatorComp->Pause();
+}
 
-	if (mState == Button::eButtonState::Idle)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(0);
-	}
-	else if (mState == Button::eButtonState::Hover)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(1);
-		if (Input::GetButtonUp(VK_LBUTTON))
-		{
-			SceneManager::GetSingleton()->SetNextScene(L"Town");
-		}
-	}
-	else if (mState == Button::eButtonState::Click)
-	{
-		GetComponent<SpriteComponent>()->SetCurrFrame(2);
-	}
+void GameStartButton::SetHover()
+{
+	mpAnimatorComp->Play(L"Hover");
+	mpAnimatorComp->Pause();
+}
+
+void GameStartButton::SetClick()
+{
+	mpAnimatorComp->Play(L"Click");
+	mpAnimatorComp->Pause();
+}
+
+void GameStartButton::SetExecute()
+{
+	SceneManager::GetSingleton()->SetNextScene(L"Town");
 }

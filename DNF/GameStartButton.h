@@ -1,13 +1,27 @@
 #pragma once
-#include "Button.h"
+#include "GameObject.h"
 
-class GameStartButton : public Button
+template <typename T>
+class ButtonComponent;
+
+class AnimatorComponent;
+class GameStartButton : public GameObject
 {
+private:
+	using ButtonComponent = ButtonComponent<GameStartButton>;
+
 public:
-	using Button::Button;
+	using GameObject::GameObject;
 	virtual ~GameStartButton() noexcept = default;
 
 	virtual void Init() override;
-	virtual void Update() override;
-};
 
+private:
+	void SetIdle();
+	void SetHover();
+	void SetClick();
+	void SetExecute();
+
+private:
+	AnimatorComponent* mpAnimatorComp = nullptr;
+};

@@ -4,6 +4,11 @@
 class GameObject;
 class Scene : public GameEntity
 {
+protected:
+	struct cmp
+	{
+		bool operator()(const GameObject* lhs, const GameObject* rhs) const;
+	};
 public:
 	Scene() = default;
 	virtual ~Scene();

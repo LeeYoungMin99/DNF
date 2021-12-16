@@ -57,3 +57,9 @@ void Scene::RemoveObject(const wstring& tag)
 			return obj->GetTag() == tag;
 		});
 }
+
+bool Scene::cmp::operator()(const GameObject* lhs, const GameObject* rhs) const
+{
+	return lhs->GetY() > rhs->GetY();
+}
+

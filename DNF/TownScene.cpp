@@ -2,6 +2,7 @@
 #include "TownScene.h"
 
 #include "Player.h"
+#include "Seria.h"
 #include "Sprite.h"
 
 #include "ImageManager.h"
@@ -12,10 +13,12 @@ void TownScene::Init()
 	seriaRoomBackground->SetImage(ImageManager::GetSingleton()->FindImage(L"Image/Elvengard/SeriaRoom/Background.png"));
 
 	mpPlayer = new Player(this, L"Player");
+	Seria* seria = new Seria(this, L"Seria");
 
 	Scene::Init();
 
 	seriaRoomBackground->SetAreaNumber((int)eAreaTag::SeriaRoom);
+	seria->SetAreaNumber((int)eAreaTag::SeriaRoom);
 
 	mpPlayer->SetPosition({ 500,500 });
 	mpPlayer->SetMoveSpeed(200);
@@ -31,7 +34,6 @@ void TownScene::Update()
 		//테스트코드
 		mpPlayer->SetAreaNumber(!((bool)playerCurrArea));
 	}
-
 
 	for (GameObject* obj : mObjects)
 	{
@@ -51,4 +53,4 @@ void TownScene::Render()
 		mpRenderOrder.pop();
 	}
 
-} 
+}

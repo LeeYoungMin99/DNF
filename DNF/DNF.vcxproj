@@ -150,7 +150,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimatorComponent.cpp" />
-    <ClCompile Include="Button.cpp" />
     <ClCompile Include="ButtonComponent.cpp" />
     <ClCompile Include="CharacterSelectScene.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -172,6 +171,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Seria.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteComponent.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -187,7 +187,6 @@
     <ClInclude Include="AnimatorComponent.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="Button.h" />
     <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CharacterSelectScene.h" />
     <ClInclude Include="Component.h" />
@@ -210,6 +209,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Seria.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Sprite.h" />

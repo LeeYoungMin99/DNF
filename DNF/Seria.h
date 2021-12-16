@@ -1,18 +1,18 @@
 #pragma once
-#include "GameObject.h"
+#include "Character.h"
 
 template <typename T>
 class ButtonComponent;
 
 class AnimatorComponent;
-class CreateCharacterButton : public GameObject
+class Seria : public Character
 {
-private:	
-	using ButtonComponent = ButtonComponent<CreateCharacterButton>;
+private:
+	using ButtonComponent = ButtonComponent<Seria>;
 
 public:
-	using GameObject::GameObject;
-	virtual ~CreateCharacterButton() noexcept = default;
+	using Character::Character;
+	virtual ~Seria() noexcept = default;
 
 	virtual void Init() override;
 
@@ -25,3 +25,4 @@ private:
 private:
 	AnimatorComponent* mpAnimatorComp = nullptr;
 };
+
