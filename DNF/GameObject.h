@@ -7,6 +7,7 @@ class GameObject : public GameEntity
 {
 public:
 	GameObject(Scene* scene, const std::wstring& tag);
+	GameObject() = default;
 	virtual ~GameObject() noexcept;
 
 	virtual void Init() override;

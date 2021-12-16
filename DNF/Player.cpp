@@ -40,7 +40,27 @@ void Player::SetAttackType(eAttackType atkType) noexcept
 	mAttackType = atkType;
 }
 
+void Player::AddHP(float value) noexcept
+{
+	mHP += value;
+}
+
+void Player::AddMP(float value) noexcept
+{
+	mMP += value;
+}
+
 Player::eAttackType Player::GetAttackType() const noexcept
 {
 	return mAttackType;
+}
+
+float Player::GetHP() const noexcept
+{
+	return mHP;
+}
+
+float Player::GetMP() const noexcept
+{
+	return mMP;
 }

@@ -24,8 +24,9 @@ void CharacterSelectScene::Init()
 	GameStartButton* gameStartButton = new GameStartButton(this, L"GameStartButton");
 	GameShutDownButton* gameShutDownButton = new GameShutDownButton(this, L"GameShutDownButton");
 
-	Scene::Init();
 	backgroundImg->SetImage(ImageManager::GetSingleton()->FindImage(L"Image/CharacterSelectScene/Background.png"));
 	slotBackgroundImg->SetImage(ImageManager::GetSingleton()->FindImage(L"Image/CharacterSelectScene/SlotBackground.png"));
 	slotBackgroundImg->SetY(600 - 268);
+
+	Scene::Init();
 }

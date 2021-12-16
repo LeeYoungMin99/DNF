@@ -6,6 +6,7 @@
 #include "Sprite.h"
 
 #include "ImageManager.h"
+#include "UIManager.h"
 
 void TownScene::Init()
 {
@@ -20,9 +21,12 @@ void TownScene::Init()
 	seriaRoomBackground->SetAreaNumber((int)eAreaTag::SeriaRoom);
 	seria->SetAreaNumber((int)eAreaTag::SeriaRoom);
 
-	mpPlayer->SetPosition({ 500,500 });
+	mpPlayer->SetPosition({ 533,500 });
 	mpPlayer->SetMoveSpeed(200);
 	mpPlayer->SetAreaNumber((int)eAreaTag::SeriaRoom);
+
+	UIManager::GetSingleton()->Init();
+	UIManager::GetSingleton()->SetPlayer(mpPlayer);
 }
 
 void TownScene::Update()
@@ -34,6 +38,10 @@ void TownScene::Update()
 		//테스트코드
 		mpPlayer->SetAreaNumber(!((bool)playerCurrArea));
 	}
+	if (Input::GetButtonDown('4'))
+	{
+		mpPlayer->AddHP(-10);
+	}
 
 	for (GameObject* obj : mObjects)
 	{
@@ -43,6 +51,9 @@ void TownScene::Update()
 			mpRenderOrder.push(obj);
 		}
 	}
+
+	UIManager::GetSingleton()->Update();
+	cout << UIManager::GetSingleton()->GetPlayerHP() << endl;
 }
 
 void TownScene::Render()
@@ -53,4 +64,5 @@ void TownScene::Render()
 		mpRenderOrder.pop();
 	}
 
+	UIManager::GetSingleton()->Render();
 }

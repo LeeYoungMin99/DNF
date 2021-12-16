@@ -49,13 +49,12 @@ void AnimatorComponent::AddSprite(SpriteComponent* spriteComp, wstring tag)
 
 void AnimatorComponent::Play(wstring tag)
 {
-	mpCurrSprite->SetCurrFrame(0);
-
-	if ((mpCurrSprite = FindSprite(tag)) == nullptr)
+	if (mpCurrSprite != nullptr)
 	{
-		PlayIdle();
+		mpCurrSprite->SetCurrFrame(0);
 	}
 
+	mpCurrSprite = FindSprite(tag);
 	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
 	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
 	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();

@@ -32,6 +32,9 @@
     <Filter Include="2D Framework\GameObject\Charactor">
       <UniqueIdentifier>{762179c6-4359-4f93-9861-07b0d707ca9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\GameObject\UI">
+      <UniqueIdentifier>{25c21c33-719b-428c-8b6b-2466bad2d6aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -103,16 +106,10 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="TownScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMovementComponent.cpp">
@@ -121,7 +118,24 @@
     <ClCompile Include="PlayerAttackComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Seria.cpp" />
+    <ClCompile Include="Seria.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="TownScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="UIManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHeathBar.cpp">
+      <Filter>2D Framework\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStatusUI.cpp">
+      <Filter>2D Framework\GameObject\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -232,7 +246,18 @@
     <ClInclude Include="PlayerAttackComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Seria.h" />
+    <ClInclude Include="Seria.h">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="UIManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHeathBar.h">
+      <Filter>2D Framework\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatusUI.h">
+      <Filter>2D Framework\GameObject\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

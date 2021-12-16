@@ -14,7 +14,7 @@ ImageManager::~ImageManager()
 
 void ImageManager::Init()
 {
-	AddImage(L"Image/Button/SmallButtonIdle.png",1);
+	AddImage(L"Image/Button/SmallButtonIdle.png", 1);
 	AddImage(L"Image/Button/SmallButtonHover.png", 1);
 	AddImage(L"Image/Button/SmallButtonClick.png", 1);
 	AddImage(L"Image/Button/StartButtonIdle.png", 1);
@@ -26,12 +26,14 @@ void ImageManager::Init()
 	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, -28, -117, 0.2f, true);
 
 	// UI
-	AddImage(L"Image/UI/PlayerStatus.png", 1, 1);
+	AddImage(L"Image/UI/PlayerStatus.png", 1, -166, -75);
+	AddImage(L"Image/UI/HP.png", 1);
+	AddImage(L"Image/UI/MP.png", 1);
 
-	AddImage(L"Image/CharacterSelectScene/Background.png", 1, 1);
-	AddImage(L"Image/CharacterSelectScene/SlotBackground.png", 1, 1);
+	AddImage(L"Image/CharacterSelectScene/Background.png", 1);
+	AddImage(L"Image/CharacterSelectScene/SlotBackground.png", 1);
 
-	AddImage(L"Image/Elvengard/SeriaRoom/Background.png", 1, 1);
+	AddImage(L"Image/Elvengard/SeriaRoom/Background.png", 1);
 
 	AddImage(L"Image/CharacterMotion/Player/Idle.png", 33, -245, -374, 0.2f, true);
 	AddImage(L"Image/CharacterMotion/Player/Walk.png", 10, -245, -374, 0.1f, true);
@@ -49,6 +51,18 @@ void ImageManager::Init()
 	AddImage(L"Image/CharacterMotion/Player/JumpDownIdle.png", 2, -245, -374, 0.1f);
 
 	AddImage(L"Image/CharacterMotion/Player/JumpAttack.png", 13, -245, -374, 0.1f);
+}
+
+void ImageManager::Update()
+{
+}
+
+void ImageManager::Render()
+{
+}
+
+void ImageManager::Release()
+{
 }
 
 Image* ImageManager::AddImage(const wchar_t* path, int maxFrameX, int correctX, int correctY, float animationSpeed, bool loop)
@@ -84,3 +98,4 @@ Image* ImageManager::FindImage(wstring path)
 
 	return it->second;
 }
+

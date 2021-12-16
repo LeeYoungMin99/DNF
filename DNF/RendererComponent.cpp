@@ -29,10 +29,10 @@ void RendererComponent::Render()
 	{
 		renderPosZ = ((Character*)mpOwner)->GetZ();
 
-		gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(1.3f, 1.3, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
+		gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(1.3f, 1.3f, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
 
 		if (((Character*)mpOwner)->GetDirX() == Character::eDirX::Left)
-			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.3f, 1.3, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
+			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.3f, 1.3f, D2D1_POINT_2F{ (float)mpOwner->GetX(),(float)mpOwner->GetY() }));
 	}
 	
 	gpRenderTarget->DrawBitmap(mpAnimatorComp->GetCurrSprite()->GetSprite()->GetBitmap()

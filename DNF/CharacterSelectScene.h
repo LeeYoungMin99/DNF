@@ -8,5 +8,4 @@ public:
 	virtual ~CharacterSelectScene() noexcept = default;
 
 	virtual void Init() override;
-	virtual void Update() override;
 };
