@@ -41,6 +41,8 @@ bool Timer::CanUpdate() noexcept
 	}
 
 	_deltaTime = elapsed.count();
+	
+	printf("%d\n", (int)(1.0f / _deltaTime));
 
 	_prevTime = current;
 

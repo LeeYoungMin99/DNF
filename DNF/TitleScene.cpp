@@ -3,9 +3,11 @@
 #include "TitleScene.h"
 
 #include "SceneManager.h"
+#include "Animation.h"
 
 void TitleScene::Init()
 {
+
 }
 
 void TitleScene::Update()

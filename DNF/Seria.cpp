@@ -20,7 +20,7 @@ void Seria::Init()
 	GameObject::Init();
 	RectComponent* collisionRect = new RectComponent(this);
 	SetPosition({ 600 ,350 });
-	collisionRect->SetRect({ GetX() - 35,GetY() - 150,GetX() + 36,GetY() });
+	collisionRect->SetRectSize({ -35,-150,36,0 });
 
 	ButtonComponent::ButtonFunction btnFunction(
 		&Seria::SetIdle,

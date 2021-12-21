@@ -75,3 +75,11 @@ void Character::SetResistance(float resist) noexcept
 {
 	mResistance = resist;
 }
+
+void Character::OnBodyCollided(RECT collisionSize)
+{
+}
+
+void Character::OnAttackCollided(float strikingPower, float floatingPower)
+{
+}

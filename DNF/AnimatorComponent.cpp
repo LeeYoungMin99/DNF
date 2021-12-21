@@ -9,16 +9,12 @@
 
 void AnimatorComponent::Init()
 {
-	mpCurrSprite = FindSprite(L"Idle");
-	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
-	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
-	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
-	mCurrSpriteTag = L"Idle";
+	PlayIdle();
 }
 
 void AnimatorComponent::Update()
 {
-	if (mbPause)
+	if (mbIsPause)
 		return;
 
 	mElapsedTime += Timer::GetDeltaTime();
@@ -28,6 +24,7 @@ void AnimatorComponent::Update()
 		mElapsedTime -= mAnimationSpeed;
 
 		mpCurrSprite->SetNextFrame();
+
 		if (mpCurrSprite->GetCurrFrame() >= mMaxFrameX)
 		{
 			if (mbIsLoop)
@@ -49,30 +46,25 @@ void AnimatorComponent::AddSprite(SpriteComponent* spriteComp, wstring tag)
 
 void AnimatorComponent::Play(wstring tag)
 {
-	if (mpCurrSprite != nullptr)
+	if (mpCurrSprite)
 	{
+
 		mpCurrSprite->SetCurrFrame(0);
 	}
 
+	mbIsPause = false;
 	mpCurrSprite = FindSprite(tag);
 	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
 	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
 	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
 	mCurrSpriteTag = tag;
+	mElapsedTime = 0.0f;
 }
 
 void AnimatorComponent::Pause()
 {
-	mbPause = true;
+	mbIsPause = true;
 }
-
-//struct AnimInfo
-//{
-//	float AnimationSpeed;
-//	int MaxFrameX;
-//	bool IsLoop;
-//	wstring Tag;
-//};
 
 SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
 {
@@ -101,7 +93,12 @@ wstring AnimatorComponent::GetCurrSpriteTag() noexcept
 	return mCurrSpriteTag;
 }
 
-int AnimatorComponent::GetCurrFrame() noexcept
+bool AnimatorComponent::GetIsPause() const noexcept
+{
+	return mbIsPause;
+}
+
+int AnimatorComponent::GetCurrFrame() const noexcept
 {
 	return mpCurrSprite->GetCurrFrame();
 }

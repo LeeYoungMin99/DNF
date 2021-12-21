@@ -7,7 +7,7 @@ class PlayerStatusUIComponent : public Component
 {
 public:
 	using Component::Component;
-	virtual ~PlayerStatusUIComponent() noexcept = default;
+	virtual ~PlayerStatusUIComponent() noexcept;
 
 	virtual void Init() override;
 	virtual void Update() override;

@@ -51,6 +51,11 @@ void ImageManager::Init()
 	AddImage(L"Image/CharacterMotion/Player/JumpDownIdle.png", 2, -245, -374, 0.1f);
 
 	AddImage(L"Image/CharacterMotion/Player/JumpAttack.png", 13, -245, -374, 0.1f);
+
+	AddImage(L"Image/CharacterMotion/Player/Damaged.png", 2, -245, -374, 0.3f);
+	AddImage(L"Image/CharacterMotion/Player/JumpDownDamaged.png", 5, -245, -374, 0.1f);
+
+	AddImage(L"Image/CharacterMotion/Player/SnakeDance.png", 18, -352, -374, 0.08f);
 }
 
 void ImageManager::Update()

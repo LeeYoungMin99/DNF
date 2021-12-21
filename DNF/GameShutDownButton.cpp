@@ -20,8 +20,9 @@ void GameShutDownButton::Init()
 
 	GameObject::Init();
 	RectComponent* collisionRect = new RectComponent(this);
-	SetPosition({ 630,559 });
-	collisionRect->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
+	SetPosition({ 630,559 });	
+	collisionRect->SetRectSize({ 0,0,56,24 });
+
 
 	TextComponent* textComp = new TextComponent(L"게임종료", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
 	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });

@@ -22,7 +22,7 @@ void GameStartButton::Init()
 	GameObject::Init();
 	RectComponent* collisionRect = new RectComponent(this);
 	SetPosition({ 450,548 });
-	collisionRect->SetRect({ GetX(),GetY(),GetX() + 170,GetY() + 47 });
+	collisionRect->SetRectSize({ 0, 0, 170, 47 });
 
 	ButtonComponent::ButtonFunction btnFunction(
 		&GameStartButton::SetIdle,

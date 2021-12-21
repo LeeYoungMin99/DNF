@@ -28,6 +28,9 @@ public:
 	void SetZ(int z) noexcept;
 	void SetAcceleration(float accel) noexcept;
 	void SetResistance(float resist) noexcept;
+
+	virtual void OnBodyCollided(RECT collisionSize);
+	virtual void OnAttackCollided(float strikingPower, float floatingPower);
 protected:
 	eState mState = eState::Idle;
 	eDirX mDirX = eDirX::Left;
@@ -35,7 +38,7 @@ protected:
 
 	int mPosZ = 0;
 	float mAcceleration = 0.0f;
-	float mResistance = 0.0f;
+	float mResistance = 30.0f;
 	int mMoveSpeed = 0;
 };
 

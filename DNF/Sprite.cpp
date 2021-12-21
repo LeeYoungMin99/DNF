@@ -2,11 +2,12 @@
 #include "Sprite.h"
 
 #include "Image.h"
+#include "CameraManager.h"
 
 void Sprite::Render()
 {
-	LONG posX = GetX();
-	LONG posY = GetY();
+	LONG posX = GetX() + CameraManager::GetSingleton()->GetX();
+	LONG posY = GetY() + CameraManager::GetSingleton()->GetY();
 	FLOAT imageFrameSizeX = mpImage->GetImageFrameSize().width;
 	FLOAT imageFrameSizeY = mpImage->GetImageFrameSize().height;
 	FLOAT renderSizeX = posX + imageFrameSizeX;

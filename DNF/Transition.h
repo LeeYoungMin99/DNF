@@ -1,16 +1,15 @@
 #pragma once
-#include "Scene.h"
+#include "GameEntity.h"
 
-class TitleScene : public Scene
+class AnimatorComponent;
+class Transition : public GameEntity
 {
 public:
-	using Scene::Scene;
-	virtual ~TitleScene() = default;
-
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render() override;
 	virtual void Release() override;
-private:
 
+private:
+	AnimatorComponent* mpAnimComp = nullptr;
 };

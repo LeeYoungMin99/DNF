@@ -11,13 +11,14 @@ public:
 	virtual void Render() override;
 
 	void SetRect(RECT rect) noexcept;
+	void SetRectSize(RECT rect) noexcept;
 
 	const RECT* GetRectAddress() const noexcept;
 	const RECT GetRect() const noexcept;
 private:
-	void TurnoffRender() noexcept;
-	void TurnonRender() noexcept;
+	void ChangeIsRender() noexcept;
 private:
 	RECT mRect = {};
+	RECT mRectSize = {};
 	bool mbIsRender = false;
 };

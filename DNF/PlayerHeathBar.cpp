@@ -39,7 +39,6 @@ void PlayerHealthBar::Release()
 {
 }
 
-
 void PlayerHealthBar::SetRemainingAmount(float value) noexcept
 {
 	mRemainingAmount = value;

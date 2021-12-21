@@ -6,6 +6,8 @@
 #include "Sprite.h"
 
 #include "ImageManager.h"
+#include "CameraManager.h"
+#include "CollisionManager.h"
 
 void TownScene::Init()
 {
@@ -20,10 +22,12 @@ void TownScene::Init()
 	seriaRoomBackground->SetAreaNumber((int)eAreaTag::SeriaRoom);
 	seria->SetAreaNumber((int)eAreaTag::SeriaRoom);
 
-	mpPlayer->SetPosition({ 533,500 });
+	mpPlayer->SetPosition({ 600,500 });
 	mpPlayer->SetMoveSpeed(200);
 	mpPlayer->SetAreaNumber((int)eAreaTag::SeriaRoom);
 
+	CameraManager::GetSingleton()->SetCameraMaxPos(0, 0);
+	CameraManager::GetSingleton()->SetCameraMinPos(-133, 0);
 }
 
 void TownScene::Update()
@@ -31,8 +35,7 @@ void TownScene::Update()
 	int playerCurrArea = mpPlayer->GetAreaNumber();
 
 	//테스트코드
-	if (Input::GetButtonDown('3')) { mpPlayer->SetAreaNumber(!((bool)playerCurrArea)); }
-	if (Input::GetButtonDown('4')) { mpPlayer->AddHP(-10); }
+	if (Input::GetButtonDown('2')) { mpPlayer->SetAreaNumber(!((bool)playerCurrArea)); }
 
 	for (GameObject* obj : mObjects)
 	{
@@ -42,7 +45,6 @@ void TownScene::Update()
 			mpRenderOrder.push(obj);
 		}
 	}
-
 }
 
 void TownScene::Render()
@@ -52,5 +54,4 @@ void TownScene::Render()
 		mpRenderOrder.top()->Render();
 		mpRenderOrder.pop();
 	}
-
 }

@@ -35,6 +35,9 @@
     <Filter Include="2D Framework\GameObject\UI">
       <UniqueIdentifier>{25c21c33-719b-428c-8b6b-2466bad2d6aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Manager\Singleton">
+      <UniqueIdentifier>{8a5c137d-bdd0-47d2-865b-c7d1cb99cd18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -57,9 +60,6 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Main</Filter>
@@ -94,9 +94,6 @@
     <ClCompile Include="RendererComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="AnimatorComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
@@ -130,9 +127,28 @@
     <ClCompile Include="PlayerHeathBar.cpp">
       <Filter>2D Framework\GameObject\UI</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStatusUIComponent.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
+    <ClCompile Include="HitBoxComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerStatusUIComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="newSpriteComponent.cpp" />
+    <ClCompile Include="newAnimatorComponent.cpp" />
+    <ClCompile Include="Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -167,9 +183,6 @@
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Util</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Main</Filter>
@@ -210,9 +223,6 @@
     <ClInclude Include="RendererComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="AnimatorComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
@@ -249,9 +259,28 @@
     <ClInclude Include="PlayerHeathBar.h">
       <Filter>2D Framework\GameObject\UI</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStatusUIComponent.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
+    <ClInclude Include="HitBoxComponent.h">
+      <Filter>2D Framework\Component</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerStatusUIComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>2D Framework\Manager\Singleton</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="newSpriteComponent.h" />
+    <ClInclude Include="newAnimatorComponent.h" />
+    <ClInclude Include="Transition.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

@@ -3,6 +3,7 @@
 #include "Scene.h"
 
 class Player;
+class CollisionManager;
 class TownScene : public Scene
 {
 public:
@@ -16,6 +17,9 @@ public:
 	virtual void Render() override;
 private:
 	priority_queue<GameObject*, vector<GameObject*>, cmp> mpRenderOrder = {};
+	
 	Player* mpPlayer = nullptr;
+
+	CollisionManager* mpCollisionManager = nullptr;
 };
 

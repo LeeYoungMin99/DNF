@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "Character.h"
 
+#include "CameraManager.h"
+
 void PlayerMovementComponent::Update()
 {
 	float deltaTime = Timer::GetDeltaTime();
@@ -17,12 +19,41 @@ void PlayerMovementComponent::Update()
 	Player::eState		prevState = pOwner->GetState();
 	Player::eDirX		prevDirX = pOwner->GetDirX();
 
-	if (prevState == Player::eState::Attack || prevState == Player::eState::Damaged)
+	if (pOwner->GetZ() > 0)
+	{
+		mFlightTime += deltaTime;
+	}
+	else
+	{
+		mFlightTime = 0;
+	}
+
+	if (prevState == Player::eState::Attack)
 	{
 		return;
 	}
+	else if (prevState == Player::eState::Damaged)
+	{
+		ChangeZ();
 
-	if (prevState != Player::eState::JumpWalk
+		if (pOwner->GetZ() > 0)
+		{
+			pAniComp->Pause();
+		}
+
+		if (pAniComp->GetIsPause())
+		{
+			if (pOwner->GetZ() <= 0)
+			{
+				pOwner->SetZ(0);
+				pOwner->SetAcceleration(0.0f);
+				pAniComp->Play(L"JumpDownDamaged");
+			}
+		}
+
+		return;
+	}
+	else if (prevState != Player::eState::JumpWalk
 		&& prevState != Player::eState::JumpRun
 		&& prevState != Player::eState::JumpAttack)
 	{
@@ -55,9 +86,8 @@ void PlayerMovementComponent::Update()
 
 			SetAnimation(L"Jump");
 
-			float jumpAccel = 14.0f;
+			float jumpAccel = 15.0f;
 			pOwner->SetAcceleration(jumpAccel);
-			pOwner->SetResistance(jumpAccel * 2);
 			mInputTime = 0.0f;
 			return;
 		}
@@ -171,26 +201,15 @@ void PlayerMovementComponent::Update()
 	}
 	else
 	{
-		float accel = pOwner->GetAcceleration();
-		float resist = pOwner->GetResistance();
-
-		pOwner->AddZ((int)(accel - (resist * 0.8f * mInputTime)));
+		ChangeZ();
 
 		if (pOwner->GetZ() <= 0)
 		{
 			pOwner->SetZ(0);
 			pOwner->SetState(Player::eState::Idle);
 
-			if (pAniComp->GetCurrSpriteTag() == L"LeftJumpAttack")
-			{
-				pOwner->SetDirX(Player::eDirX::Left);
-			}
-			else if (pAniComp->GetCurrSpriteTag() == L"RightJumpAttack")
-			{
-				pOwner->SetDirX(Player::eDirX::Right);
-			}
-
 			SetAnimation(L"JumpDownIdle");
+			pOwner->SetAcceleration(0.0f);
 			return;
 		}
 
@@ -235,12 +254,21 @@ void PlayerMovementComponent::Update()
 			SetAnimation(L"Jump");
 		}
 	}
+
 	Move((int)state, (int)dirX, (int)dirY, deltaTime);
 }
 
 void PlayerMovementComponent::SetAnimation(const wchar_t* tag)
 {
 	((Player*)mpOwner)->GetComponent<AnimatorComponent>()->Play(tag);
+}
+
+void PlayerMovementComponent::ChangeZ()
+{
+	float accel = ((Player*)mpOwner)->GetAcceleration();
+	float resist = ((Player*)mpOwner)->GetResistance();
+
+	((Player*)mpOwner)->AddZ((int)(accel - (resist * (mFlightTime / 1.0f))));
 }
 
 void PlayerMovementComponent::Move(int state, int dirX, int dirY, float deltaTime) noexcept
@@ -256,10 +284,38 @@ void PlayerMovementComponent::Move(int state, int dirX, int dirY, float deltaTim
 	if (Input::GetButton(VK_LEFT) || Input::GetButton(VK_RIGHT))
 	{
 		mpOwner->AddX((LONG)((moveSpeed * deltaTime) * dirX * state));
+
+		if ((mpOwner->GetX() + CameraManager::GetSingleton()->GetX()) < 433 && dirX == -1)
+		{
+			CameraManager::GetSingleton()->AddX((LONG)((moveSpeed * deltaTime) * state));
+		}
+		else if ((mpOwner->GetX() + CameraManager::GetSingleton()->GetX()) > 633 && dirX == 1)
+		{
+			CameraManager::GetSingleton()->AddX(-(LONG)((moveSpeed * deltaTime) * state));
+		}
 	}
 
 	if (Input::GetButton(VK_UP) || Input::GetButton(VK_DOWN))
 	{
 		mpOwner->AddY((LONG)((moveSpeed * deltaTime) * dirY));
+
+		if ((mpOwner->GetY() + CameraManager::GetSingleton()->GetY()) < 200 && dirY == -1)
+		{
+			CameraManager::GetSingleton()->AddY((LONG)((moveSpeed * deltaTime) * state));
+		}
+		else if ((mpOwner->GetY() + CameraManager::GetSingleton()->GetY()) > 400 && dirY == 1)
+		{
+			CameraManager::GetSingleton()->AddY(-(LONG)((moveSpeed * deltaTime) * state));
+		}
 	}
+}
+
+void PlayerMovementComponent::InitFlightTime() noexcept
+{
+	mFlightTime = 0.0f;
+}
+
+void PlayerMovementComponent::SetFlightTime(float value) noexcept
+{
+	mFlightTime = value;
 }

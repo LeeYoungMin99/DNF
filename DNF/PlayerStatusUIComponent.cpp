@@ -10,6 +10,12 @@
 #include "PlayerHeathBar.h"
 #include "Player.h"
 
+PlayerStatusUIComponent::~PlayerStatusUIComponent() noexcept
+{
+	SAFE_RELEASE(mpHPBar);
+	SAFE_RELEASE(mpMPBar);
+}
+
 void PlayerStatusUIComponent::Init()
 {
 	mpPlayerStatusUI = ImageManager::GetSingleton()->FindImage(L"Image/UI/PlayerStatus.png");
@@ -34,6 +40,4 @@ void PlayerStatusUIComponent::Render()
 
 void PlayerStatusUIComponent::Release()
 {
-	SAFE_RELEASE(mpHPBar);
-	SAFE_RELEASE(mpMPBar);
 }
