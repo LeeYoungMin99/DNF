@@ -1,26 +1,21 @@
 #pragma once
 #include "Character.h"
+#include "Ibutton.h"
 
-template <typename T>
 class ButtonComponent;
-
 class AnimatorComponent;
-class Seria : public Character
+class Seria : public Character, IButton
 {
-private:
-	using ButtonComponent = ButtonComponent<Seria>;
-
 public:
 	using Character::Character;
 	virtual ~Seria() noexcept = default;
 
 	virtual void Init() override;
-
 private:
-	void SetIdle();
-	void SetHover();
-	void SetClick();
-	void SetExecute();
+	virtual void OnIdle() override;
+	virtual void OnHover() override;
+	virtual void OnClick() override;
+	virtual void OnExecute() override;
 
 private:
 	AnimatorComponent* mpAnimatorComp = nullptr;

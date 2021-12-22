@@ -24,34 +24,28 @@ void GameStartButton::Init()
 	SetPosition({ 450,548 });
 	collisionRect->SetRectSize({ 0, 0, 170, 47 });
 
-	ButtonComponent::ButtonFunction btnFunction(
-		&GameStartButton::SetIdle,
-		&GameStartButton::SetHover,
-		&GameStartButton::SetClick,
-		&GameStartButton::SetExecute);
-
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
 }
 
-void GameStartButton::SetIdle()
+void GameStartButton::OnIdle()
 {
 	mpAnimatorComp->Play(L"Idle");
 	mpAnimatorComp->Pause();
 }
 
-void GameStartButton::SetHover()
+void GameStartButton::OnHover()
 {
 	mpAnimatorComp->Play(L"Hover");
 	mpAnimatorComp->Pause();
 }
 
-void GameStartButton::SetClick()
+void GameStartButton::OnClick()
 {
 	mpAnimatorComp->Play(L"Click");
 	mpAnimatorComp->Pause();
 }
 
-void GameStartButton::SetExecute()
+void GameStartButton::OnExecute()
 {
 	SceneManager::GetSingleton()->SetNextScene(L"Town");
 }

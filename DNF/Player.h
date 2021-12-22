@@ -38,6 +38,7 @@ public:
 
 	virtual void OnBodyCollided(RECT collisionSize) override;
 	virtual void OnAttackCollided(float strikingPower, float floatingPower) override;
+
 private:
 	eAttackType mAttackType = eAttackType::None;
 	float mHP = 100.0f;

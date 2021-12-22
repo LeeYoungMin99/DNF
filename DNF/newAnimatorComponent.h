@@ -1,37 +1,28 @@
 #pragma once
 #include "Component.h"
+#include "Transition.h"
 
 class Animation;
 class newAnimatorComponent : public Component
 {
+private:
+	using callback_t = bool(*)();
 public:
 	using Component::Component;
 	virtual ~newAnimatorComponent() noexcept;
 
 	virtual void Update() override;
 
-    void        AddParameterBool(const wstring& name, bool value)
-    {
-        mBoolParams[name] = value;
-    }
+	void AddAnimation(const wstring& path, const wstring& animTag);
+	void AddTransition(const wstring& start, const wstring& end, callback_t func);
 
-    void        SetBool(const wstring& name, bool value)
-    {
-        if (mBoolParams.end() != mBoolParams.find(name))
-        {
-            mBoolParams[name] = value;
-        }
-    }
-
-    bool        GetBool(const wstring& name)
-    {
-        return mBoolParams[name];
-    }
+	void SetCurrAnim(const wstring& animTag);
 
 	Animation* GetCurrAnim() noexcept;
 private:
-	unordered_map<wstring, bool> mBoolParams;
-	vector<vector<Animation*>> mpAnimationGraph = {};
+	unordered_map<wstring, vector<Transition<callback_t>>> mGraph;
+	unordered_map<wstring, Animation*> mpAnimations;
+
 	Animation* mpCurrAnim = nullptr;
 };
 

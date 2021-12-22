@@ -28,34 +28,28 @@ void CreateCharacterButton::Init()
 	TextComponent* textComp = new TextComponent(L"캐릭터생성", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
 	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
 
-	ButtonComponent::ButtonFunction btnFunction(
-		&CreateCharacterButton::SetIdle,
-		&CreateCharacterButton::SetHover,
-		&CreateCharacterButton::SetClick,
-		&CreateCharacterButton::SetExecute);
-
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
 }
 
-void CreateCharacterButton::SetIdle()
+void CreateCharacterButton::OnIdle()
 {
 	mpAnimatorComp->Play(L"Idle");
 	mpAnimatorComp->Pause();
 }
 
-void CreateCharacterButton::SetHover()
+void CreateCharacterButton::OnHover()
 {
 	mpAnimatorComp->Play(L"Hover");
 	mpAnimatorComp->Pause();
 }
 
-void CreateCharacterButton::SetClick()
+void CreateCharacterButton::OnClick()
 {
 	mpAnimatorComp->Play(L"Click");
 	mpAnimatorComp->Pause();
 }
 
-void CreateCharacterButton::SetExecute()
+void CreateCharacterButton::OnExecute()
 {
 	cout << "실행" << endl;
 }

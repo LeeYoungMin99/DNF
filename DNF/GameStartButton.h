@@ -1,15 +1,11 @@
 #pragma once
 #include "GameObject.h"
+#include "Ibutton.h"
 
-template <typename T>
 class ButtonComponent;
-
 class AnimatorComponent;
-class GameStartButton : public GameObject
+class GameStartButton : public GameObject, IButton
 {
-private:
-	using ButtonComponent = ButtonComponent<GameStartButton>;
-
 public:
 	using GameObject::GameObject;
 	virtual ~GameStartButton() noexcept = default;
@@ -17,10 +13,10 @@ public:
 	virtual void Init() override;
 
 private:
-	void SetIdle();
-	void SetHover();
-	void SetClick();
-	void SetExecute();
+	virtual void OnIdle() override;
+	virtual void OnHover() override;
+	virtual void OnClick() override;
+	virtual void OnExecute() override;
 
 private:
 	AnimatorComponent* mpAnimatorComp = nullptr;

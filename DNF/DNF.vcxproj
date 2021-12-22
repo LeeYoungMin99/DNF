@@ -199,6 +199,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="HitBoxComponent.h" />
+    <ClInclude Include="Ibutton.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="CharacterSelectScene.h" />

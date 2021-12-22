@@ -12,31 +12,9 @@
 #include "PlayerAttackComponent.h"
 #include "PlayerStatusUIComponent.h"
 
-
-
 #include "Animation.h"
 #include "newAnimatorComponent.h"
 #include "newSpriteComponent.h"
-
-bool IdleCanChange()
-{
-	if (false == (Input::GetButton(VK_LEFT) || Input::GetButtonDown(VK_LEFT)) &&
-		false == (Input::GetButton(VK_RIGHT) || Input::GetButtonDown(VK_RIGHT)) &&
-		false == (Input::GetButton(VK_UP) || Input::GetButtonDown(VK_UP)) &&
-		false == (Input::GetButton(VK_DOWN) || Input::GetButtonDown(VK_DOWN)))
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-bool WalkCanChange()
-{
-
-}
 
 void Player::Init()
 {
@@ -78,12 +56,49 @@ void Player::Init()
 	attackCollisionRectComp->SetRectSize({ 0,0,0,0 });
 	mpAttackHitBoxComp = new HitboxComponent(attackCollisionRectComp, HitboxComponent::eHitBoxType::Attack, this, 93);
 
-	Animation* test = new Animation(L"Image/CharacterMotion/Player/Idle.png", 0, IdleCanChange);
-	Animation* test = new Animation(L"Image/CharacterMotion/Player/walk.png", 1, IdleCanChange);
+	newAnimatorComponent* newAnimatorComp = new newAnimatorComponent(this);
+	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/Idle.png", L"Idle");
+	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/Walk.png", L"Walk");
+	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/SnakeDance.png", L"SnakeDance");
 
-	newAnimatorComponent* newAniComp = new newAnimatorComponent(this);
-	newSpriteComponent* newSpriteComp = new newSpriteComponent(newAniComp, this);
+	newAnimatorComp->AddTransition(L"Idle", L"Walk", []() {
+		if (Input::GetButton(VK_LEFT) || Input::GetButton(VK_RIGHT) || Input::GetButton(VK_UP) || Input::GetButton(VK_DOWN))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		});
+	newAnimatorComp->AddTransition(L"Walk", L"Idle", []() {
+		if (false == (Input::GetButton(VK_LEFT) || Input::GetButtonDown(VK_LEFT)) &&
+			false == (Input::GetButton(VK_RIGHT) || Input::GetButtonDown(VK_RIGHT)) &&
+			false == (Input::GetButton(VK_UP) || Input::GetButtonDown(VK_UP)) &&
+			false == (Input::GetButton(VK_DOWN) || Input::GetButtonDown(VK_DOWN)) &&
+			false == (Input::GetButtonDown('C') || Input::GetButtonDown('X')))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}});
+	newAnimatorComp->AddTransition(L"Idle", L"SnakeDance", []() {
+		if (Input::GetButtonDown('A'))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}});
+	newAnimatorComp->AddTransition(L"SnakeDance", L"Idle", []() {
+		return true;
+		});
 
+	newAnimatorComp->SetCurrAnim(L"Idle");
+	newSpriteComponent* newSpriteComp = new newSpriteComponent(newAnimatorComp, this);
 
 	Character::Init();
 }

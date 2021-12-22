@@ -10,7 +10,7 @@ class ImageManager;
 class Animation : public GameEntity
 {
 public:
-	Animation(const wstring path, int animTag, bool(*callback)())
+	Animation(const wstring& path, const wstring& animTag)
 	{
 		mpImage = ImageManager::GetSingleton()->FindImage(path);
 		mAnimTag = animTag;
@@ -19,7 +19,7 @@ public:
 		mAnimationSpeed = mpImage->GetAnimationSpeed();
 		mbIsLoop = mpImage->GetIsLoop();
 
-		mpCallback = callback;
+		if (mbIsLoop) { mbIsEnd = true; }
 	}
 
 	virtual ~Animation() noexcept = default;
@@ -30,8 +30,6 @@ public:
 
 	virtual void Update() override
 	{
-		if (mbIsEnd) { return; }
-
 		mElapsedTime += Timer::GetDeltaTime();
 
 		if (mElapsedTime >= mAnimationSpeed)
@@ -54,20 +52,17 @@ public:
 		}
 	}
 
-	int GetAnimTag() const noexcept { return mAnimTag; }
-	int GetCurrFrame() const noexcept { return mCurrFrame; }
-	bool GetIsEnd() const noexcept { return mbIsEnd; }
+	wstring GetAnimTag() const noexcept { return mAnimTag; }
 	Image* GetImage() const noexcept { return mpImage; }
+	int GetCurrFrame() const noexcept { return mCurrFrame; }
+	bool GetIsLoop() const noexcept { return mbIsLoop; }
+	bool IsEnd() const noexcept { return mbIsEnd; }
 
-	bool CanChange() const
-	{
-		return mpCallback;
-	}
-
+	void SetCurrFrame(int frame) noexcept { mCurrFrame = frame; }
+	void SetIsEnd(bool b) noexcept { mbIsEnd = b; }
 private:
-	bool(*mpCallback)() = nullptr;
 	Image* mpImage = nullptr;
-	int mAnimTag = 0;
+	wstring mAnimTag = {};
 
 	int mCurrFrame = 0;
 	int mMaxFrame = 0;

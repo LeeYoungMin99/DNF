@@ -20,41 +20,34 @@ void GameShutDownButton::Init()
 
 	GameObject::Init();
 	RectComponent* collisionRect = new RectComponent(this);
-	SetPosition({ 630,559 });	
+	SetPosition({ 630,559 });
 	collisionRect->SetRectSize({ 0,0,56,24 });
-
 
 	TextComponent* textComp = new TextComponent(L"게임종료", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
 	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
 
-	ButtonComponent::ButtonFunction btnFunction(
-		&GameShutDownButton::SetIdle,
-		&GameShutDownButton::SetHover,
-		&GameShutDownButton::SetClick,
-		&GameShutDownButton::SetExecute);
-
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
 }
 
-void GameShutDownButton::SetIdle()
+void GameShutDownButton::OnIdle()
 {
 	mpAnimatorComp->Play(L"Idle");
 	mpAnimatorComp->Pause();
 }
 
-void GameShutDownButton::SetHover()
+void GameShutDownButton::OnHover()
 {
 	mpAnimatorComp->Play(L"Hover");
 	mpAnimatorComp->Pause();
 }
 
-void GameShutDownButton::SetClick()
+void GameShutDownButton::OnClick()
 {
 	mpAnimatorComp->Play(L"Click");
 	mpAnimatorComp->Pause();
 }
 
-void GameShutDownButton::SetExecute()
+void GameShutDownButton::OnExecute()
 {
 	PostQuitMessage(0);
 }

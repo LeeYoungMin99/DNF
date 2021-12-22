@@ -22,29 +22,23 @@ void Seria::Init()
 	SetPosition({ 600 ,350 });
 	collisionRect->SetRectSize({ -35,-150,36,0 });
 
-	ButtonComponent::ButtonFunction btnFunction(
-		&Seria::SetIdle,
-		&Seria::SetHover,
-		&Seria::SetClick,
-		&Seria::SetExecute);
-
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
 }
 
-void Seria::SetIdle()
+void Seria::OnIdle()
 {
 	mpAnimatorComp->Play(L"Idle");
 }
 
-void Seria::SetHover()
+void Seria::OnHover()
 {
 	mpAnimatorComp->Play(L"Hover");
 }
 
-void Seria::SetClick()
+void Seria::OnClick()
 {
 }
 
-void Seria::SetExecute()
+void Seria::OnExecute()
 {
 }

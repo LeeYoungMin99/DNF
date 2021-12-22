@@ -28,34 +28,28 @@ void DeleteCharacterButton::Init()
 	TextComponent* textComp = new TextComponent(L"캐릭터삭제", L"모리스9", 11.0f, D2D1::ColorF(185.0f / 255.0f, 148.0f / 255.0f, 96.0f / 255.0f), this, 101);
 	textComp->SetRect({ GetX(),GetY(),GetX() + 56,GetY() + 24 });
 
-	ButtonComponent::ButtonFunction btnFunction(
-		&DeleteCharacterButton::SetIdle,
-		&DeleteCharacterButton::SetHover,
-		&DeleteCharacterButton::SetClick,
-		&DeleteCharacterButton::SetExecute);
-
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, btnFunction, this);
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
 }
 
-void DeleteCharacterButton::SetIdle()
+void DeleteCharacterButton::OnIdle()
 {
 	mpAnimatorComp->Play(L"Idle");
 	mpAnimatorComp->Pause();
 }
 
-void DeleteCharacterButton::SetHover()
+void DeleteCharacterButton::OnHover()
 {
 	mpAnimatorComp->Play(L"Hover");
 	mpAnimatorComp->Pause();
 }
 
-void DeleteCharacterButton::SetClick()
+void DeleteCharacterButton::OnClick()
 {
 	mpAnimatorComp->Play(L"Click");
 	mpAnimatorComp->Pause();
 }
 
-void DeleteCharacterButton::SetExecute()
+void DeleteCharacterButton::OnExecute()
 {
 	cout << "실행" << endl;
 }

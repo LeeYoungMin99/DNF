@@ -281,6 +281,9 @@
     <ClInclude Include="newSpriteComponent.h" />
     <ClInclude Include="newAnimatorComponent.h" />
     <ClInclude Include="Transition.h" />
+    <ClInclude Include="Ibutton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">
