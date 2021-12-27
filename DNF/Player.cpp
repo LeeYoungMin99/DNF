@@ -18,7 +18,7 @@
 
 void Player::Init()
 {
-	SetPosition({ 500,450 });
+	SetPosition({ 600,520 });
 
 	PlayerStatusComponent* statusComp = new PlayerStatusComponent(this, 0);
 
