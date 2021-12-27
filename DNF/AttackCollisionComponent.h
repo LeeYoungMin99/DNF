@@ -17,7 +17,7 @@ public:
 	int						GetZTop()			const;
 	int						GetZBottom()		const;
 
-	void					SetAttack(const RECT& size, float top, float bottom, float floatingPower);
+	void					SetAttack(const RECT& size, int top, int bottom, float floatingPower);
 
 	void					AddHitObj(GameObject* hitChar) { _hitObjs.push_back(hitChar); }
 	

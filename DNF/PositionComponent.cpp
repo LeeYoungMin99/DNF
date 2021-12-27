@@ -10,7 +10,7 @@ void PositionComponent::Update()
 
 	if (_acceleration != 0.0f)
 	{
-		AddZ((int)_acceleration - _resistance);
+		AddZ((int)(_acceleration - _resistance));
 	}
 
 	if (_z > 0)

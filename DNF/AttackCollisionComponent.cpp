@@ -33,7 +33,7 @@ int AttackCollisionComponent::GetZBottom() const
 	return (-_posComp->GetZ()) + _zBottom;
 }
 
-void AttackCollisionComponent::SetAttack(const RECT& size, float top, float bottom, float floatingPower)
+void AttackCollisionComponent::SetAttack(const RECT& size, int top, int bottom, float floatingPower)
 {
 	_collider->SetRectSize(size);
 	_zTop = top;

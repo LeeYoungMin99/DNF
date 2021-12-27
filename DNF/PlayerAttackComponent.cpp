@@ -43,6 +43,12 @@ void PlayerAttackComponent::Update()
 		if (currFrame == 1) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 2) { _atkComp->ClearHitObjs(); }
 		break;
+	case state::JumpAttack:
+		if (currFrame == 1) { SetAttack({ -130,-35,130,15 }, -200, 30, 0.0f); };
+		if (currFrame == 2) { _atkComp->ClearHitObjs(); };
+		if (currFrame == 3) { _atkComp->ClearHitObjs(); };
+		if (currFrame == 4) { _atkComp->ClearHitObjs(); };
+		break;
 	case state::DashAttackStart:
 		if (currFrame == 2) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); }

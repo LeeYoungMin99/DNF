@@ -23,7 +23,7 @@ LRESULT MainGame::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-MainGame::~MainGame() 
+MainGame::~MainGame()
 {
 }
 
@@ -63,8 +63,8 @@ bool MainGame::Init(HINSTANCE hInst)
 		D2D1::HwndRenderTargetProperties(_hWnd, D2D1::SizeU(cr.right - cr.left, cr.bottom - cr.top)),
 		&gpRenderTarget);
 
-	CoInitialize(nullptr);
-	CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&gpImagingFactory));
+	if (FAILED(CoInitialize(nullptr))) { ASSERT_CRASH(true); }
+	if (FAILED(CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&gpImagingFactory)))) { ASSERT_CRASH(true); }
 
 	Input::Init(_hWnd);
 	ImageManager::GetSingleton()->Init();
