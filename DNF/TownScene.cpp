@@ -24,8 +24,8 @@ void TownScene::Init()
 	MapCollider* mapRightCollider = new MapCollider({ 900,0,1200,600 }, this, L"MapColliderRight");
 	MapCollider* mapBottomCollider = new MapCollider({ 0,600,1200,800 }, this, L"MapColliderBottom");
 
-	Player* player = new Player(this, L"Player");
 	Seria* seria = new Seria(this, L"Seria");
+	Player* player = new Player(this, L"Player");
 
 	Scene::Init();
 
