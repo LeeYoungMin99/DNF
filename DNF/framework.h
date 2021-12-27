@@ -25,8 +25,10 @@
 #include <fstream>
 #include <chrono>
 #include <vector>
+#include <functional>
 #include <algorithm>
 #include <unordered_map>
+#include <stack>
 #include <queue>
 #include <string>
 #include <type_traits>
@@ -36,13 +38,6 @@
 #include "Macro.h"
 #include "Input.h"
 #include "Timer.h"
-
-#include <json/json.h>
-#ifdef _DEBUG
-#pragma comment(lib,"jsoncppd.lib")
-#else
-#pragma comment(lib,"jsoncpp.lib")
-#endif
 
 // imaingFactory 생성을 위한 include
 #include <dwrite_3.h>
@@ -66,9 +61,6 @@ extern IWICImagingFactory* gpImagingFactory;
 // 전처리문
 #pragma comment(lib, "D2D1.lib")
 #pragma comment(lib, "Dwrite.lib")
-
-#define SAFE_RELEASE(p)	{ if (p) { p->Release(); delete p; p = nullptr; } }
-#define SAFE_DELETE(p)	{ if (p) { delete p; p = nullptr; } }
 
 using namespace std;
 using namespace std::chrono;

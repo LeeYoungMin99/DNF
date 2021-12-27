@@ -2,27 +2,33 @@
 #include "Singleton.h"
 #include "GameEntity.h"
 
+class Player;
 class CameraManager : public Singleton<CameraManager>, public GameEntity
 {
 public:
 	CameraManager() = default;
-	virtual ~CameraManager() noexcept = default;
+	virtual ~CameraManager() = default;
 
-	LONG GetX();
-	LONG GetY();
-	void SetCameraPos(LONG posX, LONG posY);
-	void AddX(LONG x);
-	void AddY(LONG y);
-	void SetCameraMaxPos(LONG maxX, LONG maxY);
-	void SetCameraMinPos(LONG minX, LONG minY);
+	virtual void Init() override {}
+	virtual void Render() override {}
+	virtual void Release() override {}
 
-	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render() override;
-	virtual void Release() override;
+
+	LONG		GetX() const { return _pos.x; }
+	LONG		GetY() const { return _pos.y; }
+
+	void		SetCameraPos(const LONG& posX, const LONG& posY);
+	void		SetCameraMaxPos(const LONG& maxX, const LONG& maxY);
+	void		SetCameraMinPos(const LONG& minX, const LONG& minY);
+	void		SetPlayer(Player* player) { _player = player; }
+
+	void		AddX(const LONG& x);
+	void		AddY(const LONG& y);
 private:
-	POINT mPos = {};
-	POINT mMaxPos = {};
-	POINT mMinPos = {};
+	POINT		_pos = {};
+	POINT		_maxPos = {};
+	POINT		_minPos = {};
+	Player*		_player = nullptr;
 };
 

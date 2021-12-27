@@ -17,5 +17,5 @@ public:
 		return &instance;
 	}
 protected:
-	Singleton() noexcept = default;
+	Singleton()  = default;
 };

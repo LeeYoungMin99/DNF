@@ -32,11 +32,17 @@
     <Filter Include="2D Framework\GameObject\Charactor">
       <UniqueIdentifier>{762179c6-4359-4f93-9861-07b0d707ca9f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\GameObject\UI">
-      <UniqueIdentifier>{25c21c33-719b-428c-8b6b-2466bad2d6aa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="2D Framework\Manager\Singleton">
       <UniqueIdentifier>{8a5c137d-bdd0-47d2-865b-c7d1cb99cd18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Component\Player">
+      <UniqueIdentifier>{e4db49d2-8813-4daa-a654-d0abe5351af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Component\Animation">
+      <UniqueIdentifier>{fc5de651-db90-4a01-be7b-82431ff2690f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Component\Goblin">
+      <UniqueIdentifier>{860cc48e-74fd-4976-a20d-6e1d857c6d09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,37 +70,7 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterSelectScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
-      <Filter>Scene</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RectComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="GameStartButton.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="GameShutDownButton.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="CreateCharacterButton.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="DeleteCharacterButton.cpp">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="RendererComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatorComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
@@ -109,32 +85,11 @@
     <ClCompile Include="Player.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMovementComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerAttackComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Seria.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
     <ClCompile Include="TownScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerHeathBar.cpp">
-      <Filter>2D Framework\GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="HitBoxComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerStatusUIComponent.cpp">
-      <Filter>2D Framework\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CameraManager.cpp">
       <Filter>2D Framework\Manager\Singleton</Filter>
@@ -145,10 +100,60 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClCompile>
-    <ClCompile Include="Animation.cpp" />
-    <ClCompile Include="newSpriteComponent.cpp" />
-    <ClCompile Include="newAnimatorComponent.cpp" />
-    <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="RectColliderComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerAttackComponent.cpp">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMovementComponent.cpp">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerStatusComponent.cpp">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PositionComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Transition.cpp">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatorComponent.cpp">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTransformComponent.cpp">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCommandComponent.cpp">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="GoblinStatusComponent.cpp">
+      <Filter>2D Framework\Component\Goblin</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCollisionComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="BodyCollisionComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCollider.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -193,37 +198,7 @@
     <ClInclude Include="GameEntity.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterSelectScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>Scene</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RectComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStartButton.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="GameShutDownButton.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="CreateCharacterButton.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="DeleteCharacterButton.h">
-      <Filter>2D Framework\GameObject\Button</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="RendererComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatorComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
@@ -244,29 +219,8 @@
     <ClInclude Include="Player.h">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerMovementComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerAttackComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Seria.h">
       <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerHeathBar.h">
-      <Filter>2D Framework\GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="HitBoxComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerStatusUIComponent.h">
-      <Filter>2D Framework\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CameraManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
@@ -277,12 +231,62 @@
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h" />
-    <ClInclude Include="newSpriteComponent.h" />
-    <ClInclude Include="newAnimatorComponent.h" />
-    <ClInclude Include="Transition.h" />
     <ClInclude Include="Ibutton.h">
       <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="RectColliderComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerAttackComponent.h">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMovementComponent.h">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerStatusComponent.h">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PositionComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Transition.h">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatorComponent.h">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>2D Framework\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTransformComponent.h">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCommandComponent.h">
+      <Filter>2D Framework\Component\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Goblin.h">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="GoblinStatusComponent.h">
+      <Filter>2D Framework\Component\Goblin</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackCollisionComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BodyCollisionComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCollider.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleScene.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

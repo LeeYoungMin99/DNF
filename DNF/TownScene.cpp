@@ -1,57 +1,65 @@
 #include "stdafx.h"
 #include "TownScene.h"
 
+#include "Sprite.h"
+
 #include "Player.h"
 #include "Seria.h"
-#include "Sprite.h"
+#include "Goblin.h"
+#include "MapCollider.h"
+
+#include "Component.h"
+#include "RectColliderComponent.h"
+#include "BodyCollisionComponent.h"
+#include "AttackCollisionComponent.h"
 
 #include "ImageManager.h"
 #include "CameraManager.h"
-#include "CollisionManager.h"
 
 void TownScene::Init()
 {
-	Sprite* seriaRoomBackground = new Sprite(this, L"SeriaRoomBackground");
-	seriaRoomBackground->SetImage(ImageManager::GetSingleton()->FindImage(L"Image/Elvengard/SeriaRoom/Background.png"));
+	Sprite* seriaRoomBackground = new Sprite(L"Image/Elvengard/SeriaRoom/Background.png", this, L"SeriaRoomBackground");
+	MapCollider* mapLeftCollider = new MapCollider({ 0,0,200,600 }, this, L"MapColliderLeft");
+	MapCollider* mapTopCollider = new MapCollider({ 0,0,1200,400 }, this, L"MapColliderTop");
+	MapCollider* mapRightCollider = new MapCollider({ 900,0,1200,600 }, this, L"MapColliderRight");
+	MapCollider* mapBottomCollider = new MapCollider({ 0,600,1200,800 }, this, L"MapColliderBottom");
 
-	mpPlayer = new Player(this, L"Player");
+	Player* player = new Player(this, L"Player");
 	Seria* seria = new Seria(this, L"Seria");
 
 	Scene::Init();
 
-	seriaRoomBackground->SetAreaNumber((int)eAreaTag::SeriaRoom);
-	seria->SetAreaNumber((int)eAreaTag::SeriaRoom);
-
-	mpPlayer->SetPosition({ 600,500 });
-	mpPlayer->SetMoveSpeed(200);
-	mpPlayer->SetAreaNumber((int)eAreaTag::SeriaRoom);
-
+	CameraManager::GetSingleton()->SetPlayer(player);
 	CameraManager::GetSingleton()->SetCameraMaxPos(0, 0);
 	CameraManager::GetSingleton()->SetCameraMinPos(-133, 0);
 }
 
 void TownScene::Update()
 {
-	int playerCurrArea = mpPlayer->GetAreaNumber();
+	Scene::Update();
 
-	//테스트코드
-	if (Input::GetButtonDown('2')) { mpPlayer->SetAreaNumber(!((bool)playerCurrArea)); }
+#pragma region MovePhysics
 
-	for (GameObject* obj : mObjects)
+	RECT collisionRect = {};
+	RECT objCollider = {};
+	RECT mapCollider = {};
+
+	for (size_t i = 4; i < _objBodyCollider.size(); ++i)
 	{
-		if (playerCurrArea == obj->GetAreaNumber())
+		objCollider = _objBodyCollider[i]->GetCollider()->GetRect();
+
+		for (size_t j = 0; j < 4; ++j)
 		{
-			obj->Update();
-			mpRenderOrder.push(obj);
+			mapCollider = _objBodyCollider[j]->GetCollider()->GetRect();
+
+			if (IntersectRect(&collisionRect, &objCollider, &mapCollider))
+			{
+				_objBodyCollider[i]->OnCollided(collisionRect);
+			}
 		}
 	}
-}
 
-void TownScene::Render()
-{
-	while (mpRenderOrder.empty() == false)
-	{
-		mpRenderOrder.top()->Render();
-		mpRenderOrder.pop();
-	}
+#pragma endregion
+
+	CameraManager::GetSingleton()->Update();
 }

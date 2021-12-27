@@ -1,76 +1,39 @@
 #pragma once
 #include "GameEntity.h"
 
-#include "Image.h"
-#include "ImageManager.h"
-#include <functional>
-
 class Image;
-class ImageManager;
 class Animation : public GameEntity
 {
 public:
-	Animation(const wstring& path, const wstring& animTag)
-	{
-		mpImage = ImageManager::GetSingleton()->FindImage(path);
-		mAnimTag = animTag;
+	Animation(const wstring& path, const wstring& animTag);
 
-		mMaxFrame = mpImage->GetMaxFrameX();
-		mAnimationSpeed = mpImage->GetAnimationSpeed();
-		mbIsLoop = mpImage->GetIsLoop();
+	virtual ~Animation() = default;
 
-		if (mbIsLoop) { mbIsEnd = true; }
-	}
-
-	virtual ~Animation() noexcept = default;
-
-	virtual void Init() override {}
 	virtual void Render() override {}
 	virtual void Release() override {}
 
-	virtual void Update() override
-	{
-		mElapsedTime += Timer::GetDeltaTime();
+	virtual void Init() override;
+	virtual void Update() override;
 
-		if (mElapsedTime >= mAnimationSpeed)
-		{
-			mElapsedTime -= mAnimationSpeed;
+	wstring		GetAnimTag()	const  { return _animTag; }
+	Image*		GetImage()		const  { return _image; }
+	int			GetCurrFrame()	const  { return _curFrame; }
+	bool		IsEnd()			const  { return _bIsEnd; }
+	bool		CanCancel()		const  { return _bCanCancel; }
 
-			++mCurrFrame;
-
-			if (mMaxFrame == mCurrFrame)
-			{
-				if (mbIsLoop)
-				{
-					mCurrFrame = 0;
-				}
-				else
-				{
-					mbIsEnd = true;
-				}
-			}
-		}
-	}
-
-	wstring GetAnimTag() const noexcept { return mAnimTag; }
-	Image* GetImage() const noexcept { return mpImage; }
-	int GetCurrFrame() const noexcept { return mCurrFrame; }
-	bool GetIsLoop() const noexcept { return mbIsLoop; }
-	bool IsEnd() const noexcept { return mbIsEnd; }
-
-	void SetCurrFrame(int frame) noexcept { mCurrFrame = frame; }
-	void SetIsEnd(bool b) noexcept { mbIsEnd = b; }
+	void		SetCurrFrame(int frame)	{ _curFrame = frame; }
+	void		SetIsEnd(bool b)		{ _bIsEnd = b; }
+	void		SetCanCancel(bool b)	{ _bCanCancel = b; }
 private:
-	Image* mpImage = nullptr;
-	wstring mAnimTag = {};
-
-	int mCurrFrame = 0;
-	int mMaxFrame = 0;
-
-	float mElapsedTime = 0.0f;
-	float mAnimationSpeed = 0.0f;
-
-	bool mbIsLoop = false;
-	bool mbIsEnd = false;
+	Image*		_image = nullptr;
+	wstring		_animTag = {};
+	int			_curFrame = 0;
+	int			_maxFrame = 0;
+	int			_canCancelFrame = 0;
+	float		_elapsedTime = 0.0f;
+	float		_animationSpeed = 0.0f;
+	bool		_bIsLoop = false;
+	bool		_bIsEnd = false;
+	bool		_bCanCancel = false;
 };
 

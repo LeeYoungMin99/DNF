@@ -1,38 +1,26 @@
 #pragma once
 #include "GameEntity.h"
 
-class newAnimatorComponent;
-class Animation;
-template<typename T>
+class GameObject;
+class AnimatorComponent;
 class Transition : public GameEntity
 {
+private:
+	using function = function<bool(GameObject*, const int&)>;
 public:
-	Transition(const T& func, const wstring& nextAnimTag, newAnimatorComponent* animComp)
-	{
-		mpCallback = func;
-		mNextAnimTag = nextAnimTag;
-		mpAnimComp = animComp;
-	}
+	Transition(function func, const wstring& nextAnimTag, int transitionValue, AnimatorComponent* animComp);
+	virtual ~Transition() = default;
 
 	virtual void Init() override {}
-	virtual void Update() override {}
 	virtual void Render() override {}
 	virtual void Release() override {}
 
-	bool CanChange()
-	{
-		return mpCallback();
-	}
+	virtual void Update() override;
 
-	wstring GetNextAnimTag() const noexcept
-	{
-		return mNextAnimTag;
-	}
-
+	wstring				GetNextAnimTag() const { return _nextAnimTag; }
 private:
-	newAnimatorComponent* mpAnimComp = nullptr;
-
-	wstring mNextAnimTag = {};
-
-	T mpCallback = {};
+	AnimatorComponent*	_animComp = nullptr;
+	int					_transitionValue = 0;
+	wstring				_nextAnimTag = {};
+	function			_callback = {};
 };

@@ -4,17 +4,17 @@
 
 Scene::~Scene()
 {
-	for (auto& obj : mObjects)
+	for (auto& obj : _objects)
 	{
 		delete obj;
 		obj = nullptr;
 	}
-	mObjects.clear();
+	_objects.clear();
 }
 
 void Scene::Init()
 {
-	for (GameObject* obj : mObjects)
+	for (GameObject* obj : _objects)
 	{
 		obj->Init();
 	}
@@ -22,7 +22,7 @@ void Scene::Init()
 
 void Scene::Update()
 {
-	for (GameObject* obj : mObjects)
+	for (GameObject* obj : _objects)
 	{
 		obj->Update();
 	}
@@ -30,7 +30,7 @@ void Scene::Update()
 
 void Scene::Render()
 {
-	for (GameObject* obj : mObjects)
+	for (GameObject* obj : _objects)
 	{
 		obj->Render();
 	}
@@ -38,7 +38,7 @@ void Scene::Render()
 
 void Scene::Release()
 {
-	for (GameObject* obj : mObjects)
+	for (GameObject* obj : _objects)
 	{
 		obj->Release();
 	}
@@ -46,12 +46,22 @@ void Scene::Release()
 
 void Scene::AddObject(GameObject* obj)
 {
-	mObjects.push_back(obj);
+	_objects.push_back(obj);
+}
+
+void Scene::AddBodyCollider(BodyCollisionComponent* bodyCollider)
+{
+	_objBodyCollider.push_back(bodyCollider);
+}
+
+void Scene::AddAttackCollider(AttackCollisionComponent* atkCollider)
+{
+	_objAttackCollider.push_back(atkCollider);
 }
 
 void Scene::RemoveObject(const wstring& tag)
 {
-	remove_if(mObjects.begin(), mObjects.end(),
+	remove_if(_objects.begin(), _objects.end(),
 		[&tag](const GameObject* obj)
 		{
 			return obj->GetTag() == tag;

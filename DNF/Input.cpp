@@ -6,12 +6,12 @@ bool Input::_prevKeyStates[256] = { false };
 POINT Input::_mousePosition = {};
 HWND Input::_hWnd = {};
 
-void Input::Init(HWND hWnd) noexcept
+void Input::Init(HWND hWnd) 
 {
 	_hWnd = hWnd;
 }
 
-void Input::Update() noexcept
+void Input::Update() 
 {
 	memcpy(_prevKeyStates, _currentKeyStates, sizeof(_currentKeyStates));
 
@@ -31,22 +31,22 @@ void Input::Update() noexcept
 	ScreenToClient(_hWnd, &_mousePosition);
 }
 
-bool Input::GetButton(BYTE vkey) noexcept
+bool Input::GetButton(BYTE vkey) 
 {
 	return (_currentKeyStates[vkey] && _prevKeyStates[vkey]);
 }
 
-bool Input::GetButtonDown(BYTE vkey) noexcept
+bool Input::GetButtonDown(BYTE vkey) 
 {
 	return (_currentKeyStates[vkey] && _prevKeyStates[vkey] == false);
 }
 
-bool Input::GetButtonUp(BYTE vkey) noexcept
+bool Input::GetButtonUp(BYTE vkey) 
 {
 	return (_currentKeyStates[vkey] == false && _prevKeyStates[vkey]);
 }
 
-POINT Input::GetMousePosition() noexcept
+POINT Input::GetMousePosition() 
 {
 	return _mousePosition;
 }

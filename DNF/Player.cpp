@@ -1,177 +1,146 @@
 #include "stdafx.h"
 #include "Player.h"
 
+#include "Animation.h"
 #include "AnimatorComponent.h"
 #include "SpriteComponent.h"
-#include "RendererComponent.h"
 
-#include "RectComponent.h"
-#include "HitBoxComponent.h"
+#include "RectColliderComponent.h"
+#include "BodyCollisionComponent.h"
+#include "AttackCollisionComponent.h"
 
+#include "PositionComponent.h"
+#include "PlayerTransformComponent.h"
 #include "PlayerMovementComponent.h"
 #include "PlayerAttackComponent.h"
-#include "PlayerStatusUIComponent.h"
-
-#include "Animation.h"
-#include "newAnimatorComponent.h"
-#include "newSpriteComponent.h"
+#include "PlayerStatusComponent.h"
+#include "PlayerCommandComponent.h"
 
 void Player::Init()
 {
-	AnimatorComponent* animatorComp = new AnimatorComponent(this, 101);
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/Idle.png", this), L"Idle");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/Walk.png", this), L"Walk");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/Run.png", this), L"Run");
+	SetPosition({ 500,450 });
 
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/Jump.png", this), L"Jump");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/JumpDownIdle.png", this), L"JumpDownIdle");
+	PlayerStatusComponent* statusComp = new PlayerStatusComponent(this, 0);
 
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/Damaged.png", this), L"Damaged");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/JumpDownDamaged.png", this), L"JumpDownDamaged");
+#pragma region AddAnimation
 
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack1.png", this), L"NormalAttack1");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack2.png", this), L"NormalAttack2");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack3.png", this), L"NormalAttack3");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack4.png", this), L"NormalAttack4");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack5.png", this), L"NormalAttack5");
+	AnimatorComponent* animComp = new AnimatorComponent(this, 102);
 
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/NormalAttack2.png", this), L"DashAttack1");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/DashAttack2.png", this), L"DashAttack2");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Idle.png", L"Idle");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Walk.png", L"Walk");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Run.png", L"Run");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump1.png", L"Jump1");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump2.png", L"Jump2");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump3.png", L"Jump3");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/JumpDownIdle.png", L"JumpDownIdle");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/JumpAttack.png", L"JumpAttack");
 
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/JumpAttack.png", this), L"JumpAttack");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack1.png", L"NormalAttack1");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack2.png", L"NormalAttack2");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack3.png", L"NormalAttack3");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack4.png", L"NormalAttack4");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack5.png", L"NormalAttack5");
 
-	//Skill
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Player/SnakeDance.png", this), L"SnakeDance");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/NormalAttack2.png", L"DashAttackStart"); // NormalAttack2 랑 이미지 같음.
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/DashAttackEnd.png", L"DashAttackEnd");
 
-	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 102);
-	PlayerMovementComponent* movementComp = new PlayerMovementComponent(this, 91);
-	PlayerAttackComponent* attackComp = new PlayerAttackComponent(this, 90);
-	PlayerStatusUIComponent* statusComp = new PlayerStatusUIComponent(this, 103);
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/UpperSlash.png", L"Upper");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/SnakeDance.png", L"SnakeDance");
 
-	RectComponent* bodyCollisionRectComp = new RectComponent(this, 94);
-	bodyCollisionRectComp->SetRectSize({ -26,-30,26,10 });
-	HitboxComponent* bodyHitboxComp = new HitboxComponent(bodyCollisionRectComp, HitboxComponent::eHitBoxType::Body, this, 95);
+#pragma endregion
 
-	RectComponent* attackCollisionRectComp = new RectComponent(this, 92);
-	attackCollisionRectComp->SetRectSize({ 0,0,0,0 });
-	mpAttackHitBoxComp = new HitboxComponent(attackCollisionRectComp, HitboxComponent::eHitBoxType::Attack, this, 93);
+#pragma region AddTransition
 
-	newAnimatorComponent* newAnimatorComp = new newAnimatorComponent(this);
-	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/Idle.png", L"Idle");
-	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/Walk.png", L"Walk");
-	newAnimatorComp->AddAnimation(L"Image/CharacterMotion/Player/SnakeDance.png", L"SnakeDance");
+	using state = PlayerStatusComponent::ePlayerState;
 
-	newAnimatorComp->AddTransition(L"Idle", L"Walk", []() {
-		if (Input::GetButton(VK_LEFT) || Input::GetButton(VK_RIGHT) || Input::GetButton(VK_UP) || Input::GetButton(VK_DOWN))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		});
-	newAnimatorComp->AddTransition(L"Walk", L"Idle", []() {
-		if (false == (Input::GetButton(VK_LEFT) || Input::GetButtonDown(VK_LEFT)) &&
-			false == (Input::GetButton(VK_RIGHT) || Input::GetButtonDown(VK_RIGHT)) &&
-			false == (Input::GetButton(VK_UP) || Input::GetButtonDown(VK_UP)) &&
-			false == (Input::GetButton(VK_DOWN) || Input::GetButtonDown(VK_DOWN)) &&
-			false == (Input::GetButtonDown('C') || Input::GetButtonDown('X')))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}});
-	newAnimatorComp->AddTransition(L"Idle", L"SnakeDance", []() {
-		if (Input::GetButtonDown('A'))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}});
-	newAnimatorComp->AddTransition(L"SnakeDance", L"Idle", []() {
-		return true;
-		});
-
-	newAnimatorComp->SetCurrAnim(L"Idle");
-	newSpriteComponent* newSpriteComp = new newSpriteComponent(newAnimatorComp, this);
-
-	Character::Init();
-}
-
-void Player::InitAttackHitbox()
-{
-	mpAttackHitBoxComp->SetAttack(0.0f, 0.0f, { 0,0,0,0 });
-}
-
-void Player::SetAttackType(eAttackType atkType) noexcept
-{
-	mAttackType = atkType;
-}
-
-void Player::SetAttackHitbox(float strikingPower, float floatingPower, RECT rect) noexcept
-{
-	mpAttackHitBoxComp->SetAttack(strikingPower, floatingPower, rect);
-}
-
-void Player::AddHP(float value) noexcept
-{
-	mHP += value;
-}
-
-void Player::AddMP(float value) noexcept
-{
-	mMP += value;
-}
-
-Player::eAttackType Player::GetAttackType() const noexcept
-{
-	return mAttackType;
-}
-
-float Player::GetHP() const noexcept
-{
-	return mHP;
-}
-
-float Player::GetMP() const noexcept
-{
-	return mMP;
-}
-
-void Player::OnBodyCollided(RECT intersectionRect)
-{
-	int width = intersectionRect.right - intersectionRect.left;
-	int height = intersectionRect.bottom - intersectionRect.top;
-
-	if (width > height)
+	auto CanChange = [](GameObject* owner, const int& nextStateNum) {if ((int)(owner->GetComponent<PlayerStatusComponent>()->GetState()) == nextStateNum)
 	{
-		if (intersectionRect.top == mpBodyHitBoxComp->GetRect().top) { AddY(height); }
-		else { AddY(-height); }
+		return true;
 	}
 	else
 	{
-		if (intersectionRect.left == mpBodyHitBoxComp->GetRect().left) { AddX(width); }
-		else { AddX(-width); }
+		return false;
 	}
-}
+	};
 
-void Player::OnAttackCollided(float strikingPower, float floatingPower)
-{
-	GetComponent<AnimatorComponent>()->Play(L"Damaged");
-	AddHP(-strikingPower);
-	SetState(eState::Damaged);
+	animComp->AddTransition(L"Idle", L"Walk", (int)state::Walk, CanChange);
+	animComp->AddTransition(L"Idle", L"Run", (int)state::Run, CanChange);
+	animComp->AddTransition(L"Walk", L"Run", (int)state::Run, CanChange);
+	animComp->AddTransition(L"Run", L"Walk", (int)state::Walk, CanChange);
 
-	SetAcceleration(floatingPower);
-	GetComponent<PlayerMovementComponent>()->SetFlightTime(0.0f);
+	animComp->AddTransition(L"Idle", L"Jump1", CanChange, (int)state::Jump);
+	animComp->AddTransition(L"Walk", L"Jump1", CanChange, (int)state::Jump);
+	animComp->AddTransition(L"Run", L"Jump1", CanChange, (int)state::Jump);
+	animComp->AddTransition(L"Jump1", L"Jump2", [](GameObject* owner, int height)
+		{
+			if (owner->GetComponent<PositionComponent>()->GetZ() >= height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}}, 50);
+	animComp->AddTransition(L"Jump2", L"Jump3", [](GameObject* owner, int accel)
+		{
+			if (owner->GetComponent<PositionComponent>()->GetResistance() >= accel)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}}, 20);
+	animComp->AddTransition(L"Jump3", L"JumpDownIdle", (int)state::JumpDownIdle, CanChange);
 
-	// 이미 공중인데 띄우는 힘이 없는 공격에 맞았다면
-	if (GetZ() > 0.0f && floatingPower == 0.0f)
-	{
-		SetAcceleration(5.0f);
-	}
+	animComp->AddTransition(L"Jump1", L"JumpAttack", CanChange, (int)state::JumpAttack);
+	animComp->AddTransition(L"Jump2", L"JumpAttack", CanChange, (int)state::JumpAttack);
+	animComp->AddTransition(L"Jump3", L"JumpAttack", CanChange, (int)state::JumpAttack);
+	animComp->AddTransition(L"JumpAttack", L"JumpDownIdle", (int)state::JumpDownIdle, CanChange);
+
+	animComp->AddTransition(L"Idle", L"NormalAttack1", (int)state::NormalAttack1, CanChange);
+	animComp->AddTransition(L"Walk", L"NormalAttack1", (int)state::NormalAttack1, CanChange);
+
+	animComp->AddTransition(L"NormalAttack1", L"NormalAttack2", (int)state::NormalAttack2, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"NormalAttack3", (int)state::NormalAttack3, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"NormalAttack4", (int)state::NormalAttack4, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"NormalAttack5", (int)state::NormalAttackEnd, CanChange);
+
+	animComp->AddTransition(L"Run", L"DashAttackStart", (int)state::DashAttackStart, CanChange);
+	animComp->AddTransition(L"DashAttackStart", L"DashAttackEnd", (int)state::DashAttackEnd, CanChange);
+
+	animComp->AddTransition(L"Idle", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"Walk", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"Run", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"NormalAttack1", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"NormalAttack5", L"Upper", (int)state::UpperSlash, CanChange);
+
+	animComp->AddTransition(L"Idle", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"Walk", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"Run", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"NormalAttack1", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"NormalAttack5", L"SnakeDance", (int)state::SnakeDance, CanChange);
+
+#pragma endregion
+
+	animComp->SetCurrAnim(L"Idle");
+	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
+
+	PositionComponent* posComp = new PositionComponent(this, 99);
+	PlayerTransformComponent* transformComp = new PlayerTransformComponent(this, 101);
+	PlayerMovementComponent* movementComp = new PlayerMovementComponent(this, 98);
+
+	PlayerCommandComponent* commandComp = new PlayerCommandComponent(this, 1);
+
+	BodyCollisionComponent* bodyColliderComp = new BodyCollisionComponent(new RectColliderComponent({ -20,-25,20,5 }, this, 100), 0, -116, this, 100);
+	AttackCollisionComponent* atkColliderComp = new AttackCollisionComponent(new RectColliderComponent({ 0,0,0,0 }, this, 100), this, 100);
+	PlayerAttackComponent* atkComp = new PlayerAttackComponent(this, 99);
+
+	GameObject::Init();
 }

@@ -2,71 +2,69 @@
 #include "SceneManager.h"
 
 #pragma region Scenes
-#include "TitleScene.h"
-#include "CharacterSelectScene.h"
 #include "TownScene.h"
+#include "BattleScene.h"
 #pragma endregion
 
 SceneManager::~SceneManager()
 {
-	mpCurrScene = nullptr;
-	mpNextScene = nullptr;
+	_currScene = nullptr;
+	_nextScene = nullptr;
 
-	for (auto& scene : mpScenes)
+	for (auto& scene : _scenes)
 	{
 		delete scene.second;
 	}
 
-	mpScenes.clear();
+	_scenes.clear();
 }
 
 void SceneManager::Init()
 {
-	mpScenes[L"Title"] = new TitleScene();
-	mpScenes[L"CharacterSelect"] = new CharacterSelectScene();
-	mpScenes[L"Town"] = new TownScene();
+	_scenes[L"Town"] = new TownScene();
+	_scenes[L"Battle"] = new BattleScene();
 
-	mpCurrScene = mpScenes[L"Title"];
-	mpCurrScene->Init();
+	_currScene = _scenes[L"Town"];
+	_currScene->Init();
 }
 
 void SceneManager::Update()
 {
-	if (mpCurrScene) { mpCurrScene->Update(); }
+	if (_currScene) { _currScene->Update(); }
 }
 
 void SceneManager::Render()
 {
-	if (mpCurrScene) { mpCurrScene->Render(); }
+	if (_currScene) { _currScene->Render(); }
 }
 
 void SceneManager::Release()
 {
-	if (mpCurrScene) { mpCurrScene->Release(); }
+	if (_currScene) { _currScene->Release(); }
 }
 
 bool SceneManager::IsSetNextScene() const
 {
-	return mpNextScene != nullptr;
+	return _nextScene != nullptr;
 }
 
 void SceneManager::SetNextScene(const std::wstring& name)
 {
-	ASSERT_CRASH(mpNextScene == nullptr);
-	ASSERT_CRASH(mpScenes.end() != mpScenes.find(name));
+	ASSERT_CRASH(_nextScene == nullptr);
+	ASSERT_CRASH(_scenes.end() != _scenes.find(name));
 
-	mpNextScene = mpScenes[name];
+	_nextScene = _scenes[name];
 }
 
 void SceneManager::ChangeScene()
 {
-	if (mpNextScene)
+	if (_nextScene)
 	{
-		mpCurrScene->Release();
+		_currScene->Release();
 
-		mpCurrScene = mpNextScene;
-		mpCurrScene->Init();
+		_currScene = _nextScene;
+		_currScene->Init();
 
-		mpNextScene = nullptr;
+		_nextScene = nullptr;
 	}
 }

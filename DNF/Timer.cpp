@@ -14,22 +14,22 @@ void Timer::SetTimeScale(float timeScale)
 	_timeScale = timeScale;
 }
 
-float Timer::GetTimeScale() noexcept
+float Timer::GetTimeScale() 
 {
 	return _timeScale;
 }
 
-float Timer::GetDeltaTime() noexcept
+float Timer::GetDeltaTime() 
 {
 	return _deltaTime * _timeScale;
 }
 
-void Timer::Init() noexcept
+void Timer::Init() 
 {
 	_prevTime = high_resolution_clock::now();
 }
 
-bool Timer::CanUpdate() noexcept
+bool Timer::CanUpdate() 
 {
 	auto current = high_resolution_clock::now();
 
@@ -41,8 +41,6 @@ bool Timer::CanUpdate() noexcept
 	}
 
 	_deltaTime = elapsed.count();
-	
-	printf("%d\n", (int)(1.0f / _deltaTime));
 
 	_prevTime = current;
 

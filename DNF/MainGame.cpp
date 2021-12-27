@@ -23,7 +23,7 @@ LRESULT MainGame::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	return 0;
 }
 
-MainGame::~MainGame() noexcept
+MainGame::~MainGame() 
 {
 }
 

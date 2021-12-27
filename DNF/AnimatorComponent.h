@@ -1,40 +1,32 @@
 #pragma once
 #include "Component.h"
 
-class SpriteComponent;
+class Animation;
+class Transition;
 class AnimatorComponent : public Component
 {
+private:
+	using function = function<bool(GameObject*,const int&)>;
 public:
 	using Component::Component;
-	~AnimatorComponent() = default;
+	virtual ~AnimatorComponent();
 
-	virtual void Init() override;
 	virtual void Update() override;
 
-	void AddSprite(SpriteComponent* spriteComp, wstring tag);
-	void Play(wstring tag);
-	void Pause();
-	void PlayIdle();
+	void			AddAnimation(const wstring& path, const wstring& animTag);
+	void			AddTransition(const wstring& start, const wstring& end, const int& transitionValue, function func);
+	void			AddTransition(const wstring& start, const wstring& end, function func, const int& transitionValue);
 
-	SpriteComponent* FindSprite(wstring tag);
+	void			SetCurrAnim(const wstring& animTag)			{ _curAnim = _animations[animTag]; }
+	void			SetBoolParams(const wstring& tag, bool b)	{ _boolParams[tag] = b; }
 
-	void SetCurrFrame(int frame) noexcept;
+	GameObject*		GetOwner() const							{ return _owner; }
+	Animation*		GetCurAnim() const							{ return _curAnim; }
 
-	SpriteComponent* GetCurrSprite() noexcept;
-	wstring GetCurrSpriteTag() noexcept;
-	int GetCurrFrame() const noexcept;
-	bool GetIsPause() const noexcept;
-	bool mbIsPause = false;
 private:
-	// 키값으로 스프라이트를 찾는게 아니라
-	// 벡터를 이용해서 인덱스접근으로 바꿀 방법을 생각해보자.
-	unordered_map<wstring, SpriteComponent*> mpSprites;
-	SpriteComponent* mpCurrSprite = nullptr;
-
-	wstring mCurrSpriteTag = {};
-	float mElapsedTime = 0.0f;
-	float mAnimationSpeed = 0.0f;
-	int mMaxFrameX = 0;
-	bool mbIsLoop = false;
+	unordered_map<wstring, vector<Transition*>>	_graph;
+	unordered_map<wstring, Animation*>			_animations;
+	unordered_map<wstring, bool>				_boolParams;
+	Animation*									_curAnim = nullptr;
 };
 

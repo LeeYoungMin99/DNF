@@ -6,8 +6,8 @@ class Component;
 class GameObject : public GameEntity
 {
 public:
-	GameObject(Scene* scene, const std::wstring& tag);
-	virtual ~GameObject() noexcept;
+	GameObject(Scene* scene, const wstring& tag);
+	virtual ~GameObject();
 
 	virtual void Init() override;
 	virtual void Update() override;
@@ -16,44 +16,39 @@ public:
 
 	void AddComponent(Component* component);
 	void RemoveComponent(Component* component);
-	std::vector<Component*>& GetComponents() noexcept;
+	vector<Component*>& GetComponents() { return _components; }
 	template <typename T>
 	T* GetComponent()
 	{
 		static_assert(std::is_base_of_v<Component, T>, "T for GetComponent() must be component");
 
-		for (Component* comp : mComponents)
+		for (Component* comp : _components)
 		{
 			if (dynamic_cast<T*>(comp))
 			{
 				return static_cast<T*>(comp);
 			}
 		}
-
 		return nullptr;
 	}
 
-	void SetTag(const std::wstring& tag) noexcept;
-	void SetPosition(POINT pos) noexcept;
-	void SetPosition(LONG x, LONG y) noexcept;
-	void SetX(LONG x) noexcept;
-	void SetY(LONG y) noexcept;
-	void SetAreaNumber(int areaNumber) noexcept;
+	void					SetTag(const wstring& tag)					{ _tag = tag; }
+	void					SetPosition(const POINT& pos)				{ _pos = pos; }
+	void					SetPosition(const LONG& x, const LONG& y)	{ _pos = POINT{ x, y }; }
+	void					SetX(const LONG& x)							{ _pos.x = x; }
+	void					SetY(const LONG& y)							{ _pos.y = y; }
 
-	void AddX(LONG x) noexcept;
-	void AddY(LONG y) noexcept;
-
-	std::wstring	GetTag() const noexcept;
-	POINT GetPosition() const noexcept;
-	LONG GetX() const noexcept;
-	LONG GetY() const noexcept;
-	Scene* GetScene() noexcept;
-	int GetAreaNumber() noexcept;
+	void					AddX(const LONG& x)							{ _pos.x += x; }
+	void					AddY(const LONG& y)							{ _pos.y += y; }
+	
+	wstring					GetTag()		const						{ return _tag; }
+	POINT					GetPosition()	const						{ return _pos; }
+	LONG					GetX()			const						{ return _pos.x; }
+	LONG					GetY()			const						{ return _pos.y; }
+	Scene*					GetScene()		const						{ return _scene; }
 private:
-	POINT mPos = {};
-	Scene* mpScene = nullptr;
-	int mAreaNumber = 0;
-
-	std::wstring mTag = L"";
-	std::vector<Component*> mComponents;
+	POINT					_pos = {};
+	Scene*					_scene = nullptr;
+	wstring					_tag = L"";
+	vector<Component*>		_components = {};
 };

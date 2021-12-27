@@ -9,7 +9,7 @@ class MainGame
 	static LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 public:
-	~MainGame() noexcept;
+	~MainGame() ;
 
 	bool				Init(HINSTANCE hInst);
 	INT32				Run();

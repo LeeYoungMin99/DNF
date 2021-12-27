@@ -3,42 +3,49 @@
 
 #include "SpriteComponent.h"
 #include "AnimatorComponent.h"
-#include "RendererComponent.h"
-#include "RectComponent.h"
+#include "Transition.h"
+
+#include "PositionComponent.h"
+#include "RectColliderComponent.h"
 #include "TextComponent.h"
 #include "ButtonComponent.h"
 
+#include "SceneManager.h"
+
 void Seria::Init()
 {
-	AnimatorComponent* animatorComp = new AnimatorComponent(this, 99);
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Seria/Idle.png", this), L"Idle");
-	animatorComp->AddSprite(new SpriteComponent(L"Image/CharacterMotion/Seria/Hover.png", this), L"Hover");
-	RendererComponent* rendererComp = new RendererComponent(animatorComp, this, 100);
-
-	mpAnimatorComp = animatorComp;
-
-	GameObject::Init();
-	RectComponent* collisionRect = new RectComponent(this);
 	SetPosition({ 600 ,350 });
-	collisionRect->SetRectSize({ -35,-150,36,0 });
+	RectColliderComponent* collisionRect = new RectColliderComponent({ -35,-150,36,0 }, this);
+
+	AnimatorComponent* animComp = new AnimatorComponent(this);
+
+	auto CanChange = [](GameObject* owner, const int& nextStateNum) {
+		if ((int)(owner->GetComponent<ButtonComponent>()->GetState()) == nextStateNum)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+	animComp->AddAnimation(L"Image/CharacterMotion/Seria/Idle.png", L"Idle");
+	animComp->AddAnimation(L"Image/CharacterMotion/Seria/Hover.png", L"Hover");
+
+	animComp->AddTransition(L"Idle", L"Hover", (int)ButtonComponent::eButtonState::Hover, CanChange);
+
+	animComp->SetCurrAnim(L"Idle");
+	SpriteComponent* spriteComp = new SpriteComponent(this, 101);
 
 	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
-}
+	PositionComponent* posComp = new PositionComponent(this, 99);
 
-void Seria::OnIdle()
-{
-	mpAnimatorComp->Play(L"Idle");
-}
-
-void Seria::OnHover()
-{
-	mpAnimatorComp->Play(L"Hover");
-}
-
-void Seria::OnClick()
-{
+	GameObject::Init();
 }
 
 void Seria::OnExecute()
 {
+	SceneManager::GetSingleton()->SetNextScene(L"Battle");
 }
+

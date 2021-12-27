@@ -1,20 +1,29 @@
 #pragma once
 #include "Component.h"
 
-class Image;
+class AnimatorComponent;
+class PositionComponent;
+class TransformComponent;
 class SpriteComponent : public Component
 {
 public:
-	SpriteComponent(wstring path, GameObject* owner, INT32 order = 100) noexcept;
-	virtual ~SpriteComponent() noexcept = default;
+	using Component::Component;
+	virtual ~SpriteComponent()  = default;
 
-	Image* GetSprite() const noexcept;
-	int GetCurrFrame() const noexcept;
+	virtual void Init() override;
+	virtual void Render() override;
 
-	void SetNextFrame() noexcept;
-	void SetCurrFrame(int frame) noexcept;
+	void ImageRender(
+		const FLOAT& renderPosX, 
+		const FLOAT& renderPosY, 
+		const FLOAT& renderSizeX, 
+		const FLOAT& renderSizeY,
+		const FLOAT& currFrameStart, 
+		const FLOAT& currFrameEnd, 
+		const FLOAT& imageFrameSizeY);
 private:
-	int mCurrFrame = 0;
-	Image* mpSprite = nullptr;
+	AnimatorComponent*		_animComp = nullptr;
+	PositionComponent*		_posComp = nullptr;
+	TransformComponent*		_transformComp = nullptr;
 };
 

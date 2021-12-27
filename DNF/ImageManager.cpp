@@ -4,73 +4,61 @@
 
 ImageManager::~ImageManager()
 {
-	for (auto& elem : mpImages)
+	for (auto& elem : _images)
 	{
 		SAFE_RELEASE(elem.second);
 	}
 
-	mpImages.clear();
+	_images.clear();
 }
 
 void ImageManager::Init()
 {
-	AddImage(L"Image/Button/SmallButtonIdle.png", 1);
-	AddImage(L"Image/Button/SmallButtonHover.png", 1);
-	AddImage(L"Image/Button/SmallButtonClick.png", 1);
-	AddImage(L"Image/Button/StartButtonIdle.png", 1);
-	AddImage(L"Image/Button/StartButtonHover.png", 1);
-	AddImage(L"Image/Button/StartButtonClick.png", 1);
-
-
-	AddImage(L"Image/CharacterMotion/Seria/Idle.png", 12, -27, -116, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, -28, -117, 0.2f, true);
-
-	// UI
-	AddImage(L"Image/UI/PlayerStatus.png", 1, -166, -75);
-	AddImage(L"Image/UI/HP.png", 1);
-	AddImage(L"Image/UI/MP.png", 1);
-
-	AddImage(L"Image/CharacterSelectScene/Background.png", 1);
-	AddImage(L"Image/CharacterSelectScene/SlotBackground.png", 1);
-
 	AddImage(L"Image/Elvengard/SeriaRoom/Background.png", 1);
+	AddImage(L"Image/Elvengard/BattleScene/FarBackground.png", 1);
+	AddImage(L"Image/Elvengard/BattleScene/MiddleBackground.png", 1);
+	AddImage(L"Image/Elvengard/BattleScene/Tile.png", 1);
 
-	AddImage(L"Image/CharacterMotion/Player/Idle.png", 33, -245, -374, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Player/Walk.png", 10, -245, -374, 0.1f, true);
-	AddImage(L"Image/CharacterMotion/Player/Run.png", 8, -245, -374, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Seria/Idle.png", 12, 12, -27, -116, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, 12, -28, -117, 0.2f, true);
 
-	AddImage(L"Image/CharacterMotion/Player/NormalAttack1.png", 5, -245, -374, 0.1f);
-	AddImage(L"Image/CharacterMotion/Player/NormalAttack2.png", 6, -245, -374, 0.1f);
-	AddImage(L"Image/CharacterMotion/Player/NormalAttack3.png", 6, -245, -374, 0.1f);
-	AddImage(L"Image/CharacterMotion/Player/NormalAttack4.png", 5, -245, -374, 0.1f);
-	AddImage(L"Image/CharacterMotion/Player/NormalAttack5.png", 5, -245, -374, 0.1f);
+#pragma region Goblin
 
-	AddImage(L"Image/CharacterMotion/Player/DashAttack2.png", 6, -245, -374, 0.1f);
+	AddImage(L"Image/CharacterMotion/Goblin/Idle.png", 1, 1, -77, -121, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Goblin/Damaged.png", 2, 2, -77, -121, 0.3f);
+	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged1.png", 1, 1, -77, -121, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged2.png", 1, 1, -77, -121, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged3.png", 1, 1, -77, -121, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Goblin/JumpDownIdle.png", 3, 3, -77, -121, 0.2f);
 
-	AddImage(L"Image/CharacterMotion/Player/Jump.png", 19, -245, -374, 0.1f);
-	AddImage(L"Image/CharacterMotion/Player/JumpDownIdle.png", 2, -245, -374, 0.1f);
+#pragma endregion
 
-	AddImage(L"Image/CharacterMotion/Player/JumpAttack.png", 13, -245, -374, 0.1f);
+#pragma region Player
 
-	AddImage(L"Image/CharacterMotion/Player/Damaged.png", 2, -245, -374, 0.3f);
-	AddImage(L"Image/CharacterMotion/Player/JumpDownDamaged.png", 5, -245, -374, 0.1f);
+	AddImage(L"Image/CharacterMotion/Player/Idle.png", 33, 33, -245, -374, 0.2f, true);
+	AddImage(L"Image/CharacterMotion/Player/Walk.png", 10, 33, -245, -374, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Player/Run.png", 8, 33, -245, -374, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Player/Jump1.png", 2, 2, -245, -374, 0.1f);
+	AddImage(L"Image/CharacterMotion/Player/Jump2.png", 1, 1, -245, -374, 0.1f);
+	AddImage(L"Image/CharacterMotion/Player/Jump3.png", 2, 2, -245, -374, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Player/JumpDownIdle.png", 1, 1, -245, -374, 0.1f);
 
-	AddImage(L"Image/CharacterMotion/Player/SnakeDance.png", 18, -352, -374, 0.08f);
+	AddImage(L"Image/CharacterMotion/Player/NormalAttack1.png", 5, 4, -245, -374, 0.08f);
+	AddImage(L"Image/CharacterMotion/Player/NormalAttack2.png", 6, 5, -245, -374, 0.08f);
+	AddImage(L"Image/CharacterMotion/Player/NormalAttack3.png", 6, 5, -245, -374, 0.08f);
+	AddImage(L"Image/CharacterMotion/Player/NormalAttack4.png", 5, 4, -245, -374, 0.08f);
+	AddImage(L"Image/CharacterMotion/Player/NormalAttack5.png", 5, 4, -245, -374, 0.08f);
+
+	AddImage(L"Image/CharacterMotion/Player/DashAttackEnd.png", 6, 6, -245, -374, 0.1f);
+
+	AddImage(L"Image/CharacterMotion/Player/JumpAttack.png", 8, 8, -245, -374, 0.08f);
+
+	AddImage(L"Image/CharacterMotion/Player/UpperSlash.png", 6, 6, -245, -374, 0.09f);
+	AddImage(L"Image/CharacterMotion/Player/SnakeDance.png", 18, 18, -352, -374, 0.08f);
+#pragma endregion
 }
 
-void ImageManager::Update()
-{
-}
-
-void ImageManager::Render()
-{
-}
-
-void ImageManager::Release()
-{
-}
-
-Image* ImageManager::AddImage(const wchar_t* path, int maxFrameX, int correctX, int correctY, float animationSpeed, bool loop)
+Image* ImageManager::AddImage(const wchar_t* path, const int& maxFrameX, const int& canCancelFrame, const int& correctX, const int& correctY, const float& animationSpeed, const bool& loop)
 {
 	Image* img = FindImage(path);
 
@@ -81,22 +69,22 @@ Image* ImageManager::AddImage(const wchar_t* path, int maxFrameX, int correctX, 
 
 	img = new Image;
 
-	if (FAILED(img->Init(path, maxFrameX, correctX, correctY, animationSpeed, loop)))
+	if (FAILED(img->Init(path, maxFrameX, canCancelFrame, correctX, correctY, animationSpeed, loop)))
 	{
 		SAFE_RELEASE(img);
 		return nullptr;
 	}
 
-	mpImages.emplace(path, img);
+	_images.emplace(path, img);
 
 	return img;
 }
 
-Image* ImageManager::FindImage(wstring path)
+Image* ImageManager::FindImage(const wstring& path)
 {
-	auto it = mpImages.find(path);
+	auto it = _images.find(path);
 
-	if (it == mpImages.end())
+	if (it == _images.end())
 	{
 		return nullptr;
 	}

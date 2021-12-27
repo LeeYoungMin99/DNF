@@ -2,21 +2,21 @@
 #include "Component.h"
 #include "GameObject.h"
 
-Component::Component(GameObject* owner, INT32 order) noexcept
-	: mpOwner{ owner }, mOrder{ order }
+Component::Component(GameObject* owner, INT32 order) 
+	: _owner{ owner }, _order{ order }
 {
-	mpOwner->AddComponent(this);
+	_owner->AddComponent(this);
 }
 
-Component::~Component() noexcept
+Component::~Component() 
 {
-	mpOwner->RemoveComponent(this);
-	mpOwner = nullptr;
+	_owner->RemoveComponent(this);
+	_owner = nullptr;
 }
 
-INT32 Component::GetOrder() const noexcept
+INT32 Component::GetOrder() const 
 {
-	return mOrder;
+	return _order;
 }
 
 void Component::Init()

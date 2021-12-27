@@ -1,116 +1,59 @@
 #include "stdafx.h"
 #include "AnimatorComponent.h"
 
-#include "SpriteComponent.h"
-#include "Character.h"
-#include "Player.h"
-#include "Image.h"
-#include <typeinfo>
+#include "Animation.h"
+#include "Transition.h"
 
-void AnimatorComponent::Init()
+AnimatorComponent::~AnimatorComponent()
 {
-	PlayIdle();
-}
-
-void AnimatorComponent::Update()
-{
-	if (mbIsPause)
-		return;
-
-	mElapsedTime += Timer::GetDeltaTime();
-
-	if (mElapsedTime >= mAnimationSpeed)
+	for (auto& anim : _animations)
 	{
-		mElapsedTime -= mAnimationSpeed;
+		SAFE_RELEASE(anim.second);
+	}
 
-		mpCurrSprite->SetNextFrame();
-
-		if (mpCurrSprite->GetCurrFrame() >= mMaxFrameX)
+	for (auto& graph : _graph)
+	{
+		for (auto& transition : graph.second)
 		{
-			if (mbIsLoop)
-			{
-				mpCurrSprite->SetCurrFrame(0);
-			}
-			else
-			{
-				PlayIdle();
-			}
+			SAFE_RELEASE(transition);
 		}
 	}
 }
 
-void AnimatorComponent::AddSprite(SpriteComponent* spriteComp, wstring tag)
+void AnimatorComponent::Update()
 {
-	mpSprites.emplace(tag, spriteComp);
-}
+	_curAnim->Update();
 
-void AnimatorComponent::Play(wstring tag)
-{
-	if (mpCurrSprite)
+	for (auto& nextAnim : _graph[_curAnim->GetAnimTag()])
 	{
-
-		mpCurrSprite->SetCurrFrame(0);
+		nextAnim->Update();
 	}
 
-	mbIsPause = false;
-	mpCurrSprite = FindSprite(tag);
-	mAnimationSpeed = mpCurrSprite->GetSprite()->GetAnimationSpeed();
-	mMaxFrameX = mpCurrSprite->GetSprite()->GetMaxFrameX();
-	mbIsLoop = mpCurrSprite->GetSprite()->GetIsLoop();
-	mCurrSpriteTag = tag;
-	mElapsedTime = 0.0f;
-}
-
-void AnimatorComponent::Pause()
-{
-	mbIsPause = true;
-}
-
-SpriteComponent* AnimatorComponent::FindSprite(wstring tag)
-{
-	auto it = mpSprites.find(tag);
-
-	if (it == mpSprites.end())
+	for (auto& nextAnim : _graph[_curAnim->GetAnimTag()])
 	{
-		return nullptr;
+		if (_boolParams[nextAnim->GetNextAnimTag()])
+		{
+			_boolParams[nextAnim->GetNextAnimTag()] = false;
+
+			_curAnim = _animations[nextAnim->GetNextAnimTag()];
+
+			_curAnim->Init();
+		}
 	}
-
-	return it->second;
 }
 
-void AnimatorComponent::SetCurrFrame(int frame) noexcept
+void AnimatorComponent::AddAnimation(const wstring& path, const wstring& animTag)
 {
-	mpCurrSprite->SetCurrFrame(frame);
+	_animations[animTag] = new Animation(path, animTag);
 }
 
-SpriteComponent* AnimatorComponent::GetCurrSprite() noexcept
+void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, const int& transitionValue, function func)
 {
-	return mpCurrSprite;
+	_graph[start].push_back(new Transition(func, end, transitionValue, this));
+	_graph[end].push_back(new Transition(func, L"Idle", 0, this));
 }
 
-wstring AnimatorComponent::GetCurrSpriteTag() noexcept
+void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, function func, const int& transitionValue)
 {
-	return mCurrSpriteTag;
-}
-
-bool AnimatorComponent::GetIsPause() const noexcept
-{
-	return mbIsPause;
-}
-
-int AnimatorComponent::GetCurrFrame() const noexcept
-{
-	return mpCurrSprite->GetCurrFrame();
-}
-
-void AnimatorComponent::PlayIdle()
-{
-	Play(L"Idle");
-	mCurrSpriteTag = L"Idle";
-
-	if (dynamic_cast<Player*>(mpOwner))
-	{
-		((Player*)mpOwner)->SetState(Character::eState::Idle);
-		((Player*)mpOwner)->SetAttackType(Player::eAttackType::None);
-	}
+	_graph[start].push_back(new Transition(func, end, transitionValue, this));
 }

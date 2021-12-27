@@ -1,32 +1,74 @@
 #include "stdafx.h"
 #include "SpriteComponent.h"
 
+#include "Animation.h"
 #include "GameObject.h"
-#include "ImageManager.h"
+
 #include "Image.h"
+#include "PositionComponent.h"
+#include "TransformComponent.h"
+#include "AnimatorComponent.h"
 
-SpriteComponent::SpriteComponent(wstring path, GameObject* owner, INT32 order) noexcept
-	:Component(owner, order)
+void SpriteComponent::Init()
 {
-	mpSprite = ImageManager::GetSingleton()->FindImage(path);
+	_animComp = _owner->GetComponent<AnimatorComponent>();
+
+	_posComp = _owner->GetComponent<PositionComponent>();
+	_transformComp = _owner->GetComponent<TransformComponent>();
 }
 
-Image* SpriteComponent::GetSprite() const noexcept
+void SpriteComponent::Render()
 {
-	return mpSprite;
+	FLOAT renderPosX, renderPosY;
+
+	if (_posComp != nullptr)
+	{
+		renderPosX = (FLOAT)(_posComp->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
+		renderPosY = (FLOAT)(_posComp->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY() - _posComp->GetZ());
+	}
+	else
+	{
+		renderPosX = (FLOAT)(_owner->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
+		renderPosY = (FLOAT)(_owner->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY());
+	}
+
+	FLOAT imageFrameSizeY = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().height;
+	FLOAT imageFrameSizeX = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().width;
+	FLOAT renderSizeX = renderPosX + imageFrameSizeX;
+	FLOAT renderSizeY = renderPosY + imageFrameSizeY;
+	FLOAT currFrameStart = _animComp->GetCurAnim()->GetCurrFrame() * imageFrameSizeX;
+	FLOAT currFrameEnd = currFrameStart + imageFrameSizeX;
+
+	if (_transformComp != nullptr)
+	{
+		// 왼쪽을 보고있다면 좌우반전후 렌더
+		if (TransformComponent::eDirX::Left == _transformComp->GetDirX())
+		{
+			FLOAT flipCenterX = (FLOAT)_posComp->GetX();
+			FLOAT flipCenterY = (FLOAT)_posComp->GetY();
+
+			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(-1.0f, 1.0f, D2D1_POINT_2F{ flipCenterX,flipCenterY }));
+
+			ImageRender(renderPosX, renderPosY, renderSizeX, renderSizeY, currFrameStart, currFrameEnd, imageFrameSizeY);
+
+			gpRenderTarget->SetTransform(D2D1::Matrix3x2F::Scale(1.0f, 1.0f, D2D1_POINT_2F{ 0,0 }));
+		}
+		// 오른쪽을 보고 있다면 그냥 렌더
+		else
+		{
+			ImageRender(renderPosX, renderPosY, renderSizeX, renderSizeY, currFrameStart, currFrameEnd, imageFrameSizeY);
+		}
+	}
+	else // 방향이 없다면 그냥 렌더
+	{
+		ImageRender(renderPosX, renderPosY, renderSizeX, renderSizeY, currFrameStart, currFrameEnd, imageFrameSizeY);
+	}
 }
 
-int SpriteComponent::GetCurrFrame() const noexcept
+void SpriteComponent::ImageRender(const FLOAT& renderPosX, const FLOAT& renderPosY, const FLOAT& renderSizeX, const FLOAT& renderSizeY, const FLOAT& currFrameStart, const FLOAT& currFrameEnd, const FLOAT& imageFrameSizeY)
 {
-	return mCurrFrame;
-}
-
-void SpriteComponent::SetNextFrame() noexcept
-{
-	++mCurrFrame;
-}
-
-void SpriteComponent::SetCurrFrame(int frame) noexcept
-{
-	mCurrFrame = frame;
+	gpRenderTarget->DrawBitmap(_animComp->GetCurAnim()->GetImage()->GetBitmap()
+		, D2D1::RectF((FLOAT)renderPosX, (FLOAT)renderPosY, renderSizeX, renderSizeY)
+		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
+		, D2D1::RectF(currFrameStart, 0, currFrameEnd, imageFrameSizeY));
 }

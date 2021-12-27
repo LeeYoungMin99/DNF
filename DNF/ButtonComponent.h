@@ -2,20 +2,26 @@
 #include "Component.h"
 
 struct IButton;
-class RectComponent;
+class RectColliderComponent;
 class ButtonComponent : public Component
 {
-private:
-	enum class eButtonState { Idle, Hover, Click, };
 public:
-	ButtonComponent(RectComponent* rectComponent, IButton* obj, GameObject* owner, INT32 order = 100);
-	virtual ~ButtonComponent() noexcept = default;
+	enum class eButtonState 
+	{ 
+		Idle, 
+		Hover, 
+		Click
+	};
+public:
+	ButtonComponent(RectColliderComponent* rectComponent, IButton* obj, GameObject* owner, INT32 order = 100);
+	virtual ~ButtonComponent() = default;
 
 	virtual void Update() override;
 
+	eButtonState			GetState() const { return _state; }
 private:
-	IButton* mpObj = nullptr;
-
-	RectComponent* mpRectComponent = nullptr;
-	eButtonState mState = eButtonState::Idle;
+	IButton*				_object = nullptr;
+	eButtonState			_state = eButtonState::Idle;
+	RectColliderComponent*	_rectComp = nullptr;
 };
+

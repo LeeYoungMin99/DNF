@@ -11,12 +11,12 @@ class Timer
 public:
 	Timer() = delete;
 
-	static void		SetTimeScale(float timeScale);
-	static float	GetTimeScale() noexcept;
-	static float	GetDeltaTime() noexcept;
+	static void			SetTimeScale(float timeScale);
+	static float		GetTimeScale();
+	static float		GetDeltaTime();
 
-	static void		Init() noexcept;
-	static bool		CanUpdate() noexcept;
+	static void			Init();
+	static bool			CanUpdate();
 
 private:
 	static TimePoint	_prevTime;
