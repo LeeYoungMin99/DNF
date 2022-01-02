@@ -13,14 +13,16 @@
 #include "PlayerTransformComponent.h"
 #include "PlayerMovementComponent.h"
 #include "PlayerAttackComponent.h"
-#include "PlayerStatusComponent.h"
 #include "PlayerCommandComponent.h"
+
+#include "StateMachineComponent.h"
+#include "PlayerState.h"
 
 void Player::Init()
 {
 	SetPosition({ 600,520 });
 
-	PlayerStatusComponent* statusComp = new PlayerStatusComponent(this, 0);
+	StateMachineComponent* stateMachineComp = new StateMachineComponent(this, 0);
 
 #pragma region AddAnimation
 
@@ -51,9 +53,9 @@ void Player::Init()
 
 #pragma region AddTransition
 
-	using state = PlayerStatusComponent::ePlayerState;
+	using state = eState;
 
-	auto CanChange = [](GameObject* owner, const int& nextStateNum) {if ((int)(owner->GetComponent<PlayerStatusComponent>()->GetState()) == nextStateNum)
+	auto CanChange = [](GameObject* owner, const int& nextStateNum) {if ((owner->GetComponent<StateMachineComponent>()->GetCurStateTag()) == nextStateNum)
 	{
 		return true;
 	}
@@ -63,14 +65,14 @@ void Player::Init()
 	}
 	};
 
-	animComp->AddTransition(L"Idle", L"Walk", (int)state::Walk, CanChange);
-	animComp->AddTransition(L"Idle", L"Run", (int)state::Run, CanChange);
-	animComp->AddTransition(L"Walk", L"Run", (int)state::Run, CanChange);
-	animComp->AddTransition(L"Run", L"Walk", (int)state::Walk, CanChange);
+	animComp->AddTransition(L"Idle", L"Walk", (int)eState::Walk, CanChange);
+	animComp->AddTransition(L"Idle", L"Run", (int)eState::Run, CanChange);
+	animComp->AddTransition(L"Walk", L"Run", (int)eState::Run, CanChange);
+	animComp->AddTransition(L"Run", L"Walk", (int)eState::Walk, CanChange);
 
-	animComp->AddTransition(L"Idle", L"Jump1", CanChange, (int)state::Jump);
-	animComp->AddTransition(L"Walk", L"Jump1", CanChange, (int)state::Jump);
-	animComp->AddTransition(L"Run", L"Jump1", CanChange, (int)state::Jump);
+	animComp->AddTransition(L"Idle", L"Jump1", CanChange, (int)eState::Jump);
+	animComp->AddTransition(L"Walk", L"Jump1", CanChange, (int)eState::Jump);
+	animComp->AddTransition(L"Run", L"Jump1", CanChange, (int)eState::Jump);
 	animComp->AddTransition(L"Jump1", L"Jump2", [](GameObject* owner, int height)
 		{
 			if (owner->GetComponent<PositionComponent>()->GetZ() >= height)
@@ -91,41 +93,41 @@ void Player::Init()
 			{
 				return false;
 			}}, 20);
-	animComp->AddTransition(L"Jump3", L"JumpDownIdle", (int)state::JumpDownIdle, CanChange);
+	animComp->AddTransition(L"Jump3", L"JumpDownIdle", (int)eState::JumpDownIdle, CanChange);
 
-	animComp->AddTransition(L"Jump1", L"JumpAttack", CanChange, (int)state::JumpAttack);
-	animComp->AddTransition(L"Jump2", L"JumpAttack", CanChange, (int)state::JumpAttack);
-	animComp->AddTransition(L"Jump3", L"JumpAttack", CanChange, (int)state::JumpAttack);
-	animComp->AddTransition(L"JumpAttack", L"JumpDownIdle", (int)state::JumpDownIdle, CanChange);
+	animComp->AddTransition(L"Jump1", L"JumpAttack", CanChange, (int)eState::JumpAttack);
+	animComp->AddTransition(L"Jump2", L"JumpAttack", CanChange, (int)eState::JumpAttack);
+	animComp->AddTransition(L"Jump3", L"JumpAttack", CanChange, (int)eState::JumpAttack);
+	animComp->AddTransition(L"JumpAttack", L"JumpDownIdle", (int)eState::JumpDownIdle, CanChange);
 
-	animComp->AddTransition(L"Idle", L"NormalAttack1", (int)state::NormalAttack1, CanChange);
-	animComp->AddTransition(L"Walk", L"NormalAttack1", (int)state::NormalAttack1, CanChange);
+	animComp->AddTransition(L"Idle", L"NormalAttack1", (int)eState::NormalAttack1, CanChange);
+	animComp->AddTransition(L"Walk", L"NormalAttack1", (int)eState::NormalAttack1, CanChange);
 
-	animComp->AddTransition(L"NormalAttack1", L"NormalAttack2", (int)state::NormalAttack2, CanChange);
-	animComp->AddTransition(L"NormalAttack2", L"NormalAttack3", (int)state::NormalAttack3, CanChange);
-	animComp->AddTransition(L"NormalAttack3", L"NormalAttack4", (int)state::NormalAttack4, CanChange);
-	animComp->AddTransition(L"NormalAttack4", L"NormalAttack5", (int)state::NormalAttackEnd, CanChange);
+	animComp->AddTransition(L"NormalAttack1", L"NormalAttack2", (int)eState::NormalAttack2, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"NormalAttack3", (int)eState::NormalAttack3, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"NormalAttack4", (int)eState::NormalAttack4, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"NormalAttack5", (int)eState::NormalAttack5, CanChange);
 
-	animComp->AddTransition(L"Run", L"DashAttackStart", (int)state::DashAttackStart, CanChange);
-	animComp->AddTransition(L"DashAttackStart", L"DashAttackEnd", (int)state::DashAttackEnd, CanChange);
+	animComp->AddTransition(L"Run", L"DashAttackStart", (int)eState::DashAttack1, CanChange);
+	animComp->AddTransition(L"DashAttackStart", L"DashAttackEnd", (int)eState::DashAttack2, CanChange);
 
-	animComp->AddTransition(L"Idle", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"Walk", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"Run", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"NormalAttack1", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"NormalAttack2", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"NormalAttack3", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"NormalAttack4", L"Upper", (int)state::UpperSlash, CanChange);
-	animComp->AddTransition(L"NormalAttack5", L"Upper", (int)state::UpperSlash, CanChange);
+	animComp->AddTransition(L"Idle", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"Walk", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"Run", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"NormalAttack1", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"Upper", (int)eState::Skill1, CanChange);
+	animComp->AddTransition(L"NormalAttack5", L"Upper", (int)eState::Skill1, CanChange);
 
-	animComp->AddTransition(L"Idle", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"Walk", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"Run", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"NormalAttack1", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"NormalAttack2", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"NormalAttack3", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"NormalAttack4", L"SnakeDance", (int)state::SnakeDance, CanChange);
-	animComp->AddTransition(L"NormalAttack5", L"SnakeDance", (int)state::SnakeDance, CanChange);
+	animComp->AddTransition(L"Idle", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"Walk", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"Run", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"NormalAttack1", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"NormalAttack2", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"NormalAttack3", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"NormalAttack4", L"SnakeDance", (int)eState::Skill2, CanChange);
+	animComp->AddTransition(L"NormalAttack5", L"SnakeDance", (int)eState::Skill2, CanChange);
 
 #pragma endregion
 
@@ -141,6 +143,28 @@ void Player::Init()
 	BodyCollisionComponent* bodyColliderComp = new BodyCollisionComponent(new RectColliderComponent({ -20,-25,20,5 }, this, 100), 0, -116, this, 100);
 	AttackCollisionComponent* atkColliderComp = new AttackCollisionComponent(new RectColliderComponent({ 0,0,0,0 }, this, 100), this, 100);
 	PlayerAttackComponent* atkComp = new PlayerAttackComponent(this, 99);
+
+#pragma region AddState
+
+	stateMachineComp->AddState(new PlayerIdle(stateMachineComp, this), eState::Idle);
+	stateMachineComp->AddState(new PlayerWalk(stateMachineComp, this), eState::Walk);
+	stateMachineComp->AddState(new PlayerRun(stateMachineComp, this), eState::Run);
+	stateMachineComp->AddState(new PlayerJump(stateMachineComp, this), eState::Jump);
+	stateMachineComp->AddState(new PlayerJumpAttack(stateMachineComp, this), eState::JumpAttack);
+	stateMachineComp->AddState(new PlayerAction(stateMachineComp, this), eState::JumpDownIdle);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::DashAttack1);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::DashAttack2);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::NormalAttack1);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::NormalAttack2);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::NormalAttack3);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::NormalAttack4);
+	stateMachineComp->AddState(new PlayerAttack(stateMachineComp, this), eState::NormalAttack5);
+	stateMachineComp->AddState(new PlayerAction(stateMachineComp, this), eState::Skill1);
+	stateMachineComp->AddState(new PlayerAction(stateMachineComp, this), eState::Skill2);
+
+	stateMachineComp->ChangeState(eState::Idle);
+#pragma endregion
+
 
 	GameObject::Init();
 }

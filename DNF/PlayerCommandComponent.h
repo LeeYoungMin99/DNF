@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-class PlayerStatusComponent;
+class StateMachineComponent;
 class PlayerCommandComponent : public Component
 {
 private:
@@ -29,7 +29,8 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 
-	void					CanAction();
+	void					CheckDoAction();
+	void					CheckDash();
 	void					CheckLeft();
 	void					CheckRight();
 	void					CheckUp();
@@ -37,7 +38,7 @@ public:
 	void					CheckSpace();
 	void					CheckZ();
 private:
-	PlayerStatusComponent*	_statusComp = nullptr;
+	StateMachineComponent*	_statusComp = nullptr;
 	float					_inputElapsedTime = 0.0f;
 	CommandNode*			_noneCommand = nullptr;
 	CommandNode*			_curCommand = nullptr;

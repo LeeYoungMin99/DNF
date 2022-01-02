@@ -1,7 +1,7 @@
 #pragma once
 #include "TransformComponent.h"
 
-class PlayerStatusComponent;
+class StateMachineComponent;
 class PlayerTransformComponent : public TransformComponent
 {
 public:
@@ -18,6 +18,6 @@ public:
 	void					SetDirY(const eDirY& dir) { _dirY = dir; }
 private:
 	eDirY					_dirY = eDirY::Up;
-	PlayerStatusComponent*	_statusComp = nullptr;
+	StateMachineComponent*	_statusComp = nullptr;
 };
 

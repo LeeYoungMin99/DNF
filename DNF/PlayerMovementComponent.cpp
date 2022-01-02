@@ -2,27 +2,29 @@
 #include "PlayerMovementComponent.h"
 
 #include "GameObject.h"
-#include "PlayerStatusComponent.h"
+#include "StateMachineComponent.h"
 #include "PlayerTransformComponent.h"
 
 void PlayerMovementComponent::Init()
 {
-	_statusComp = _owner->GetComponent<PlayerStatusComponent>();
+	_statusComp = _owner->GetComponent<StateMachineComponent>();
 	_transformComp = _owner->GetComponent<PlayerTransformComponent>();
 }
 
 void PlayerMovementComponent::Update()
 {
-	switch (_statusComp->GetState())
+	eState state = (eState)_statusComp->GetCurStateTag();
+
+	switch (state)
 	{
-	case PlayerStatusComponent::ePlayerState::Walk:
+	case eState::Walk:
 		_moveSpeed = WALK_SPEED;
 		break;
-	case PlayerStatusComponent::ePlayerState::Run:
+	case eState::Run:
 		_moveSpeed = RUN_SPEED;
 		break;
-	case PlayerStatusComponent::ePlayerState::Jump:
-	case PlayerStatusComponent::ePlayerState::JumpAttack:
+	case eState::Jump:
+	case eState::JumpAttack:
 		break;
 	default:
 		return;

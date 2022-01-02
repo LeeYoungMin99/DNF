@@ -1,7 +1,7 @@
 #pragma once
 #include "Component.h"
 
-class PlayerStatusComponent;
+class StateMachineComponent;
 class PlayerTransformComponent;
 class PlayerMovementComponent : public Component
 {
@@ -14,7 +14,7 @@ public:
 
 	void						Move();
 private:
-	PlayerStatusComponent*		_statusComp = nullptr;
+	StateMachineComponent*		_statusComp = nullptr;
 	PlayerTransformComponent*	_transformComp = nullptr;
 	float						_moveSpeed = 0.0f;
 

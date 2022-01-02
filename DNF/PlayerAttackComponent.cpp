@@ -2,65 +2,66 @@
 #include "PlayerAttackComponent.h"
 
 #include "GameObject.h"
-#include "PlayerStatusComponent.h"
-#include "AttackCollisionComponent.h"
 #include "AnimatorComponent.h"
 #include "Animation.h"
 
+#include "AttackCollisionComponent.h"
+#include "StateMachineComponent.h"
+
 void PlayerAttackComponent::Init()
 {
-	_statusComp = _owner->GetComponent<PlayerStatusComponent>();
+	_statusComp = _owner->GetComponent<StateMachineComponent>();
 	_atkComp = _owner->GetComponent<AttackCollisionComponent>();
 	_animComp = _owner->GetComponent<AnimatorComponent>();
 }
 
 void PlayerAttackComponent::Update()
 {
-	using state = PlayerStatusComponent::ePlayerState;
-
 	int currFrame = _animComp->GetCurAnim()->GetCurrFrame();
 	if (currFrame == 0) { _atkComp->Init(); }
 
-	switch (_statusComp->GetState())
+	eState state = (eState)_statusComp->GetCurStateTag();
+
+	switch (state)
 	{
-	case state::NormalAttack1:
+	case eState::NormalAttack1:
 		if (currFrame == 1) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 2) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::NormalAttack2:
+	case eState::NormalAttack2:
 		if (currFrame == 2) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::NormalAttack3:
+	case eState::NormalAttack3:
 		if (currFrame == 2) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::NormalAttack4:
+	case eState::NormalAttack4:
 		if (currFrame == 1) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 2) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::NormalAttackEnd:
+	case eState::NormalAttack5:
 		if (currFrame == 1) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 2) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::JumpAttack:
+	case eState::JumpAttack:
 		if (currFrame == 1) { SetAttack({ -130,-35,130,15 }, -200, 30, 0.0f); };
 		if (currFrame == 2) { _atkComp->ClearHitObjs(); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); };
 		if (currFrame == 4) { _atkComp->ClearHitObjs(); };
 		break;
-	case state::DashAttackStart:
+	case eState::DashAttack1:
 		if (currFrame == 2) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::DashAttackEnd:
+	case eState::DashAttack2:
 		if (currFrame == 2) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 3) { _atkComp->ClearHitObjs(); }
 		break;
-	case state::UpperSlash:
+	case eState::Skill1:
 		if (currFrame == 2) { SetAttack({ 0,-35, 180,15 }, -150, 25, 15.0f); };
 		break;
-	case state::SnakeDance:
+	case eState::Skill2:
 		if (currFrame == 3) { SetAttack({ 0,-35, 200,15 }, -150, 25, 0.0f); };
 		if (currFrame == 8) { SetAttack({ 0,-35, 320,15 }, -150, 25, 0.0f); _atkComp->ClearHitObjs(); }
 		if (currFrame == 12) { SetAttack({ 0,-35, 350,15 }, -150, 25, 0.0f); _atkComp->ClearHitObjs(); }

@@ -109,9 +109,6 @@
     <ClCompile Include="PlayerMovementComponent.cpp">
       <Filter>2D Framework\Component\Player</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerStatusComponent.cpp">
-      <Filter>2D Framework\Component\Player</Filter>
-    </ClCompile>
     <ClCompile Include="PositionComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
@@ -154,6 +151,9 @@
     <ClCompile Include="BattleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="StateMachineComponent.cpp" />
+    <ClCompile Include="State.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -243,9 +243,6 @@
     <ClInclude Include="PlayerMovementComponent.h">
       <Filter>2D Framework\Component\Player</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerStatusComponent.h">
-      <Filter>2D Framework\Component\Player</Filter>
-    </ClInclude>
     <ClInclude Include="PositionComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
@@ -288,6 +285,9 @@
     <ClInclude Include="BattleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="StateMachineComponent.h" />
+    <ClInclude Include="State.h" />
+    <ClInclude Include="PlayerState.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

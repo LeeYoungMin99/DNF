@@ -3,20 +3,22 @@
 
 #include "GameObject.h"
 
-#include "PlayerStatusComponent.h"
+#include "StateMachineComponent.h"
 
 void PlayerTransformComponent::Init()
 {
-	_statusComp = _owner->GetComponent<PlayerStatusComponent>();
+	_statusComp = _owner->GetComponent<StateMachineComponent>();
 }
 
 void PlayerTransformComponent::Update()
 {
-	switch (_statusComp->GetState())
+	eState state = (eState)_statusComp->GetCurStateTag();
+
+	switch (state)
 	{
-	case PlayerStatusComponent::ePlayerState::Idle:
-	case PlayerStatusComponent::ePlayerState::Walk:
-	case PlayerStatusComponent::ePlayerState::Run:
+	case eState::Idle:
+	case eState::Walk:
+	case eState::Run:
 		if		(Input::GetButtonDown(VK_LEFT))		{ SetDirX(eDirX::Left); }		
 		else if (Input::GetButtonDown(VK_RIGHT)) 	{ SetDirX(eDirX::Right); }
 
@@ -37,13 +39,13 @@ void PlayerTransformComponent::Update()
 
 		break;
 
-	case PlayerStatusComponent::ePlayerState::Jump:
-	case PlayerStatusComponent::ePlayerState::JumpAttack:
+	case eState::Jump:
+	case eState::JumpAttack:
 		if (Input::GetButtonDown(VK_LEFT)) { SetDirX(eDirX::Left); }
 		else if (Input::GetButtonDown(VK_RIGHT)) { SetDirX(eDirX::Right); }
 
 		if (Input::GetButtonDown(VK_UP)) { SetDirY(eDirY::Up); }
-		if (Input::GetButtonDown(VK_DOWN)) { SetDirY(eDirY::Down); }
+		else if (Input::GetButtonDown(VK_DOWN)) { SetDirY(eDirY::Down); }
 		break;
 	}
 }

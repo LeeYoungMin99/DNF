@@ -2,7 +2,7 @@
 #include "Component.h"
 
 class AnimatorComponent;
-class PlayerStatusComponent;
+class StateMachineComponent;
 class AttackCollisionComponent;
 class PlayerAttackComponent : public Component
 {
@@ -13,9 +13,9 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 
-	void SetAttack(const RECT& size,int top,int bottom,float floatingPower);
+	void SetAttack(const RECT& size, int top, int bottom, float floatingPower);
 private:
-	PlayerStatusComponent*		_statusComp = nullptr;
+	StateMachineComponent*		_statusComp = nullptr;
 	AttackCollisionComponent*	_atkComp = nullptr;
 	AnimatorComponent*			_animComp = nullptr;
 };

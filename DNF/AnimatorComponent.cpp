@@ -24,18 +24,18 @@ void AnimatorComponent::Update()
 {
 	_curAnim->Update();
 
-	for (auto& nextAnim : _graph[_curAnim->GetAnimTag()])
+	for (auto& transition : _graph[_curAnim->GetAnimTag()])
 	{
-		nextAnim->Update();
+		transition->Update();
 	}
 
-	for (auto& nextAnim : _graph[_curAnim->GetAnimTag()])
+	for (auto& transition : _graph[_curAnim->GetAnimTag()])
 	{
-		if (_boolParams[nextAnim->GetNextAnimTag()])
+		if (_boolParams[transition->GetNextAnimTag()])
 		{
-			_boolParams[nextAnim->GetNextAnimTag()] = false;
+			_boolParams[transition->GetNextAnimTag()] = false;
 
-			_curAnim = _animations[nextAnim->GetNextAnimTag()];
+			_curAnim = _animations[transition->GetNextAnimTag()];
 
 			_curAnim->Init();
 		}
@@ -50,7 +50,7 @@ void AnimatorComponent::AddAnimation(const wstring& path, const wstring& animTag
 void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, const int& transitionValue, function func)
 {
 	_graph[start].push_back(new Transition(func, end, transitionValue, this));
-	_graph[end].push_back(new Transition(func, L"Idle", 0, this));
+	_graph[end].push_back(new Transition(func, L"Idle", 1, this));
 }
 
 void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, function func, const int& transitionValue)

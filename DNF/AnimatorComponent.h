@@ -22,7 +22,6 @@ public:
 
 	GameObject*		GetOwner() const							{ return _owner; }
 	Animation*		GetCurAnim() const							{ return _curAnim; }
-
 private:
 	unordered_map<wstring, vector<Transition*>>	_graph;
 	unordered_map<wstring, Animation*>			_animations;
