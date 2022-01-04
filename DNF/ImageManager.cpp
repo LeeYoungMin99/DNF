@@ -22,15 +22,11 @@ void ImageManager::Init()
 	AddImage(L"Image/CharacterMotion/Seria/Idle.png", 12, 12, -27, -116, 0.2f, true);
 	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, 12, -28, -117, 0.2f, true);
 
-#pragma region Goblin
+#pragma region Hanier
 
-	AddImage(L"Image/CharacterMotion/Goblin/Idle.png", 1, 1, -77, -121, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Goblin/Damaged.png", 2, 2, -77, -121, 0.3f);
-	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged1.png", 1, 1, -77, -121, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged2.png", 1, 1, -77, -121, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Goblin/JumpDamaged3.png", 1, 1, -77, -121, 0.2f, true);
-	AddImage(L"Image/CharacterMotion/Goblin/JumpDownIdle.png", 3, 3, -77, -121, 0.2f);
-
+	AddImage(L"Image/CharacterMotion/Hanier/Idle.png", 8, 8, -106, -278, 0.15f, true);
+	AddImage(L"Image/CharacterMotion/Hanier/Walk.png", 6, 6, -192, -140, 0.08f, true);
+	
 #pragma endregion
 
 #pragma region Player

@@ -5,7 +5,6 @@
 
 #include "Player.h"
 #include "Seria.h"
-#include "Goblin.h"
 #include "MapCollider.h"
 
 #include "Component.h"

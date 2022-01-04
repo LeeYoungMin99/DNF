@@ -4,7 +4,7 @@
 #include "Sprite.h"
 
 #include "Player.h"
-#include "Goblin.h"
+#include "Hanier.h"
 #include "MapCollider.h"
 
 #include "Component.h"
@@ -27,7 +27,7 @@ void BattleScene::Init()
 	MapCollider* mapBottomCollider = new MapCollider({ 0,600,1280,800 }, this, L"MapColliderBottom");
 
 	Player* player = new Player(this, L"Player");
-	Goblin* goblin = new Goblin(this, L"Goblin");
+	Hanier* hanier = new Hanier(this, L"Hanier");
 
 	Scene::Init();
 
@@ -106,7 +106,7 @@ void BattleScene::Update()
 
 					if (bPass == false)
 					{
-						_objBodyCollider[j]->OnCollided(_objAttackCollider[i]->GetFloatingPower());
+						_objBodyCollider[j]->OnCollided(_objAttackCollider[i]->GetStrikingPower(),_objAttackCollider[i]->GetFloatingPower());
 						_objAttackCollider[i]->AddHitObj(hitObj);
 					}
 				}

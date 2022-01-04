@@ -24,5 +24,5 @@ private:
 	RECT				_rectSize = {};
 	bool				_bIsRender = false;
 	PositionComponent*	_posComp = nullptr;
-	TransformComponent* _transComp = nullptr;
+	TransformComponent* _transformComp = nullptr;
 };

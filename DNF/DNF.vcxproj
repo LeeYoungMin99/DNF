@@ -157,10 +157,11 @@
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Goblin.cpp" />
-    <ClCompile Include="GoblinStatusComponent.cpp" />
+    <ClCompile Include="Hanier.cpp" />
+    <ClCompile Include="HanierState.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="MonsterState.cpp" />
     <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="main.cpp" />
@@ -197,9 +198,10 @@
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="BodyCollisionComponent.h" />
     <ClInclude Include="CameraManager.h" />
-    <ClInclude Include="Goblin.h" />
-    <ClInclude Include="GoblinStatusComponent.h" />
+    <ClInclude Include="Hanier.h" />
+    <ClInclude Include="HanierState.h" />
     <ClInclude Include="Ibutton.h" />
+    <ClInclude Include="MonsterState.h" />
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="main.h" />

@@ -20,10 +20,12 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	void				AddObject(GameObject* obj);
-	void				AddBodyCollider(BodyCollisionComponent* bodyCollider);
-	void				AddAttackCollider(AttackCollisionComponent* atkCollider);
-	void				RemoveObject(const wstring& tag);
+	vector<GameObject*>&										GetObjects() { return _objects; }
+
+	void														AddObject(GameObject* obj);
+	void														AddBodyCollider(BodyCollisionComponent* bodyCollider);
+	void														AddAttackCollider(AttackCollisionComponent* atkCollider);
+	void														RemoveObject(const wstring& tag);
 protected:
 	vector<GameObject*>											_objects = {};
 	vector<AttackCollisionComponent*>							_objAttackCollider = {};

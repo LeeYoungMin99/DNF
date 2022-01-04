@@ -3,7 +3,7 @@
 
 class PositionComponent;
 class RectColliderComponent;
-class GoblinStatusComponent;
+class StateMachineComponent;
 class BodyCollisionComponent : public Component
 {
 public:
@@ -15,7 +15,7 @@ public:
 	int						GetZBottom() const;
 
 	void					OnCollided(const RECT& collisionRect);
-	void					OnCollided(float floatingPower);
+	void					OnCollided(float damage, float floatingPower);
 private:
 	int						_zTop = 0;
 	int						_zBottom = 0;
@@ -23,7 +23,8 @@ private:
 	PositionComponent*		_posComp = nullptr;
 	RectColliderComponent*	_collider = nullptr;
 
+	bool					_bIsSuperArmor = false;
 	// 일단 고블린만 피격될 수 있게 만들었음
-	GoblinStatusComponent*	_goblinStatusComp = nullptr;
+	StateMachineComponent*	_statusComp = nullptr;
 };
 

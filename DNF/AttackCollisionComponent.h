@@ -13,6 +13,7 @@ public:
 
 	RectColliderComponent*	GetCollider()				{ return _collider; }
 	float					GetFloatingPower()	const	{ return _floatingPower; }
+	float					GetStrikingPower()	const	{ return _strikingPower; }
 	vector<GameObject*>		GetHitObjs()		const	{ return _hitObjs; }
 	int						GetZTop()			const;
 	int						GetZBottom()		const;
@@ -28,6 +29,7 @@ private:
 
 	int						_zTop = 0;
 	int						_zBottom = 0;
+	float					_strikingPower = 0.0f;
 	float					_floatingPower = 0.0f;
 	vector<GameObject*>		_hitObjs = {};
 };

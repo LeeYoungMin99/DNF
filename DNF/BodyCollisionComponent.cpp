@@ -6,7 +6,7 @@
 
 #include "RectColliderComponent.h"
 #include "PositionComponent.h"
-#include "GoblinStatusComponent.h"
+#include "StateMachineComponent.h"
 
 BodyCollisionComponent::BodyCollisionComponent(RectColliderComponent* rectColliderComp, int top, int bottom, GameObject* owner, INT32 order)
 	:Component(owner, order), _collider{ rectColliderComp }, _zTop{ top }, _zBottom{ bottom }
@@ -14,7 +14,7 @@ BodyCollisionComponent::BodyCollisionComponent(RectColliderComponent* rectCollid
 	owner->GetScene()->AddBodyCollider(this);
 
 	_posComp = owner->GetComponent<PositionComponent>();
-	_goblinStatusComp = owner->GetComponent<GoblinStatusComponent>();
+	_statusComp = owner->GetComponent<StateMachineComponent>();
 }
 
 int BodyCollisionComponent::GetZTop() const
@@ -59,18 +59,22 @@ void BodyCollisionComponent::OnCollided(const RECT& collisionRect)
 	_collider->Update();
 }
 
-void BodyCollisionComponent::OnCollided(float floatingPower)
+void BodyCollisionComponent::OnCollided(float damage, float floatingPower)
 {
 	// 일단 고블린만 피격될 수 있게 만들었음
-	if (floatingPower != 0)
-	{
-		_posComp->SetAcceleration(floatingPower);
-		_posComp->SetResistance(0.0f);
-	}
-	else if (_posComp->GetZ() != 0)
-	{
-		_posComp->SetResistance(_posComp->GetAccelerration()*0.8f);
-	}
 
-	_goblinStatusComp->SetState(GoblinStatusComponent::eGoblinState::Damaged);
+	if (_bIsSuperArmor)
+	{
+		if (floatingPower != 0)
+		{
+			_posComp->SetAcceleration(floatingPower);
+			_posComp->SetResistance(0.0f);
+		}
+		else if (_posComp->GetZ() != 0)
+		{
+			_posComp->SetResistance(_posComp->GetAccelerration() * 0.8f);
+		}
+
+		_statusComp->ChangeState(eState::Damaged);
+	}
 }

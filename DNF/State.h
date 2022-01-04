@@ -1,6 +1,7 @@
 #pragma once
 #include "GameEntity.h"
 
+enum class eState;
 class GameObject;
 class StateMachineComponent;
 class State : public GameEntity
@@ -13,6 +14,9 @@ public:
 	virtual void Update() override {}
 	virtual void Render() override {}
 	virtual void Release() override {}
+
+	void ChangeState(eState state);
+	void ChangeState(int stateTag);
 protected:
 	StateMachineComponent*	_stateMachineComp = nullptr;
 	GameObject*				_owner = nullptr;

@@ -41,9 +41,6 @@
     <Filter Include="2D Framework\Component\Animation">
       <UniqueIdentifier>{fc5de651-db90-4a01-be7b-82431ff2690f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2D Framework\Component\Goblin">
-      <UniqueIdentifier>{860cc48e-74fd-4976-a20d-6e1d857c6d09}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -133,12 +130,6 @@
     <ClCompile Include="PlayerCommandComponent.cpp">
       <Filter>2D Framework\Component\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Goblin.cpp">
-      <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClCompile>
-    <ClCompile Include="GoblinStatusComponent.cpp">
-      <Filter>2D Framework\Component\Goblin</Filter>
-    </ClCompile>
     <ClCompile Include="AttackCollisionComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
@@ -151,9 +142,24 @@
     <ClCompile Include="BattleScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
-    <ClCompile Include="StateMachineComponent.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="StateMachineComponent.cpp">
+      <Filter>2D Framework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Hanier.cpp">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClCompile>
+    <ClCompile Include="HanierState.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterState.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h">
@@ -267,12 +273,6 @@
     <ClInclude Include="PlayerCommandComponent.h">
       <Filter>2D Framework\Component\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Goblin.h">
-      <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="GoblinStatusComponent.h">
-      <Filter>2D Framework\Component\Goblin</Filter>
-    </ClInclude>
     <ClInclude Include="AttackCollisionComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
@@ -285,9 +285,24 @@
     <ClInclude Include="BattleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
-    <ClInclude Include="StateMachineComponent.h" />
-    <ClInclude Include="State.h" />
-    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayerState.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachineComponent.h">
+      <Filter>2D Framework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Hanier.h">
+      <Filter>2D Framework\GameObject\Charactor</Filter>
+    </ClInclude>
+    <ClInclude Include="HanierState.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterState.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico">

@@ -1,38 +1,34 @@
 #pragma once
 #include "State.h"
 
-enum class eState;
 class PlayerState : public State
 {
 public:
 	using State::State;
 	virtual ~PlayerState() = default;
 
-	void ChangeState(eState state);
-	void ChangeState(int stateTag);
-
 	bool InputPlayerAttackKey() { return Input::GetButtonDown(PLAYER_ATTACK_KEY); }
-	bool InputPlayerJumpKey() { return Input::GetButtonDown(PLAYER_JUMP_KEY); }
-	bool InputPlayerMoveKey() { return (Input::GetButton(PLAYER_LEFT_MOVE_KEY) || Input::GetButton(PLAYER_RIGHT_MOVE_KEY) || Input::GetButton(PLAYER_UP_MOVE_KEY) || Input::GetButton(PLAYER_DOWN_MOVE_KEY)); }
+	bool InputPlayerJumpKey()	{ return Input::GetButtonDown(PLAYER_JUMP_KEY); }
+	bool InputPlayerMoveKey()	{ return (Input::GetButton(PLAYER_LEFT_MOVE_KEY) || Input::GetButton(PLAYER_RIGHT_MOVE_KEY) || Input::GetButton(PLAYER_UP_MOVE_KEY) || Input::GetButton(PLAYER_DOWN_MOVE_KEY)); }
 protected:
 	const char PLAYER_ATTACK_KEY = 'X';
 	const char PLAYER_JUMP_KEY = 'C';
 
-	const char PLAYER_LEFT_MOVE_KEY = VK_LEFT;
+	const char PLAYER_LEFT_MOVE_KEY	 = VK_LEFT;
 	const char PLAYER_RIGHT_MOVE_KEY = VK_RIGHT;
-	const char PLAYER_UP_MOVE_KEY = VK_UP;
-	const char PLAYER_DOWN_MOVE_KEY = VK_DOWN;
+	const char PLAYER_UP_MOVE_KEY	 = VK_UP;
+	const char PLAYER_DOWN_MOVE_KEY	 = VK_DOWN;
 
-	const char PLAYER_SKILL_QUICK_SLOT_1_KEY = 'A';
-	const char PLAYER_SKILL_QUICK_SLOT_2_KEY = 'S';
-	const char PLAYER_SKILL_QUICK_SLOT_3_KEY = 'D';
-	const char PLAYER_SKILL_QUICK_SLOT_4_KEY = 'F';
-	const char PLAYER_SKILL_QUICK_SLOT_5_KEY = 'G';
-	const char PLAYER_SKILL_QUICK_SLOT_6_KEY = 'H';
-	const char PLAYER_SKILL_QUICK_SLOT_7_KEY = 'J';
-
-	const char PLAYER_SKILL_QUICK_SLOT_8_KEY = 'Q';
-	const char PLAYER_SKILL_QUICK_SLOT_9_KEY = 'W';
+	const char PLAYER_SKILL_QUICK_SLOT_1_KEY  = 'A';
+	const char PLAYER_SKILL_QUICK_SLOT_2_KEY  = 'S';
+	const char PLAYER_SKILL_QUICK_SLOT_3_KEY  = 'D';
+	const char PLAYER_SKILL_QUICK_SLOT_4_KEY  = 'F';
+	const char PLAYER_SKILL_QUICK_SLOT_5_KEY  = 'G';
+	const char PLAYER_SKILL_QUICK_SLOT_6_KEY  = 'H';
+	const char PLAYER_SKILL_QUICK_SLOT_7_KEY  = 'J';
+											  
+	const char PLAYER_SKILL_QUICK_SLOT_8_KEY  = 'Q';
+	const char PLAYER_SKILL_QUICK_SLOT_9_KEY  = 'W';
 	const char PLAYER_SKILL_QUICK_SLOT_10_KEY = 'E';
 	const char PLAYER_SKILL_QUICK_SLOT_11_KEY = 'R';
 	const char PLAYER_SKILL_QUICK_SLOT_12_KEY = 'T';
@@ -49,7 +45,7 @@ public:
 
 	virtual void Update() override;
 protected:
-	bool IsEndAnimation();
+	bool EndAnimation();
 protected:
 	AnimatorComponent* _animComp = nullptr;
 };

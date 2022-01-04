@@ -9,16 +9,6 @@
 
 #include "GameObject.h"
 
-void PlayerState::ChangeState(eState state)
-{
-	_stateMachineComp->ChangeState((int)state);
-}
-
-void PlayerState::ChangeState(int stateTag)
-{
-	_stateMachineComp->ChangeState(stateTag);
-}
-
 PlayerAction::PlayerAction(StateMachineComponent* stateMachine, GameObject* owner)
 	:PlayerState(stateMachine, owner)
 {
@@ -27,10 +17,10 @@ PlayerAction::PlayerAction(StateMachineComponent* stateMachine, GameObject* owne
 
 void PlayerAction::Update()
 {
-	if (IsEndAnimation()) { ChangeState(eState::Idle); }
+	if (EndAnimation()) { ChangeState(eState::Idle); }
 }
 
-bool PlayerAction::IsEndAnimation()
+bool PlayerAction::EndAnimation()
 {
 	return _animComp->GetCurAnim()->IsEnd();
 }
@@ -39,7 +29,7 @@ void PlayerIdle::Update()
 {
 	if (Input::GetButtonDown(PLAYER_SKILL_QUICK_SLOT_1_KEY)) { ChangeState(eState::Skill2); }
 	else if (InputPlayerAttackKey()) { ChangeState(eState::NormalAttack1); }
-	else if (InputPlayerJumpKey()) { ChangeState(eState::Jump);}
+	else if (InputPlayerJumpKey()) { ChangeState(eState::Jump); }
 
 	else if (InputPlayerMoveKey()) { ChangeState(eState::Walk); }
 }
@@ -87,7 +77,7 @@ void PlayerRun::Update()
 		if (Input::GetButtonDown(PLAYER_LEFT_MOVE_KEY)) { ChangeState(eState::Walk); return; }
 	}
 
-	if (false == InputPlayerMoveKey()) { ChangeState(eState::Idle);}
+	if (false == InputPlayerMoveKey()) { ChangeState(eState::Idle); }
 }
 
 PlayerJump::PlayerJump(StateMachineComponent* stateMachine, GameObject* owner)
@@ -133,7 +123,7 @@ void PlayerAttack::Update()
 	{
 		if (state != eState::DashAttack1 && state != eState::DashAttack2)
 		{
-			 ChangeState(eState::Skill2);
+			ChangeState(eState::Skill2);
 		}
 	}
 	else if (InputPlayerAttackKey())
@@ -143,16 +133,18 @@ void PlayerAttack::Update()
 			_bInputCombo = true;
 		}
 	}
-	
-	if (IsEndAnimation()) { ChangeState(eState::Idle); }
+
+	if (EndAnimation())
+	{
+		ChangeState(eState::Idle);
+	}
 	else if (state != eState::NormalAttack5 && state != eState::DashAttack2)
 	{
 		if (CheckCanCombo())
 		{
-			ChangeState((_stateMachineComp->GetCurStateTag() + NEXT_STATE));
+			State::ChangeState((_stateMachineComp->GetCurStateTag() + NEXT_STATE));
 		}
 	}
-		
 }
 
 bool PlayerAttack::CheckCanCombo()

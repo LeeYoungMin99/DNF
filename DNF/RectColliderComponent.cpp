@@ -12,7 +12,7 @@ RectColliderComponent::RectColliderComponent(const RECT& rectSize, GameObject* o
 void RectColliderComponent::Init()
 {
 	_posComp = _owner->GetComponent<PositionComponent>();
-	_transComp = _owner->GetComponent<TransformComponent>();
+	_transformComp = _owner->GetComponent<TransformComponent>();
 }
 
 void RectColliderComponent::Update()
@@ -30,10 +30,10 @@ void RectColliderComponent::Update()
 		ownerY = _owner->GetY();
 	}
 
-	if (_transComp != nullptr)
+	if (_transformComp != nullptr)
 	{
-		_rect.left = ownerX + _rectSize.left * (int)_transComp->GetDirX();
-		_rect.right = ownerX + _rectSize.right * (int)_transComp->GetDirX();
+		_rect.left = ownerX + _rectSize.left * (int)_transformComp->GetDirX();
+		_rect.right = ownerX + _rectSize.right * (int)_transformComp->GetDirX();
 		_rect.top = ownerY + _rectSize.top;
 		_rect.bottom = ownerY + _rectSize.bottom;
 	}
