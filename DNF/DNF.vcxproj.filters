@@ -154,9 +154,6 @@
     <ClCompile Include="Hanier.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
-    <ClCompile Include="HanierState.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
     <ClCompile Include="MonsterState.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
@@ -296,9 +293,6 @@
     </ClInclude>
     <ClInclude Include="Hanier.h">
       <Filter>2D Framework\GameObject\Charactor</Filter>
-    </ClInclude>
-    <ClInclude Include="HanierState.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="MonsterState.h">
       <Filter>2D Framework</Filter>

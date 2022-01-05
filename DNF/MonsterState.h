@@ -51,7 +51,7 @@ private:
 
 	const float MOVE_SPEED_X = 200.0f;
 	const float MOVE_SPEED_Y = 150.0f;
-	
+
 	const int NOT_MOVE_X_DISTANCE = 5;
 	const int NOT_MOVE_Y_DISTANCE = 5;
 
@@ -81,4 +81,17 @@ private:
 
 	float _elapsedTime = 0.0f;
 	const float TARGET_TIME = 0.32;
+};
+
+class AttackCollisionComponent;
+class NormalAttack : public State
+{
+public:
+	NormalAttack(StateMachineComponent* stateMachine, GameObject* owner);
+	virtual ~NormalAttack() = default;
+
+	virtual void Init() override;
+	virtual void Update() override;
+private:
+	AttackCollisionComponent* _attackCollider = nullptr;
 };

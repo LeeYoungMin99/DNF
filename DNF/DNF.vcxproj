@@ -158,7 +158,6 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Hanier.cpp" />
-    <ClCompile Include="HanierState.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MonsterState.cpp" />
@@ -199,7 +198,6 @@
     <ClInclude Include="BodyCollisionComponent.h" />
     <ClInclude Include="CameraManager.h" />
     <ClInclude Include="Hanier.h" />
-    <ClInclude Include="HanierState.h" />
     <ClInclude Include="Ibutton.h" />
     <ClInclude Include="MonsterState.h" />
     <ClInclude Include="PlayerState.h" />

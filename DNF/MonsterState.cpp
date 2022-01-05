@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "TransformComponent.h"
 #include "StateMachineComponent.h"
+#include "AttackCollisionComponent.h"
 #include "AnimatorComponent.h"
 #include "Animation.h"
 
@@ -197,6 +198,25 @@ void AttackReady::Update()
 	_owner->AddY(targetPos.y);
 
 	if (_elapsedTime >= TARGET_TIME)
+	{
+		ChangeState(eState::NormalAttack1);
+	}
+}
+
+NormalAttack::NormalAttack(StateMachineComponent* stateMachine, GameObject* owner)
+	:State(stateMachine,owner)
+{
+	_attackCollider = owner->GetComponent<AttackCollisionComponent>();
+}
+
+void NormalAttack::Init()
+{
+	_attackCollider->Init();
+}
+
+void NormalAttack::Update()
+{
+	if (_owner->GetComponent<AnimatorComponent>()->GetCurAnim()->IsEnd())
 	{
 		ChangeState(eState::Idle);
 	}

@@ -26,6 +26,8 @@ void Hanier::Init()
 
 	animComp->AddAnimation(L"Image/CharacterMotion/Hanier/Idle.png", L"Idle");
 	animComp->AddAnimation(L"Image/CharacterMotion/Hanier/Walk.png", L"Walk");
+	animComp->AddAnimation(L"Image/CharacterMotion/Hanier/NormalAttack1.png", L"NormalAttack1");
+	animComp->AddAnimation(L"Image/CharacterMotion/Hanier/NormalAttack2.png", L"NormalAttack2");
 
 	animComp->SetCurrAnim(L"Idle");
 	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
@@ -41,6 +43,18 @@ void Hanier::Init()
 	};
 
 	animComp->AddTransition(L"Idle", L"Walk", (int)eState::Walk, CanChange);
+	animComp->AddTransition(L"Walk", L"NormalAttack1", CanChange, (int)eState::NormalAttack1);
+	animComp->AddTransition(L"NormalAttack1", L"NormalAttack2", [](GameObject* owner, const int& frame) {
+		if (owner->GetComponent<AnimatorComponent>()->GetCurAnim()->GetCurrFrame() == frame)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		}, 6);
+	animComp->AddTransition(L"NormalAttack2", L"Idle", CanChange, (int)eState::Idle);
 
 	PositionComponent* posComp = new PositionComponent(this, 99);
 	TransformComponent* transformComp = new TransformComponent(this, 101);
@@ -51,6 +65,7 @@ void Hanier::Init()
 	stateMachineComp->AddState(new Idle(stateMachineComp, this), eState::Idle);
 	stateMachineComp->AddState(new Walk(stateMachineComp, this), eState::Walk);
 	stateMachineComp->AddState(new AttackReady(stateMachineComp, this), eState::AttackReady);
+	stateMachineComp->AddState(new NormalAttack(stateMachineComp, this), eState::NormalAttack1);
 
 	stateMachineComp->ChangeState(eState::Idle);
 

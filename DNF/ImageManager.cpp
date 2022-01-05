@@ -26,9 +26,11 @@ void ImageManager::Init()
 
 	AddImage(L"Image/CharacterMotion/Hanier/Idle.png", 8, 8, -106, -278, 0.15f, true);
 	AddImage(L"Image/CharacterMotion/Hanier/Walk.png", 6, 6, -192, -140, 0.08f, true);
-	
-#pragma endregion
+	AddImage(L"Image/CharacterMotion/Hanier/NormalAttack1.png", 8, 8, -709, -214, 0.1f);
+	AddImage(L"Image/CharacterMotion/Hanier/NormalAttack2.png", 8, 8, -709, -214, 0.1f);
 
+#pragma endregion
+		
 #pragma region Player
 
 	AddImage(L"Image/CharacterMotion/Player/Idle.png", 33, 33, -245, -374, 0.2f, true);
