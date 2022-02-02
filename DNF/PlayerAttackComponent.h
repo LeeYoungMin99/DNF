@@ -13,10 +13,12 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 
-	void SetAttack(const RECT& size, int top, int bottom, float floatingPower);
+	void SetAttack(const RECT& size, int top, int bottom, float floatingPower, float resistance = 0.0f);
 private:
-	StateMachineComponent*		_statusComp = nullptr;
+	StateMachineComponent*		_stateMachineComp = nullptr;
 	AttackCollisionComponent*	_atkComp = nullptr;
 	AnimatorComponent*			_animComp = nullptr;
+
+	int _prevFrame = 0;
 };
 

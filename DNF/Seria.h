@@ -1,6 +1,6 @@
 #pragma once
-#include "Ibutton.h"
 #include "GameObject.h"
+#include "IButton.h"
 
 class Seria : public GameObject, IButton
 {
@@ -10,6 +10,7 @@ public:
 
 	virtual void Init() override;
 private:
-	virtual void OnExecute() override;
+	virtual void OnExecuteToIdle() override { }
+	virtual void OnExecuteToClick() override;
 };
 

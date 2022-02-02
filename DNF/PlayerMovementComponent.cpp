@@ -7,13 +7,13 @@
 
 void PlayerMovementComponent::Init()
 {
-	_statusComp = _owner->GetComponent<StateMachineComponent>();
-	_transformComp = _owner->GetComponent<PlayerTransformComponent>();
+	_stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
+	_transformComp = GetOwner()->GetComponent<PlayerTransformComponent>();
 }
 
 void PlayerMovementComponent::Update()
 {
-	eState state = (eState)_statusComp->GetCurStateTag();
+	eState state = (eState)_stateMachineComp->GetCurStateTag();
 
 	switch (state)
 	{
@@ -36,38 +36,38 @@ void PlayerMovementComponent::Update()
 void PlayerMovementComponent::Move()
 {
 	float deltaTime = Timer::GetDeltaTime();
-	PlayerTransformComponent::eDirX dirX = _transformComp->GetDirX();
-	PlayerTransformComponent::eDirY dirY = _transformComp->GetDirY();
+	eDirX dirX = _transformComp->GetDirX();
+	eDirY dirY = _transformComp->GetDirY();
 
 	if (Input::GetButton(VK_LEFT))
 	{
-		if (PlayerTransformComponent::eDirX::Left == dirX)
+		if (eDirX::Left == dirX)
 		{
-			_owner->AddX((LONG)-(_moveSpeed * deltaTime));
+			GetOwner()->AddX((LONG)-(_moveSpeed * deltaTime));
 		}
 	}
 	
 	if (Input::GetButton(VK_RIGHT))
 	{
-		if (PlayerTransformComponent::eDirX::Right == dirX)
+		if (eDirX::Right == dirX)
 		{
-			_owner->AddX((LONG)(_moveSpeed * deltaTime));
+			GetOwner()->AddX((LONG)(_moveSpeed * deltaTime));
 		}
 	}
 
 	if (Input::GetButton(VK_UP))
 	{
-		if (PlayerTransformComponent::eDirY::Up == dirY)
+		if (eDirY::Up == dirY)
 		{
-			_owner->AddY((LONG)-(Y_SPEED * deltaTime));
+			GetOwner()->AddY((LONG)-(Y_SPEED * deltaTime));
 		}
 	}
 	
 	if (Input::GetButton(VK_DOWN))
 	{
-		if (PlayerTransformComponent::eDirY::Down == dirY)
+		if (eDirY::Down == dirY)
 		{
-			_owner->AddY((LONG)(Y_SPEED * deltaTime));
+			GetOwner()->AddY((LONG)(Y_SPEED * deltaTime));
 		}
 	}
 }

@@ -14,10 +14,10 @@ protected:
 	const char PLAYER_ATTACK_KEY = 'X';
 	const char PLAYER_JUMP_KEY = 'C';
 
-	const char PLAYER_LEFT_MOVE_KEY	 = VK_LEFT;
-	const char PLAYER_RIGHT_MOVE_KEY = VK_RIGHT;
-	const char PLAYER_UP_MOVE_KEY	 = VK_UP;
-	const char PLAYER_DOWN_MOVE_KEY	 = VK_DOWN;
+	const BYTE PLAYER_LEFT_MOVE_KEY	 = VK_LEFT;
+	const BYTE PLAYER_RIGHT_MOVE_KEY = VK_RIGHT;
+	const BYTE PLAYER_UP_MOVE_KEY	 = VK_UP;
+	const BYTE PLAYER_DOWN_MOVE_KEY	 = VK_DOWN;
 
 	const char PLAYER_SKILL_QUICK_SLOT_1_KEY  = 'A';
 	const char PLAYER_SKILL_QUICK_SLOT_2_KEY  = 'S';
@@ -45,9 +45,9 @@ public:
 
 	virtual void Update() override;
 protected:
-	bool EndAnimation();
+	bool				EndAnimation();
 protected:
-	AnimatorComponent* _animComp = nullptr;
+	AnimatorComponent*	_animComp = nullptr;
 };
 
 class PlayerIdle : public PlayerState
@@ -113,11 +113,11 @@ class PlayerAttack : public PlayerAction
 	virtual void Init() override;
 	virtual void Update() override;
 
-	bool CheckCanCombo();
+	bool	CheckCanCombo();
 private:
-	float _elapsedTime = 0.0f;
-	bool _bInputCombo = false;
+	float	_elapsedTime = 0.0f;
+	bool	_bInputCombo = false;
 
-	float CAN_INPUT_ELAPSED_TIME = 0.20f;
+	const float CAN_INPUT_ELAPSED_TIME = 0.20f;
 	const int NEXT_STATE = 1;
 };

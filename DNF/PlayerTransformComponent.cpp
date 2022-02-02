@@ -7,12 +7,12 @@
 
 void PlayerTransformComponent::Init()
 {
-	_statusComp = _owner->GetComponent<StateMachineComponent>();
+	_stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
 }
 
 void PlayerTransformComponent::Update()
 {
-	eState state = (eState)_statusComp->GetCurStateTag();
+	eState state = (eState)_stateMachineComp->GetCurStateTag();
 
 	switch (state)
 	{
@@ -36,7 +36,6 @@ void PlayerTransformComponent::Update()
 
 		if		(eDirY::Down == _dirY)	{ if (Input::GetButton(VK_UP) && false == (Input::GetButton(VK_DOWN) || Input::GetButtonDown(VK_DOWN))) { SetDirY(eDirY::Up); } }
 		else if (eDirY::Up == _dirY)	{ if (Input::GetButton(VK_DOWN) && false == (Input::GetButton(VK_UP) || Input::GetButtonDown(VK_UP))) { SetDirY(eDirY::Down); } }
-
 		break;
 
 	case eState::Jump:

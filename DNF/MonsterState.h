@@ -1,18 +1,6 @@
 #pragma once
 #include "State.h"
 
-class AnimatorComponent;
-class Meet : public State
-{
-public:
-	Meet(StateMachineComponent* stateMachine, GameObject* owner);
-	virtual ~Meet() = default;
-
-	virtual void Update();
-private:
-	AnimatorComponent* _animComp = nullptr;
-};
-
 class GameObject;
 class TransformComponent;
 class Idle : public State
@@ -26,7 +14,6 @@ public:
 private:
 	GameObject* _target = nullptr;
 	TransformComponent* _transformComp = nullptr;
-
 	float _elapsedTime = 0.0f;
 
 	const float CHANGE_STATE_TIME = 0.5f;
@@ -40,50 +27,55 @@ public:
 	Walk(StateMachineComponent* stateMachine, GameObject* owner);
 	virtual ~Walk() = default;
 
-	virtual void Init();
-	virtual void Update();
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Release() override;
 
-	void Move();
-	void ChangeDir();
+	void					Move();
+	void					ChangeDir();
+
+	GameObject*				GetTarget() { return _target; }
 private:
-	GameObject* _target = nullptr;
-	TransformComponent* _transformComp = nullptr;
+	GameObject*				_target = nullptr;
+	TransformComponent*		_transformComp = nullptr;
+
+	bool					_bCanChangeDirX = false;
+	bool					_bCanChangeDirY = false;
+
+	float					_elapsedTime = 0.0f;
+	float					_changeTimeDirX = 0.0f;
+	float					_changeTimeDirY = 0.0f;
 
 	const float MOVE_SPEED_X = 200.0f;
 	const float MOVE_SPEED_Y = 150.0f;
 
-	const int NOT_MOVE_X_DISTANCE = 5;
-	const int NOT_MOVE_Y_DISTANCE = 5;
+	const int CAN_CHANGE_X_DISTANCE = 3;
+	const int CAN_CHANGE_Y_DISTANCE = 3;
 
-	float _elapsedTime = 0.0f;
-
-	int _changeCount = 0;
-
-	const int CAN_CHANGE_SPECIAL_PATTERN = 4;
-	const float CHANGE_STATE_TIME = 2.0f;
+	const float CHANGE_STATE_TIME = 4.0f;
+	const float CHANGE_DIR_TIME = 0.8f;
 };
 
 class GameObject;
-class TransformComponent;
+class AnimatorComponent;
 class AttackReady : public State
 {
 public:
 	AttackReady(StateMachineComponent* stateMachine, GameObject* owner);
 	virtual ~AttackReady() = default;
 
-	virtual void Init() override;
 	virtual void Update() override;
 private:
-	GameObject* _target = nullptr;
-	TransformComponent* _transformComp = nullptr;
+	GameObject*			_target = nullptr;
+	GameObject*			_meteor = nullptr;
+	
+	AnimatorComponent*	_animComp = nullptr;
 
-	POINT _trackPos = {};
-
-	float _elapsedTime = 0.0f;
-	const float TARGET_TIME = 0.32;
+	float				_elapsedTime = 0.0f;
 };
 
 class AttackCollisionComponent;
+class AnimatorComponent;
 class NormalAttack : public State
 {
 public:
@@ -92,6 +84,8 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
+	virtual void Release() override;
 private:
-	AttackCollisionComponent* _attackCollider = nullptr;
+	AttackCollisionComponent*	_attackCollider = nullptr;
+	AnimatorComponent*			_animComp = nullptr;
 };

@@ -10,20 +10,6 @@
 
 #include "Scene.h"
 
-Meet::Meet(StateMachineComponent* stateMachine, GameObject* owner)
-	:State(stateMachine, owner)
-{
-	_animComp = owner->GetComponent<AnimatorComponent>();
-}
-
-void Meet::Update()
-{
-	if (_animComp->GetCurAnim()->IsEnd())
-	{
-		ChangeState(eState::Idle);
-	}
-}
-
 Idle::Idle(StateMachineComponent* stateMachine, GameObject* owner)
 	:State(stateMachine, owner)
 {
@@ -44,11 +30,11 @@ void Idle::Init()
 
 	if (_target->GetX() > _owner->GetX())
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Right);
+		_transformComp->SetDirX(eDirX::Right);
 	}
 	else
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Left);
+		_transformComp->SetDirX(eDirX::Left);
 	}
 }
 
@@ -58,11 +44,11 @@ void Idle::Update()
 
 	if (_target->GetX() > _owner->GetX())
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Right);
+		_transformComp->SetDirX(eDirX::Right);
 	}
 	else
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Left);
+		_transformComp->SetDirX(eDirX::Left);
 	}
 
 	if (_elapsedTime >= CHANGE_STATE_TIME)
@@ -88,31 +74,44 @@ Walk::Walk(StateMachineComponent* stateMachine, GameObject* owner)
 void Walk::Init()
 {
 	_elapsedTime = 0.0f;
+	_changeTimeDirX = 0.0f;
+	_changeTimeDirY = 0.0f;
 
 	if (_target->GetX() > _owner->GetX())
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Right);
+		_transformComp->SetDirX(eDirX::Right);
 	}
 	else
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Left);
+		_transformComp->SetDirX(eDirX::Left);
 	}
 }
 
 void Walk::Update()
 {
-	_elapsedTime += Timer::GetDeltaTime();
+	float deltaTime = Timer::GetDeltaTime();
+
+	_elapsedTime += deltaTime;
+
+	if (true == _bCanChangeDirX)
+	{
+		_changeTimeDirX += deltaTime;
+	}
+
+	if (true == _bCanChangeDirY)
+	{
+		_changeTimeDirY += deltaTime;
+	}
 
 	ChangeDir();
 
-	//Move();
+	Move();
 
 	if (_elapsedTime >= CHANGE_STATE_TIME)
 	{
-		if (_changeCount >= CAN_CHANGE_SPECIAL_PATTERN)
+		if (abs(_target->GetX() - _owner->GetX()) <= 150 && abs(_target->GetY() - _owner->GetY()) <= 25)
 		{
-			ChangeState(eState::Skill1);
-			_changeCount = 0;
+			ChangeState(eState::NormalAttack1);
 		}
 		else
 		{
@@ -121,47 +120,59 @@ void Walk::Update()
 	}
 }
 
+void Walk::Release()
+{
+	if (_target->GetX() > _owner->GetX())
+	{
+		_transformComp->SetDirX(eDirX::Right);
+	}
+	else
+	{
+		_transformComp->SetDirX(eDirX::Left);
+	}
+}
+
 void Walk::Move()
 {
-	int distanceX = abs(_target->GetX() - _owner->GetX());
-	int distanceY = abs(_target->GetY() - _owner->GetY());
-
-	if (distanceX >= NOT_MOVE_X_DISTANCE)
-	{
-		_owner->AddX((MOVE_SPEED_X * Timer::GetDeltaTime()) * (int)_transformComp->GetDirX());
-	}
-
-	if (distanceY >= NOT_MOVE_Y_DISTANCE)
-	{
-		_owner->AddY((MOVE_SPEED_Y * Timer::GetDeltaTime()) * (int)_transformComp->GetDirY());
-	}
+	_owner->AddX((LONG)((MOVE_SPEED_X * Timer::GetDeltaTime()) * (int)_transformComp->GetDirX()));
+	_owner->AddY((LONG)((MOVE_SPEED_Y * Timer::GetDeltaTime()) * (int)_transformComp->GetDirY()));
 }
 
 void Walk::ChangeDir()
 {
-	if (_target->GetX() > _owner->GetX())
+	int distanceX = _target->GetX() - _owner->GetX();
+	int distanceY = _target->GetY() - _owner->GetY();
+	eDirX dirX = _transformComp->GetDirX();
+
+	if (abs(distanceX) <= CAN_CHANGE_X_DISTANCE || (distanceX >= 300 && dirX == eDirX::Left) || (distanceX <= -300 && dirX == eDirX::Right))
 	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Right);
-	}
-	else
-	{
-		_transformComp->SetDirX(TransformComponent::eDirX::Left);
+		_bCanChangeDirX = true;
 	}
 
-	if (_target->GetY() > _owner->GetY())
+	if (abs(distanceY) <= CAN_CHANGE_Y_DISTANCE)
 	{
-		_transformComp->SetDirY(TransformComponent::eDirY::Down);
+		_bCanChangeDirY = true;
 	}
-	else
+
+	if (_changeTimeDirX >= CHANGE_DIR_TIME)
 	{
-		_transformComp->SetDirY(TransformComponent::eDirY::Up);
+		_transformComp->ChangeDirX();
+		_changeTimeDirX = 0.0f;
+		_bCanChangeDirX = false;
+	}
+
+	if (_changeTimeDirY >= CHANGE_DIR_TIME)
+	{
+		_transformComp->ChangeDirY();
+		_changeTimeDirY = 0.0f;
+		_bCanChangeDirY = false;
 	}
 }
 
 AttackReady::AttackReady(StateMachineComponent* stateMachine, GameObject* owner)
 	:State(stateMachine, owner)
 {
-	_transformComp = _owner->GetComponent<TransformComponent>();
+	_animComp = _owner->GetComponent<AnimatorComponent>();
 
 	for (auto& obj : owner->GetScene()->GetObjects())
 	{
@@ -169,44 +180,30 @@ AttackReady::AttackReady(StateMachineComponent* stateMachine, GameObject* owner)
 		{
 			_target = obj;
 		}
+		else if (obj->GetTag() == L"Monster" && obj != _owner)
+		{
+			_meteor = obj;
+		}
 	}
-}
-
-void AttackReady::Init()
-{
-	if (_transformComp->GetDirX() == TransformComponent::eDirX::Right)
-	{
-		_trackPos = { _target->GetX() - 100, _target->GetY() };
-	}
-	else
-	{
-		_trackPos = { _target->GetX() + 100, _target->GetY() };
-	}
-
-	_elapsedTime = 0.0f;
 }
 
 void AttackReady::Update()
 {
-	_elapsedTime += Timer::GetDeltaTime();
-
-	if (_elapsedTime > TARGET_TIME) { _elapsedTime = TARGET_TIME; }
-
-	POINT targetPos = { (_trackPos.x - _owner->GetX()) * (_elapsedTime / TARGET_TIME) ,(_trackPos.y - _owner->GetY()) * (_elapsedTime / TARGET_TIME) };
-
-	_owner->AddX(targetPos.x);
-	_owner->AddY(targetPos.y);
-
-	if (_elapsedTime >= TARGET_TIME)
+	if (_animComp->GetCurAnim()->IsEnd())
 	{
-		ChangeState(eState::NormalAttack1);
+		_meteor->SetIsActive(true);
+		_meteor->SetX(_target->GetX());
+		_meteor->SetY(_target->GetY() - 500);
+
+		ChangeState(eState::Idle);
 	}
 }
 
 NormalAttack::NormalAttack(StateMachineComponent* stateMachine, GameObject* owner)
-	:State(stateMachine,owner)
+	:State(stateMachine, owner)
 {
 	_attackCollider = owner->GetComponent<AttackCollisionComponent>();
+	_animComp = _owner->GetComponent<AnimatorComponent>();
 }
 
 void NormalAttack::Init()
@@ -216,8 +213,25 @@ void NormalAttack::Init()
 
 void NormalAttack::Update()
 {
-	if (_owner->GetComponent<AnimatorComponent>()->GetCurAnim()->IsEnd())
+	int curAnimationFrame = _animComp->GetCurAnim()->GetCurFrame();
+
+	switch (curAnimationFrame)
+	{
+	case 3:
+		_attackCollider->SetAttack({ 0,-35,122,15 }, 150, 0, 20.0f, 19.0f);
+		break;
+	case 5:
+		_attackCollider->Init();
+		break;
+	}
+
+	if (_animComp->GetCurAnim()->IsEnd())
 	{
 		ChangeState(eState::Idle);
 	}
+}
+
+void NormalAttack::Release()
+{
+	_attackCollider->Init();
 }

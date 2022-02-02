@@ -11,6 +11,6 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 private:
-	StateMachineComponent*	_statusComp = nullptr;
+	StateMachineComponent*	_stateMachineComp = nullptr;
 };
 

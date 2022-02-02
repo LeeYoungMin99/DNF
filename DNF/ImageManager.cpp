@@ -19,23 +19,48 @@ void ImageManager::Init()
 	AddImage(L"Image/Elvengard/BattleScene/MiddleBackground.png", 1);
 	AddImage(L"Image/Elvengard/BattleScene/Tile.png", 1);
 
+	AddImage(L"Image/NPC_ClickNameSpace.png", 1);
+	AddImage(L"Image/NPC_ClickButtonHover.png", 1);
+	AddImage(L"Image/NPC_ClickButtonIdle.png", 1);
+
 	AddImage(L"Image/CharacterMotion/Seria/Idle.png", 12, 12, -27, -116, 0.2f, true);
 	AddImage(L"Image/CharacterMotion/Seria/Hover.png", 12, 12, -28, -117, 0.2f, true);
 
-#pragma region Hanier
+#pragma region Vinoshu
 
-	AddImage(L"Image/CharacterMotion/Hanier/Idle.png", 8, 8, -106, -278, 0.15f, true);
-	AddImage(L"Image/CharacterMotion/Hanier/Walk.png", 6, 6, -192, -140, 0.08f, true);
-	AddImage(L"Image/CharacterMotion/Hanier/NormalAttack1.png", 8, 8, -709, -214, 0.1f);
-	AddImage(L"Image/CharacterMotion/Hanier/NormalAttack2.png", 8, 8, -709, -214, 0.1f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/Idle.png", 8, 8, -64, -126, 0.15f, true);
+	AddImage(L"Image/CharacterMotion/Vinoshu/Casting.png", 11, 11, -88, -156, 0.1f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/ForwardWalk.png", 8, 8, -63, -98, 0.08f, true);
+	AddImage(L"Image/CharacterMotion/Vinoshu/BackwardWalk.png", 8, 8, -74, -111, 0.08f, true);
+	AddImage(L"Image/CharacterMotion/Vinoshu/NormalAttack.png", 10, 10, -122, -162, 0.08f);
+
+	AddImage(L"Image/CharacterMotion/Vinoshu/Damaged.png", 1, 1, -64, -120, 2.0f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/Down.png", 1, 1, -71, -39, 2.0f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/DownIdle.png", 1, 1, -47, -131, 1.0f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/JumpDamagedBounce.png", 1, 1, -63, -65, 1.0f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/LowJumpDamaged.png", 1, 1, -52, -125, 1.0f);
+	AddImage(L"Image/CharacterMotion/Vinoshu/HighJumpDamaged.png", 1, 1, -55, -122, 1.0f);
+
+	AddImage(L"Image/CharacterMotion/Meteor/MagicCircle.png", 10, 10, -53, 461, 0.1f);
+	AddImage(L"Image/CharacterMotion/Meteor/Falling.png", 6, 6, -80, 215, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Meteor/Explosion.png", 13, 13, -255, 255, 0.1f);
 
 #pragma endregion
-		
+
 #pragma region Player
 
 	AddImage(L"Image/CharacterMotion/Player/Idle.png", 33, 33, -245, -374, 0.2f, true);
 	AddImage(L"Image/CharacterMotion/Player/Walk.png", 10, 33, -245, -374, 0.1f, true);
 	AddImage(L"Image/CharacterMotion/Player/Run.png", 8, 33, -245, -374, 0.1f, true);
+
+	AddImage(L"Image/CharacterMotion/Player/Damaged.png", 1, 1, -245, -374, 2.0f);
+	AddImage(L"Image/CharacterMotion/Player/Down.png", 1, 1, -245, -374, 2.0f);
+	AddImage(L"Image/CharacterMotion/Player/DownIdle.png", 1, 1, -245, -374, 1.0f);
+	AddImage(L"Image/CharacterMotion/Player/JumpDamagedBounce.png", 1, 1, -245, -374, 1.0f);
+	AddImage(L"Image/CharacterMotion/Player/LowJumpDamaged.png", 1, 1, -245, -374, 1.0f);
+	AddImage(L"Image/CharacterMotion/Player/HighJumpDamaged.png", 1, 1, -245, -374, 1.0f);
+
+
 	AddImage(L"Image/CharacterMotion/Player/Jump1.png", 2, 2, -245, -374, 0.1f);
 	AddImage(L"Image/CharacterMotion/Player/Jump2.png", 1, 1, -245, -374, 0.1f);
 	AddImage(L"Image/CharacterMotion/Player/Jump3.png", 2, 2, -245, -374, 0.1f, true);

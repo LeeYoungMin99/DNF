@@ -4,7 +4,8 @@
 #include "Sprite.h"
 
 #include "Player.h"
-#include "Hanier.h"
+#include "Vinoshu.h"
+#include "Meteor.h"
 #include "MapCollider.h"
 
 #include "Component.h"
@@ -27,7 +28,7 @@ void BattleScene::Init()
 	MapCollider* mapBottomCollider = new MapCollider({ 0,600,1280,800 }, this, L"MapColliderBottom");
 
 	Player* player = new Player(this, L"Player");
-	Hanier* hanier = new Hanier(this, L"Hanier");
+	Vinoshu* vinoshu = new Vinoshu(this, L"Monster");
 
 	Scene::Init();
 
@@ -87,13 +88,12 @@ void BattleScene::Update()
 
 			if (IntersectRect(&collisionRect, &attackObjCollider, &hitObjCollider))
 			{
-				if (_objBodyCollider[j]->GetZBottom() < _objAttackCollider[i]->GetZTop()
-					|| _objBodyCollider[j]->GetZTop() > _objAttackCollider[i]->GetZBottom())
+				if (_objBodyCollider[j]->GetZBottom() >= _objAttackCollider[i]->GetZTop())
 				{
 					bPass = true;
 				}
 
-				if (atkObj != hitObj)
+				if (atkObj != hitObj && atkObj->GetTag() != hitObj->GetTag())
 				{
 					for (GameObject* obj : _objAttackCollider[i]->GetHitObjs())
 					{
@@ -106,7 +106,7 @@ void BattleScene::Update()
 
 					if (bPass == false)
 					{
-						_objBodyCollider[j]->OnCollided(_objAttackCollider[i]->GetStrikingPower(),_objAttackCollider[i]->GetFloatingPower());
+						_objBodyCollider[j]->OnCollided(_objAttackCollider[i]->GetStrikingPower(),_objAttackCollider[i]->GetFloatingPower(), _objAttackCollider[i]->GetResistance());
 						_objAttackCollider[i]->AddHitObj(hitObj);
 					}
 				}

@@ -7,24 +7,25 @@
 #include "RectColliderComponent.h"
 #include "PositionComponent.h"
 #include "StateMachineComponent.h"
+#include "State.h"
 
-BodyCollisionComponent::BodyCollisionComponent(RectColliderComponent* rectColliderComp, int top, int bottom, GameObject* owner, INT32 order)
+BodyCollisionComponent::BodyCollisionComponent(RectColliderComponent* rectColliderComp, float top, float bottom, GameObject* owner, INT32 order)
 	:Component(owner, order), _collider{ rectColliderComp }, _zTop{ top }, _zBottom{ bottom }
 {
 	owner->GetScene()->AddBodyCollider(this);
 
 	_posComp = owner->GetComponent<PositionComponent>();
-	_statusComp = owner->GetComponent<StateMachineComponent>();
+	_stateMachineComp = owner->GetComponent<StateMachineComponent>();
 }
 
-int BodyCollisionComponent::GetZTop() const
+float BodyCollisionComponent::GetZTop() const
 {
-	return (-_posComp->GetZ()) + _zTop;
+	return _posComp->GetZ() + _zTop;
 }
 
-int BodyCollisionComponent::GetZBottom() const
+float BodyCollisionComponent::GetZBottom() const
 {
-	return (-_posComp->GetZ()) + _zBottom;
+	return _posComp->GetZ() + _zBottom;
 }
 
 void BodyCollisionComponent::OnCollided(const RECT& collisionRect)
@@ -36,22 +37,22 @@ void BodyCollisionComponent::OnCollided(const RECT& collisionRect)
 	{
 		if (collisionRect.left == _collider->GetRect().left)
 		{
-			_owner->AddX(width);
+			GetOwner()->AddX(width);
 		}
 		else
 		{
-			_owner->AddX(-width);
+			GetOwner()->AddX(-width);
 		}
 	}
 	else
 	{
 		if (collisionRect.top == _collider->GetRect().top)
 		{
-			_owner->AddY(height);
+			GetOwner()->AddY(height);
 		}
 		else
 		{
-			_owner->AddY(-height);
+			GetOwner()->AddY(-height);
 		}
 	}
 
@@ -59,22 +60,31 @@ void BodyCollisionComponent::OnCollided(const RECT& collisionRect)
 	_collider->Update();
 }
 
-void BodyCollisionComponent::OnCollided(float damage, float floatingPower)
+void BodyCollisionComponent::OnCollided(float damage, float floatingPower, float resistance)
 {
-	// 일단 고블린만 피격될 수 있게 만들었음
-
-	if (_bIsSuperArmor)
+	if (false == _bIsSuperArmor)
 	{
 		if (floatingPower != 0)
 		{
 			_posComp->SetAcceleration(floatingPower);
-			_posComp->SetResistance(0.0f);
+			_posComp->SetResistance(resistance);
 		}
 		else if (_posComp->GetZ() != 0)
 		{
-			_posComp->SetResistance(_posComp->GetAccelerration() * 0.8f);
+			_posComp->SetResistance(_posComp->GetAccelerration() * 0.7f);
+		}
+		else if ((eState)_stateMachineComp->GetCurStateTag() == eState::Damaged)
+		{
+			if (((Damaged*)(_stateMachineComp->GetCurState()))->GetIsFloatOnce())
+			{
+				_posComp->SetAcceleration(20.0f);
+				_posComp->SetResistance(_posComp->GetAccelerration() * 0.92f);
+			}
 		}
 
-		_statusComp->ChangeState(eState::Damaged);
+		if ((eState)_stateMachineComp->GetCurStateTag() != eState::Damaged)
+		{
+			_stateMachineComp->ChangeState(eState::Damaged);
+		}
 	}
 }

@@ -1,7 +1,10 @@
 #include "stdafx.h"
 #include "TextComponent.h"
 
-TextComponent::TextComponent(const wchar_t* text, const wchar_t* font, float size, D2D1::ColorF color, GameObject* owner, INT32 order) 
+#include "GameObject.h"
+#include "PositionComponent.h"
+
+TextComponent::TextComponent(const wchar_t* text, const wchar_t* font, float size, D2D1::ColorF color, GameObject* owner, INT32 order)
 	:Component(owner, order)
 {
 	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(_dWriteFactory), reinterpret_cast<IUnknown**>(&_dWriteFactory));
@@ -22,13 +25,35 @@ TextComponent::TextComponent(const wchar_t* text, const wchar_t* font, float siz
 	_text = text;
 }
 
+void TextComponent::Init()
+{
+	_posComp = GetOwner()->GetComponent<PositionComponent>();
+}
+
 void TextComponent::Render()
+{
+	if (nullptr != _posComp)
+	{
+		RECT rect = { _rect.left	+ (LONG)_posComp->GetX(),
+					  _rect.top		+ (LONG)_posComp->GetY(),
+					  _rect.right	+ (LONG)_posComp->GetX(),
+					  _rect.bottom	+ (LONG)_posComp->GetY()};
+
+		WriteText(rect);
+	}
+	else
+	{
+		WriteText(_rect);
+	}
+}
+
+void TextComponent::WriteText(const RECT rect)
 {
 	gpRenderTarget->DrawTextW(
 		_text,							// WCHAR* 문자열
 		(UINT32)wcslen(_text),			// 문자의 개수
 		_textFormat,					// IDWriteTextFormat 텍스트 포맷 
-		D2D1::RectF((FLOAT)_rect.left, (FLOAT)_rect.top, (FLOAT)_rect.right, (FLOAT)_rect.bottom),	// 그려질 영역의 크기와 위치.
+		D2D1::RectF((FLOAT)rect.left, (FLOAT)rect.top, (FLOAT)rect.right, (FLOAT)rect.bottom),	// 그려질 영역의 크기와 위치.
 		_brush							// 붓(brush)
 	);
 }

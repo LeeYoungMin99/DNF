@@ -20,6 +20,10 @@ void StateMachineComponent::Update()
 
 void StateMachineComponent::ChangeState(int stateTag)
 {
+	if (_curState != nullptr)
+	{
+		_curState->Release();
+	}
 	_curState = _states[stateTag];
 	_curStateTag = stateTag;
 	_curState->Init();
@@ -27,7 +31,5 @@ void StateMachineComponent::ChangeState(int stateTag)
 
 void StateMachineComponent::ChangeState(eState state)
 {
-	_curState = _states[(int)state];
-	_curStateTag = (int)state;
-	_curState->Init();
+	ChangeState((int)state);
 }

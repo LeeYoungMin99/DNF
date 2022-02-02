@@ -24,6 +24,18 @@ void Player::Init()
 
 	StateMachineComponent* stateMachineComp = new StateMachineComponent(this, 0);
 
+	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
+
+	PositionComponent* posComp = new PositionComponent(this, 99);
+	PlayerTransformComponent* transformComp = new PlayerTransformComponent(this, 101);
+	PlayerMovementComponent* movementComp = new PlayerMovementComponent(this, 98);
+
+	PlayerCommandComponent* commandComp = new PlayerCommandComponent(this, 1);
+
+	BodyCollisionComponent* bodyColliderComp = new BodyCollisionComponent(new RectColliderComponent({ -20,-25,20,5 }, this, 100), 116, 0, this, 100);
+	AttackCollisionComponent* atkColliderComp = new AttackCollisionComponent(new RectColliderComponent({ 0,0,0,0 }, this, 100), this, 100);
+	PlayerAttackComponent* atkComp = new PlayerAttackComponent(this, 99);
+
 #pragma region AddAnimation
 
 	AnimatorComponent* animComp = new AnimatorComponent(this, 102);
@@ -31,6 +43,15 @@ void Player::Init()
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Idle.png", L"Idle");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Walk.png", L"Walk");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Run.png", L"Run");
+
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Damaged.png", L"Damaged");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/Down.png", L"Down");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/DownIdle.png", L"DownIdle");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/JumpDamagedBounce.png", L"JumpDamagedBounce");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/LowJumpDamaged.png", L"LowJumpDamaged");
+	animComp->AddAnimation(L"Image/CharacterMotion/Player/HighJumpDamaged.png", L"HighJumpDamaged");
+
+
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump1.png", L"Jump1");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump2.png", L"Jump2");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/Jump3.png", L"Jump3");
@@ -49,13 +70,15 @@ void Player::Init()
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/UpperSlash.png", L"Upper");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/SnakeDance.png", L"SnakeDance");
 
+	animComp->SetCurrAnim(L"Idle");
+
 #pragma endregion
 
 #pragma region AddTransition
 
 	using state = eState;
 
-	auto CanChange = [](GameObject* owner, const int& nextStateNum) {if ((owner->GetComponent<StateMachineComponent>()->GetCurStateTag()) == nextStateNum)
+	auto CanChange = [stateMachineComp](const int& nextStateNum) {if ((stateMachineComp->GetCurStateTag()) == nextStateNum)
 	{
 		return true;
 	}
@@ -73,9 +96,9 @@ void Player::Init()
 	animComp->AddTransition(L"Idle", L"Jump1", CanChange, (int)eState::Jump);
 	animComp->AddTransition(L"Walk", L"Jump1", CanChange, (int)eState::Jump);
 	animComp->AddTransition(L"Run", L"Jump1", CanChange, (int)eState::Jump);
-	animComp->AddTransition(L"Jump1", L"Jump2", [](GameObject* owner, int height)
+	animComp->AddTransition(L"Jump1", L"Jump2", [posComp](int height)
 		{
-			if (owner->GetComponent<PositionComponent>()->GetZ() >= height)
+			if (posComp->GetZ() >= height)
 			{
 				return true;
 			}
@@ -83,9 +106,9 @@ void Player::Init()
 			{
 				return false;
 			}}, 50);
-	animComp->AddTransition(L"Jump2", L"Jump3", [](GameObject* owner, int accel)
+	animComp->AddTransition(L"Jump2", L"Jump3", [posComp](int accel)
 		{
-			if (owner->GetComponent<PositionComponent>()->GetResistance() >= accel)
+			if (posComp->GetResistance() >= accel)
 			{
 				return true;
 			}
@@ -129,26 +152,93 @@ void Player::Init()
 	animComp->AddTransition(L"NormalAttack4", L"SnakeDance", (int)eState::Skill2, CanChange);
 	animComp->AddTransition(L"NormalAttack5", L"SnakeDance", (int)eState::Skill2, CanChange);
 
+	animComp->AddTransition(L"Damaged", CanChange, (int)eState::Damaged);
+	animComp->AddTransition(L"Damaged", L"Idle", CanChange, (int)eState::Idle);
+
+	animComp->AddTransition(L"Damaged", L"LowJumpDamaged", [posComp](const int& height)
+		{
+			if (posComp->GetZ() > height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}, 0);
+	animComp->AddTransition(L"Damaged", L"HighJumpDamaged", [posComp](const int& height)
+		{
+			if (posComp->GetZ() > height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}, 50);
+	animComp->AddTransition(L"LowJumpDamaged", L"HighJumpDamaged", [posComp](const int& height)
+		{
+			if (posComp->GetZ() > height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}, 50);
+	animComp->AddTransition(L"LowJumpDamaged", L"JumpDamagedBounce", [stateMachineComp](const int& none)
+		{
+			return((Damaged*)(stateMachineComp->GetCurState()))->GetOnGroundOnce();
+		}, 0);
+	animComp->AddTransition(L"HighJumpDamaged", L"JumpDamagedBounce", [stateMachineComp](const int& none)
+		{
+			return((Damaged*)(stateMachineComp->GetCurState()))->GetOnGroundOnce();
+		}, 0);
+	animComp->AddTransition(L"HighJumpDamaged", L"JumpDamagedBounce", [stateMachineComp](const int& none)
+		{
+			return((Damaged*)(stateMachineComp->GetCurState()))->GetOnGroundOnce();
+		}, 0);
+	animComp->AddTransition(L"Down", L"DownIdle", [stateMachineComp](const int& elapsedTime)
+		{
+			return((Damaged*)(stateMachineComp->GetCurState()))->GetGroundElapsedTime() >= elapsedTime / 10.0f;
+		}, 5);
+	animComp->AddTransition(L"JumpDamagedBounce", L"Down", [posComp](const int& height)
+		{
+			if (posComp->GetZ() <= height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}, 0);
+	animComp->AddTransition(L"Down", L"HighJumpDamaged", [posComp](const int& height)
+		{
+			if (posComp->GetZ() > height)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}, 0);
+
+	animComp->AddTransition(L"DownIdle", L"Idle", CanChange, (int)eState::Idle);
+
 #pragma endregion
 
-	animComp->SetCurrAnim(L"Idle");
-	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
 
-	PositionComponent* posComp = new PositionComponent(this, 99);
-	PlayerTransformComponent* transformComp = new PlayerTransformComponent(this, 101);
-	PlayerMovementComponent* movementComp = new PlayerMovementComponent(this, 98);
-
-	PlayerCommandComponent* commandComp = new PlayerCommandComponent(this, 1);
-
-	BodyCollisionComponent* bodyColliderComp = new BodyCollisionComponent(new RectColliderComponent({ -20,-25,20,5 }, this, 100), 0, -116, this, 100);
-	AttackCollisionComponent* atkColliderComp = new AttackCollisionComponent(new RectColliderComponent({ 0,0,0,0 }, this, 100), this, 100);
-	PlayerAttackComponent* atkComp = new PlayerAttackComponent(this, 99);
 
 #pragma region AddState
 
 	stateMachineComp->AddState(new PlayerIdle(stateMachineComp, this), eState::Idle);
 	stateMachineComp->AddState(new PlayerWalk(stateMachineComp, this), eState::Walk);
 	stateMachineComp->AddState(new PlayerRun(stateMachineComp, this), eState::Run);
+	stateMachineComp->AddState(new Damaged(stateMachineComp, this), eState::Damaged);
 	stateMachineComp->AddState(new PlayerJump(stateMachineComp, this), eState::Jump);
 	stateMachineComp->AddState(new PlayerJumpAttack(stateMachineComp, this), eState::JumpAttack);
 	stateMachineComp->AddState(new PlayerAction(stateMachineComp, this), eState::JumpDownIdle);
@@ -164,7 +254,6 @@ void Player::Init()
 
 	stateMachineComp->ChangeState(eState::Idle);
 #pragma endregion
-
 
 	GameObject::Init();
 }

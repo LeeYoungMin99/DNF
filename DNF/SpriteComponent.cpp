@@ -11,10 +11,10 @@
 
 void SpriteComponent::Init()
 {
-	_animComp = _owner->GetComponent<AnimatorComponent>();
+	_animComp = GetOwner()->GetComponent<AnimatorComponent>();
 
-	_posComp = _owner->GetComponent<PositionComponent>();
-	_transformComp = _owner->GetComponent<TransformComponent>();
+	_posComp = GetOwner()->GetComponent<PositionComponent>();
+	_transformComp = GetOwner()->GetComponent<TransformComponent>();
 }
 
 void SpriteComponent::Render()
@@ -28,21 +28,21 @@ void SpriteComponent::Render()
 	}
 	else
 	{
-		renderPosX = (FLOAT)(_owner->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
-		renderPosY = (FLOAT)(_owner->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY());
+		renderPosX = (FLOAT)(GetOwner()->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
+		renderPosY = (FLOAT)(GetOwner()->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY());
 	}
 
 	FLOAT imageFrameSizeY = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().height;
 	FLOAT imageFrameSizeX = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().width;
 	FLOAT renderSizeX = renderPosX + imageFrameSizeX;
 	FLOAT renderSizeY = renderPosY + imageFrameSizeY;
-	FLOAT currFrameStart = _animComp->GetCurAnim()->GetCurrFrame() * imageFrameSizeX;
+	FLOAT currFrameStart = _animComp->GetCurAnim()->GetCurFrame() * imageFrameSizeX;
 	FLOAT currFrameEnd = currFrameStart + imageFrameSizeX;
 
 	if (_transformComp != nullptr)
 	{
 		// ¿ÞÂÊÀ» º¸°íÀÖ´Ù¸é ÁÂ¿ì¹ÝÀüÈÄ ·»´õ
-		if (TransformComponent::eDirX::Left == _transformComp->GetDirX())
+		if (eDirX::Left == _transformComp->GetDirX())
 		{
 			FLOAT flipCenterX = (FLOAT)_posComp->GetX();
 			FLOAT flipCenterY = (FLOAT)_posComp->GetY();

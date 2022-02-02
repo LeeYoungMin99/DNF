@@ -57,3 +57,11 @@ void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, 
 {
 	_graph[start].push_back(new Transition(func, end, transitionValue, this));
 }
+
+void AnimatorComponent::AddTransition(const wstring& end, function func, const int& transitionValue)
+{
+	for (auto transition : _graph)
+	{
+		_graph[transition.first].push_back(new Transition(func, end, transitionValue, this));
+	}
+}

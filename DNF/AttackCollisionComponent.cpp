@@ -23,20 +23,21 @@ void AttackCollisionComponent::Init()
 	ClearHitObjs();
 }
 
-int AttackCollisionComponent::GetZTop() const
+float AttackCollisionComponent::GetZTop() const
 {
-	return (-_posComp->GetZ()) + _zTop;
+	return _posComp->GetZ() + _zTop;
 }
 
-int AttackCollisionComponent::GetZBottom() const
+float AttackCollisionComponent::GetZBottom() const
 {
-	return (-_posComp->GetZ()) + _zBottom;
+	return _posComp->GetZ() + _zBottom;
 }
 
-void AttackCollisionComponent::SetAttack(const RECT& size, int top, int bottom, float floatingPower)
+void AttackCollisionComponent::SetAttack(const RECT& size, int top, int bottom, float floatingPower, float resistance)
 {
 	_collider->SetRectSize(size);
 	_zTop = top;
 	_zBottom = bottom;
 	_floatingPower = floatingPower;
+	_resistance = resistance;
 }

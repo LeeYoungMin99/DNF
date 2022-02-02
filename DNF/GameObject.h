@@ -3,10 +3,11 @@
 
 class Scene;
 class Component;
-class GameObject : public GameEntity
+class GameObject : public IBehavior
 {
 public:
 	GameObject(Scene* scene, const wstring& tag);
+	GameObject(GameObject* parent, const wstring& tag);
 	virtual ~GameObject();
 
 	virtual void Init() override;
@@ -14,9 +15,12 @@ public:
 	virtual void Render() override;
 	virtual void Release() override;
 
-	void AddComponent(Component* component);
-	void RemoveComponent(Component* component);
-	vector<Component*>& GetComponents() { return _components; }
+	void					AddComponent(Component* component);
+	void					RemoveComponent(Component* component);
+
+	void					AddChild(GameObject* child)					{ _childs.push_back(child); }
+
+	vector<Component*>&		GetComponents()								{ return _components; }
 	template <typename T>
 	T* GetComponent()
 	{
@@ -37,18 +41,28 @@ public:
 	void					SetPosition(const LONG& x, const LONG& y)	{ _pos = POINT{ x, y }; }
 	void					SetX(const LONG& x)							{ _pos.x = x; }
 	void					SetY(const LONG& y)							{ _pos.y = y; }
+	void					SetIsActive(bool b);						
 
 	void					AddX(const LONG& x)							{ _pos.x += x; }
 	void					AddY(const LONG& y)							{ _pos.y += y; }
-	
+
+	GameObject*				GetChild(wstring tag);
+	vector<GameObject*>&	GetChilds()									{ return _childs; }
+	bool					GetIsActive()	const						{ return _bIsActive; }
 	wstring					GetTag()		const						{ return _tag; }
 	POINT					GetPosition()	const						{ return _pos; }
 	LONG					GetX()			const						{ return _pos.x; }
 	LONG					GetY()			const						{ return _pos.y; }
 	Scene*					GetScene()		const						{ return _scene; }
+protected:
+	virtual	void OnEnable() { }
 private:
+	bool					_bIsActive = true;
+
 	POINT					_pos = {};
 	Scene*					_scene = nullptr;
 	wstring					_tag = L"";
+
 	vector<Component*>		_components = {};
+	vector<GameObject*>		_childs = {};
 };

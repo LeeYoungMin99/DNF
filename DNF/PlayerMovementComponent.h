@@ -14,7 +14,7 @@ public:
 
 	void						Move();
 private:
-	StateMachineComponent*		_statusComp = nullptr;
+	StateMachineComponent*		_stateMachineComp = nullptr;
 	PlayerTransformComponent*	_transformComp = nullptr;
 	float						_moveSpeed = 0.0f;
 

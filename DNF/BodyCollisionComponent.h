@@ -7,24 +7,23 @@ class StateMachineComponent;
 class BodyCollisionComponent : public Component
 {
 public:
-	BodyCollisionComponent(RectColliderComponent* rectColliderComp, int top, int bottom, GameObject* owner, INT32 order = 100);
+	BodyCollisionComponent(RectColliderComponent* rectColliderComp, float top, float bottom, GameObject* owner, INT32 order = 100);
 	virtual ~BodyCollisionComponent() = default;
 
 	RectColliderComponent*	GetCollider()		  { return _collider; }
-	int						GetZTop() const;
-	int						GetZBottom() const;
+	float					GetZTop() const;
+	float					GetZBottom() const;
 
 	void					OnCollided(const RECT& collisionRect);
-	void					OnCollided(float damage, float floatingPower);
+	void					OnCollided(float damage, float floatingPower,float resistance = 0.0f);
 private:
-	int						_zTop = 0;
-	int						_zBottom = 0;
+	float					_zTop = 0;
+	float					_zBottom = 0;
 
 	PositionComponent*		_posComp = nullptr;
 	RectColliderComponent*	_collider = nullptr;
 
 	bool					_bIsSuperArmor = false;
-	// 일단 고블린만 피격될 수 있게 만들었음
-	StateMachineComponent*	_statusComp = nullptr;
+	StateMachineComponent*	_stateMachineComp = nullptr;
 };
 

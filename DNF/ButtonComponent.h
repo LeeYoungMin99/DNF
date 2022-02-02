@@ -8,6 +8,7 @@ class ButtonComponent : public Component
 public:
 	enum class eButtonState 
 	{ 
+		None,
 		Idle, 
 		Hover, 
 		Click

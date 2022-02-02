@@ -14,20 +14,21 @@ ButtonComponent::ButtonComponent(RectColliderComponent* rectComponent, IButton* 
 
 void ButtonComponent::Update()
 {
-	const RECT mCollisionRect = _rectComp->GetRect();
+	const RECT collisionRect = _rectComp->GetRect();
 
 	switch (_state)
 	{
 	case eButtonState::Idle:
-		if (PtInRect(&mCollisionRect, Input::GetMousePosition()))			{ _state = eButtonState::Hover; }
+		if (PtInRect(&collisionRect, Input::GetMousePosition()))			{ _state = eButtonState::Hover;}
+		else if (Input::GetButtonUp(VK_LBUTTON))							{ _object->OnExecuteToIdle(); }
 		break;
 	case eButtonState::Hover:
-		if (false == PtInRect(&mCollisionRect, Input::GetMousePosition()))	{ _state = eButtonState::Idle; }
+		if (false == PtInRect(&collisionRect, Input::GetMousePosition()))	{ _state = eButtonState::Idle; }
 		else if (Input::GetButton(VK_LBUTTON))								{ _state = eButtonState::Click; }
 		break;
 	case eButtonState::Click:
-		if (false == PtInRect(&mCollisionRect, Input::GetMousePosition()))	{ _state = eButtonState::Idle; }
-		else if (Input::GetButtonUp(VK_LBUTTON))							{ _object->OnExecute();	}
+		if (false == PtInRect(&collisionRect, Input::GetMousePosition()))	{ _state = eButtonState::Idle; }
+		else if (Input::GetButtonUp(VK_LBUTTON))							{ _object->OnExecuteToClick();	}
 		break;
 	}
 }

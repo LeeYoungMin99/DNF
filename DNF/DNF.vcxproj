@@ -157,11 +157,14 @@
     <ClCompile Include="CameraManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="Hanier.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Meteor.cpp" />
+    <ClCompile Include="MeteorState.cpp" />
     <ClCompile Include="MonsterState.cpp" />
+    <ClCompile Include="NPCToolList.cpp" />
     <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="SceneChangeButton.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -190,6 +193,7 @@
     <ClCompile Include="TownScene.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="Transition.cpp" />
+    <ClCompile Include="Vinoshu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -197,10 +201,13 @@
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="BodyCollisionComponent.h" />
     <ClInclude Include="CameraManager.h" />
-    <ClInclude Include="Hanier.h" />
-    <ClInclude Include="Ibutton.h" />
+    <ClInclude Include="IButton.h" />
+    <ClInclude Include="Meteor.h" />
+    <ClInclude Include="MeteorState.h" />
     <ClInclude Include="MonsterState.h" />
+    <ClInclude Include="NPCToolList.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="SceneChangeButton.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ButtonComponent.h" />
@@ -238,6 +245,7 @@
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="Transition.h" />
     <ClInclude Include="Type.h" />
+    <ClInclude Include="Vinoshu.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="BasicGameFramework.ico" />

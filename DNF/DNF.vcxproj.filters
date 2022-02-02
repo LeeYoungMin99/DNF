@@ -41,6 +41,12 @@
     <Filter Include="2D Framework\Component\Animation">
       <UniqueIdentifier>{fc5de651-db90-4a01-be7b-82431ff2690f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\State">
+      <UniqueIdentifier>{84e2fc29-967f-4fe3-85ed-8bc073f8f79e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\GameObject\Object">
+      <UniqueIdentifier>{1f486e6b-4fd5-4fac-b7d0-f4b96831aa0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainGame.cpp">
@@ -72,9 +78,6 @@
     </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>Util</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="TextComponent.cpp">
       <Filter>2D Framework\Component</Filter>
@@ -136,26 +139,39 @@
     <ClCompile Include="BodyCollisionComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="MapCollider.cpp">
-      <Filter>2D Framework\GameObject</Filter>
-    </ClCompile>
     <ClCompile Include="BattleScene.cpp">
       <Filter>Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerState.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="State.cpp">
-      <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="StateMachineComponent.cpp">
       <Filter>2D Framework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="Hanier.cpp">
+    <ClCompile Include="Vinoshu.cpp">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClCompile>
+    <ClCompile Include="MeteorState.cpp">
+      <Filter>2D Framework\State</Filter>
+    </ClCompile>
     <ClCompile Include="MonsterState.cpp">
-      <Filter>2D Framework</Filter>
+      <Filter>2D Framework\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>2D Framework\State</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>2D Framework\State</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCToolList.cpp" />
+    <ClCompile Include="SceneChangeButton.cpp">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCollider.cpp">
+      <Filter>2D Framework\GameObject\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Meteor.cpp">
+      <Filter>2D Framework\GameObject\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>2D Framework\GameObject\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +223,6 @@
     <ClInclude Include="Image.h">
       <Filter>Util</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>2D Framework\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="TownScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -234,7 +247,7 @@
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager\Singleton</Filter>
     </ClInclude>
-    <ClInclude Include="Ibutton.h">
+    <ClInclude Include="IButton.h">
       <Filter>2D Framework\GameObject\Button</Filter>
     </ClInclude>
     <ClInclude Include="RectColliderComponent.h">
@@ -276,26 +289,39 @@
     <ClInclude Include="BodyCollisionComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="MapCollider.h">
-      <Filter>2D Framework\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="BattleScene.h">
       <Filter>Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerState.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="State.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="StateMachineComponent.h">
       <Filter>2D Framework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Hanier.h">
+    <ClInclude Include="Vinoshu.h">
       <Filter>2D Framework\GameObject\Charactor</Filter>
     </ClInclude>
+    <ClInclude Include="MeteorState.h">
+      <Filter>2D Framework\State</Filter>
+    </ClInclude>
     <ClInclude Include="MonsterState.h">
-      <Filter>2D Framework</Filter>
+      <Filter>2D Framework\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>2D Framework\State</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>2D Framework\State</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCToolList.h" />
+    <ClInclude Include="SceneChangeButton.h">
+      <Filter>2D Framework\GameObject\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCollider.h">
+      <Filter>2D Framework\GameObject\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Meteor.h">
+      <Filter>2D Framework\GameObject\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>2D Framework\GameObject\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

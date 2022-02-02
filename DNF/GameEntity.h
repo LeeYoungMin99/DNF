@@ -1,10 +1,10 @@
 #pragma once
 #include <Windows.h>
 
-class GameEntity
+class IBehavior
 {
 public:
-	virtual ~GameEntity() = default;
+	virtual ~IBehavior() = default;
 
 	virtual void Init() = 0;
 	virtual void Update() = 0;

@@ -11,6 +11,8 @@
 #include "ButtonComponent.h"
 
 #include "SceneManager.h"
+#include "NPCToolList.h"
+#include "SceneChangeButton.h"
 
 void Seria::Init()
 {
@@ -19,8 +21,13 @@ void Seria::Init()
 
 	AnimatorComponent* animComp = new AnimatorComponent(this);
 
-	auto CanChange = [](GameObject* owner, const int& nextStateNum) {
-		if ((int)(owner->GetComponent<ButtonComponent>()->GetState()) == nextStateNum)
+	SpriteComponent* spriteComp = new SpriteComponent(this, 101);
+
+	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
+	PositionComponent* posComp = new PositionComponent(this, 99);
+
+	auto CanChange = [btnComp](const int& nextStateNum) {
+		if ((int)(btnComp->GetState()) == nextStateNum)
 		{
 			return true;
 		}
@@ -36,16 +43,16 @@ void Seria::Init()
 	animComp->AddTransition(L"Idle", L"Hover", (int)ButtonComponent::eButtonState::Hover, CanChange);
 
 	animComp->SetCurrAnim(L"Idle");
-	SpriteComponent* spriteComp = new SpriteComponent(this, 101);
 
-	ButtonComponent* btnComp = new ButtonComponent(collisionRect, this, this);
-	PositionComponent* posComp = new PositionComponent(this, 99);
+	NPCToolList* toolList = new NPCToolList(this, L"SeriaToolList", L"¼¼¸®¾Æ");
+	SceneChangeButton* sceneChangeBtn = new SceneChangeButton(toolList, L"SeriaSceneChangeButton", L"Battle");
 
 	GameObject::Init();
 }
 
-void Seria::OnExecute()
+void Seria::OnExecuteToClick()
 {
-	SceneManager::GetSingleton()->SetNextScene(L"Battle");
+	GetChild(L"SeriaToolList")->SetIsActive(false);
+	GetChild(L"SeriaToolList")->SetIsActive(true);
 }
 

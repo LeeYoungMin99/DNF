@@ -3,10 +3,10 @@
 
 class GameObject;
 class AnimatorComponent;
-class Transition : public GameEntity
+class Transition : public IBehavior
 {
 private:
-	using function = function<bool(GameObject*, const int&)>;
+	using function = function<bool(const int&)>;
 public:
 	Transition(function func, const wstring& nextAnimTag, int transitionValue, AnimatorComponent* animComp);
 	virtual ~Transition() = default;

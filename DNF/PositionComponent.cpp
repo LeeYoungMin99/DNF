@@ -10,16 +10,16 @@ void PositionComponent::Update()
 
 	if (_acceleration != 0.0f)
 	{
-		AddZ((int)(_acceleration - _resistance));
+		AddZ(_acceleration - _resistance);
 	}
 
-	if (_z > 0)
+	if (_z > 0.0f)
 	{
-		_resistance += _acceleration * 0.04f;
+		_resistance += _acceleration * Timer::GetDeltaTime() * 2;
 	}
 	else
 	{
-		_z = 0;
+		_z = 0.0f;
 		_acceleration = 0.0f;
 		_resistance = 0.0f;
 	}
@@ -27,6 +27,6 @@ void PositionComponent::Update()
 
 void PositionComponent::PosUpdate()
 {
-	_x = _owner->GetX() + CameraManager::GetSingleton()->GetX();
-	_y = _owner->GetY() + CameraManager::GetSingleton()->GetY();
+	_x = (float)(GetOwner()->GetX() + CameraManager::GetSingleton()->GetX());
+	_y = (float)(GetOwner()->GetY() + CameraManager::GetSingleton()->GetY());
 }

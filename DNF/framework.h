@@ -39,6 +39,13 @@
 #include "Input.h"
 #include "Timer.h"
 
+#include <json/json.h>
+#ifdef _DEBUG
+#pragma comment(lib,"jsoncppd.lib")
+#else
+#pragma comment(lib,"jsoncpp.lib")
+#endif
+
 // imaingFactory 생성을 위한 include
 #include <dwrite_3.h>
 #include <wincodec.h>

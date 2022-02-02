@@ -51,7 +51,7 @@ PlayerRun::PlayerRun(StateMachineComponent* stateMachine, GameObject* owner)
 
 void PlayerRun::Update()
 {
-	using eDirX = TransformComponent::eDirX;
+	using eDirX = eDirX;
 	eDirX dirX = _transformComp->GetDirX();
 
 	if (Input::GetButtonDown(PLAYER_SKILL_QUICK_SLOT_1_KEY)) { ChangeState(eState::Skill2); return; }
@@ -151,3 +151,4 @@ bool PlayerAttack::CheckCanCombo()
 {
 	return _animComp->GetCurAnim()->CanCancel() && _bInputCombo;
 }
+

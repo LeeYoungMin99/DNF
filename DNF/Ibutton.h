@@ -2,5 +2,6 @@
 
 struct IButton
 {
-	virtual void OnExecute() = 0;
+	virtual void OnExecuteToClick() = 0;
+	virtual void OnExecuteToIdle() = 0;
 };

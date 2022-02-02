@@ -2,7 +2,7 @@
 #include "GameEntity.h"
 
 class Image;
-class Animation : public GameEntity
+class Animation : public IBehavior
 {
 public:
 	Animation(const wstring& path, const wstring& animTag);
@@ -17,7 +17,7 @@ public:
 
 	wstring		GetAnimTag()	const  { return _animTag; }
 	Image*		GetImage()		const  { return _image; }
-	int			GetCurrFrame()	const  { return _curFrame; }
+	int			GetCurFrame()	const  { return _curFrame; }
 	bool		IsEnd()			const  { return _bIsEnd; }
 	bool		CanCancel()		const  { return _bCanCancel; }
 

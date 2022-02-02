@@ -4,65 +4,45 @@
 #include "StateMachineComponent.h"
 
 #include "GameObject.h"
+#include "State.h"
 
 PlayerCommandComponent::~PlayerCommandComponent()
 {
-	stack<CommandNode*> nodeStack = {};
+	//stack<CommandNode*> nodeStack = {};
 
 	_curCommand = _noneCommand;
-	nodeStack.push(_curCommand);
+	SAFE_DELETE(_noneCommand);
+	//nodeStack.push(_noneCommand);
 
-	while (nodeStack.empty() == false)
-	{
-		CommandNode* deleteNode = nodeStack.top();
-		nodeStack.pop();
-
-		if (deleteNode->DoAction) { deleteNode->DoAction = nullptr; }
-		if (deleteNode->nodeLeftKey) { nodeStack.push(deleteNode->nodeLeftKey); }
-		if (deleteNode->nodeRightKey) { nodeStack.push(deleteNode->nodeRightKey); }
-		if (deleteNode->nodeUpKey) { nodeStack.push(deleteNode->nodeUpKey); }
-		if (deleteNode->nodeDownKey) { nodeStack.push(deleteNode->nodeDownKey); }
-		if (deleteNode->nodeSpaceKey) { nodeStack.push(deleteNode->nodeSpaceKey); }
-		if (deleteNode->nodeZKey) { nodeStack.push(deleteNode->nodeZKey); }
-
-		SAFE_DELETE(deleteNode);
-	}
+	//while (nodeStack.empty() == false)
+	//{
+	//	CommandNode* deleteNode = nodeStack.top();
+	//	nodeStack.pop();
+	//
+	//	if (deleteNode->doAction) { deleteNode->doAction = nullptr; }
+	//
+	//	for (auto node : deleteNode->nodes)
+	//	{
+	//		nodeStack.push(node.second);
+	//	}
+	//
+	//	SAFE_DELETE(deleteNode);
+	//}
 }
 
 void PlayerCommandComponent::Init()
 {
-	_statusComp = _owner->GetComponent<StateMachineComponent>();
 
-	auto DoAction = [](GameObject* owner, int stateNum)
+	_stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
+
+	auto doAction = [](GameObject* owner, int stateTag)
 	{
-		owner->GetComponent<StateMachineComponent>()->ChangeState(stateNum);
+		owner->GetComponent<StateMachineComponent>()->ChangeState(stateTag);
 	};
 
 	_noneCommand = new CommandNode();
 
-	_noneCommand->nodeLeftKey = new CommandNode();
-	_noneCommand->nodeLeftKey->nodeLeftKey = new CommandNode();
-	_noneCommand->nodeLeftKey->nodeLeftKey->DoAction = DoAction;
-	_noneCommand->nodeLeftKey->nodeLeftKey->stateNum = (int)eState::Run;
-
-	_noneCommand->nodeRightKey = new CommandNode();
-	_noneCommand->nodeRightKey->nodeRightKey = new CommandNode();
-	_noneCommand->nodeRightKey->nodeRightKey->DoAction = DoAction;
-	_noneCommand->nodeRightKey->nodeRightKey->stateNum = (int)eState::Run;
-
-	_noneCommand->nodeDownKey = new CommandNode();
-	_noneCommand->nodeDownKey->nodeRightKey = new CommandNode();
-	_noneCommand->nodeDownKey->nodeRightKey->nodeZKey = new CommandNode();
-	_noneCommand->nodeDownKey->nodeRightKey->nodeZKey->DoAction = DoAction;
-	_noneCommand->nodeDownKey->nodeRightKey->nodeZKey->stateNum = (int)eState::Skill2;
-	_noneCommand->nodeDownKey->nodeLeftKey = new CommandNode();
-	_noneCommand->nodeDownKey->nodeLeftKey->nodeZKey = new CommandNode();
-	_noneCommand->nodeDownKey->nodeLeftKey->nodeZKey->DoAction = DoAction;
-	_noneCommand->nodeDownKey->nodeLeftKey->nodeZKey->stateNum = (int)eState::Skill2;
-
-	_noneCommand->nodeZKey = new CommandNode();
-	_noneCommand->nodeZKey->DoAction = DoAction;
-	_noneCommand->nodeZKey->stateNum = (int)eState::Skill1;
+	ReadJson();
 
 	_curCommand = _noneCommand;
 }
@@ -80,104 +60,200 @@ void PlayerCommandComponent::Update()
 		}
 	}
 
-	eState state = (eState)_statusComp->GetCurStateTag();
+	eState state = (eState)_stateMachineComp->GetCurStateTag();
 
 	switch (state)
 	{
 	case eState::Idle:
 	case eState::Walk:
 	case eState::Run:
-		if (Input::GetButtonDown(VK_LEFT))			{ CheckLeft();	CheckDash(); break; }
-		else if (Input::GetButtonDown(VK_RIGHT))	{ CheckRight();	CheckDash(); break; }
-		else if (Input::GetButtonDown(VK_UP))		{ CheckUp();	 break; }
-		else if (Input::GetButtonDown(VK_DOWN))		{ CheckDown();	 break; }
-		else if (Input::GetButtonDown(VK_SPACE))	{ CheckSpace();	CheckDoAction(); break; }
-		else if (Input::GetButtonDown('Z'))			{ CheckZ();		CheckDoAction(); break; }
+		CheckCommand();
 		break;
 	case eState::NormalAttack1:
 	case eState::NormalAttack2:
 	case eState::NormalAttack3:
 	case eState::NormalAttack4:
 	case eState::NormalAttack5:
-		if (Input::GetButtonDown(VK_LEFT))			{ CheckLeft();	break; }
-		else if (Input::GetButtonDown(VK_RIGHT))	{ CheckRight();	break; }
-		else if (Input::GetButtonDown(VK_UP))		{ CheckUp();	break; }
-		else if (Input::GetButtonDown(VK_DOWN))		{ CheckDown();	break; }
-		else if (Input::GetButtonDown(VK_SPACE))	{ CheckSpace();	CheckDoAction(); break; }
-		else if (Input::GetButtonDown('Z'))			{ CheckZ();		CheckDoAction(); break; }
+		CheckSkillCommand();
 		break;
 	}
 }
 
-void PlayerCommandComponent::CheckDoAction()
+void PlayerCommandComponent::CheckCommand()
 {
-	if (_curCommand->DoAction != nullptr)
+	for (const auto& node : _curCommand->nodes)
 	{
-		_curCommand->DoAction(_owner, _curCommand->stateNum);
-		_curCommand = _noneCommand;
-		_inputElapsedTime = 0.0f;
+		CommandNode* commandNode = node.second;
+		BYTE keyCode = node.first;
+
+		if (Input::GetButtonDown(node.first))
+		{
+			_curCommand = commandNode;
+
+			_inputElapsedTime = 0.0f;
+
+			if (_curCommand->doAction)
+			{
+				_curCommand->doAction(GetOwner(), _curCommand->stateTag);
+				_curCommand = _noneCommand;
+			}
+
+			break;
+		}
 	}
 }
 
-void PlayerCommandComponent::CheckDash()
+void PlayerCommandComponent::CheckSkillCommand()
 {
-	if (_curCommand->DoAction != nullptr)	
+	for (auto node : _curCommand->nodes)
 	{
-		_curCommand->DoAction(_owner, _curCommand->stateNum);
-		_inputElapsedTime = 0.0f;
+		CommandNode* commandNode = node.second;
+		BYTE keyCode = node.first;
+
+		if (Input::GetButtonDown(node.first))
+		{
+			_curCommand = commandNode;
+
+			_inputElapsedTime = 0.0f;
+
+			if (_curCommand->doAction && (keyCode != VK_LEFT && keyCode != VK_RIGHT && keyCode != VK_DOWN && keyCode != VK_UP))
+			{
+				_curCommand->doAction(GetOwner(), _curCommand->stateTag);
+				_curCommand = _noneCommand;
+			}
+
+			break;
+		}
 	}
 }
 
-void PlayerCommandComponent::CheckLeft()
+void PlayerCommandComponent::ReadJson()
 {
-	if (_curCommand->nodeLeftKey != nullptr) 
-	{ 
-		_curCommand = _curCommand->nodeLeftKey;
-		_inputElapsedTime = 0.0f;
-	}
-}
+	char path[MAX_PATH];
+	string jsonPath;
 
-void PlayerCommandComponent::CheckRight()
-{
-	if (_curCommand->nodeRightKey != nullptr)
+	if (GetCurrentDirectoryA(128, path) > 0)
 	{
-		_curCommand = _curCommand->nodeRightKey;
-		_inputElapsedTime = 0.0f;
+		jsonPath = path + string{ "\\JSON_DATA.json" };
 	}
-}
-
-void PlayerCommandComponent::CheckUp()
-{
-	if (_curCommand->nodeUpKey != nullptr) 
+	else
 	{
-		_curCommand = _curCommand->nodeUpKey; 
-		_inputElapsedTime = 0.0f;
+		cout << "Parse Failed." << endl;
+		return;
 	}
-}
 
-void PlayerCommandComponent::CheckDown()
-{
-	if (_curCommand->nodeDownKey != nullptr) 
-	{ 
-		_curCommand = _curCommand->nodeDownKey; 
-		_inputElapsedTime = 0.0f;
-	}
-}
-
-void PlayerCommandComponent::CheckSpace()
-{
-	if (_curCommand->nodeSpaceKey != nullptr) 
+	auto doAction = [](GameObject* owner, int stateTag)
 	{
-		_curCommand = _curCommand->nodeSpaceKey; 
-		_inputElapsedTime = 0.0f;
+		owner->GetComponent<StateMachineComponent>()->ChangeState(stateTag);
+	};
+
+	ifstream json_dir(jsonPath);
+	Json::CharReaderBuilder builder;
+	builder["collectComments"] = false;
+	Json::Value value; JSONCPP_STRING errs;
+	bool ok = parseFromStream(builder, json_dir, &value, &errs);
+	if (ok == true)
+	{
+		for (const auto& skill : value)
+		{
+			_curCommand = _noneCommand;
+
+			for (const auto& command : skill["Command"])
+			{
+				string key = command.asString();
+
+				CommandNode* newCommand;
+
+				if (key.size() == 1)
+				{
+					BYTE keyCode = key[0];
+
+					if (_curCommand->nodes[keyCode])
+					{
+						newCommand = _curCommand->nodes[keyCode];
+					}
+					else
+					{
+						newCommand = new CommandNode();
+						_curCommand->nodes[keyCode] = newCommand;
+					}
+				}
+				else
+				{
+					if ("Left" == key)
+					{
+						if (_curCommand->nodes[VK_LEFT])
+						{
+							newCommand = _curCommand->nodes[VK_LEFT];
+						}
+						else
+						{
+							newCommand = new CommandNode();
+							_curCommand->nodes[VK_LEFT] = newCommand;
+						}
+					}
+					else if ("Up" == key)
+					{
+						if (_curCommand->nodes[VK_UP])
+						{
+							newCommand = _curCommand->nodes[VK_UP];
+						}
+						else
+						{
+							newCommand = new CommandNode();
+							_curCommand->nodes[VK_UP] = newCommand;
+						}
+					}
+					else if ("Right" == key)
+					{
+						if (_curCommand->nodes[VK_RIGHT])
+						{
+							newCommand = _curCommand->nodes[VK_RIGHT];
+						}
+						else
+						{
+							newCommand = new CommandNode();
+							_curCommand->nodes[VK_RIGHT] = newCommand;
+						}
+					}
+					else if ("Down" == key)
+					{
+						if (_curCommand->nodes[VK_DOWN])
+						{
+							newCommand = _curCommand->nodes[VK_DOWN];
+						}
+						else
+						{
+							newCommand = new CommandNode();
+							_curCommand->nodes[VK_DOWN] = newCommand;
+						}
+					}
+					else
+					{
+						static_assert(true, "Unusable Key Value");
+					}
+				}
+
+				_curCommand = newCommand;
+			}
+
+			_curCommand->doAction = doAction;
+			_curCommand->stateTag = skill["StateTag"].asInt();
+		}
+	}
+	else
+	{
+		cout << "Parse Failed." << endl;
 	}
 }
 
-void PlayerCommandComponent::CheckZ()
+PlayerCommandComponent::CommandNode::~CommandNode()
 {
-	if (_curCommand->nodeZKey != nullptr) 
-	{ 
-		_curCommand = _curCommand->nodeZKey; 
-		_inputElapsedTime = 0.0f;
+	for (auto& node : nodes)
+	{
+		node.second->doAction = nullptr;
+		SAFE_DELETE(node.second);
 	}
+
+	nodes.clear();
 }

@@ -17,6 +17,7 @@ public:
 	void				SetRectSize(const RECT& rect) { _rectSize = rect; }
 
 	const RECT			GetRect() const { return _rect; }
+	const RECT			GetRectSize() const { return _rectSize; }
 private:
 	void				ChangeIsRender() { _bIsRender = !_bIsRender; }
 private:
