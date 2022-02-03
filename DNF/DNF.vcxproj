@@ -213,7 +213,7 @@
     <ClInclude Include="ButtonComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="GameEntity.h" />
+    <ClInclude Include="IBehaviour.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Input.h" />

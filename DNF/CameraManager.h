@@ -3,7 +3,7 @@
 #include "GameEntity.h"
 
 class Player;
-class CameraManager : public Singleton<CameraManager>, public IBehavior
+class CameraManager : public Singleton<CameraManager>, public IBehaviour
 {
 public:
 	CameraManager() = default;

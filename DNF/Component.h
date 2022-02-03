@@ -3,7 +3,7 @@
 #include "GameEntity.h"
 
 class GameObject;
-class Component : public IBehavior
+class Component : public IBehaviour
 {
 public:
 	Component(GameObject* owner, INT32 order = 100);

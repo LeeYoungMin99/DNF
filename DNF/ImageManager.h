@@ -3,7 +3,7 @@
 #include "GameEntity.h"
 
 class Image;
-class ImageManager : public Singleton<ImageManager>, public IBehavior
+class ImageManager : public Singleton<ImageManager>, public IBehaviour
 {
 public:
 	ImageManager() = default;

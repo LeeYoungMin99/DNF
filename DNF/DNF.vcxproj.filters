@@ -214,7 +214,7 @@
     <ClInclude Include="stdafx.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="GameEntity.h">
+    <ClInclude Include="IBehaviour.h">
       <Filter>Main</Filter>
     </ClInclude>
     <ClInclude Include="ButtonComponent.h">

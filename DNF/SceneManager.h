@@ -3,7 +3,7 @@
 #include "GameEntity.h"
 
 class Scene;
-class SceneManager : public Singleton<SceneManager>, public IBehavior
+class SceneManager : public Singleton<SceneManager>, public IBehaviour
 {
 public:
 	SceneManager() = default;

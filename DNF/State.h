@@ -4,7 +4,7 @@
 enum class eState;
 class GameObject;
 class StateMachineComponent;
-class State : public IBehavior
+class State : public IBehaviour
 {
 public:
 	State(StateMachineComponent* stateMachine, GameObject* owner);

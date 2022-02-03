@@ -3,7 +3,7 @@
 
 class GameObject;
 class AnimatorComponent;
-class Transition : public IBehavior
+class Transition : public IBehaviour
 {
 private:
 	using function = function<bool(const int&)>;

@@ -2,7 +2,7 @@
 #include "GameEntity.h"
 
 class Image;
-class Animation : public IBehavior
+class Animation : public IBehaviour
 {
 public:
 	Animation(const wstring& path, const wstring& animTag);

@@ -4,7 +4,7 @@
 class GameObject;
 class AttackCollisionComponent;
 class BodyCollisionComponent;
-class Scene : public IBehavior
+class Scene : public IBehaviour
 {
 protected:
 	struct cmp

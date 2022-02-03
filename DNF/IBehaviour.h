@@ -1,10 +1,10 @@
 #pragma once
 #include <Windows.h>
 
-class IBehavior
+class IBehaviour
 {
 public:
-	virtual ~IBehavior() = default;
+	virtual ~IBehaviour() = default;
 
 	virtual void Init() = 0;
 	virtual void Update() = 0;

@@ -3,7 +3,7 @@
 
 class Scene;
 class Component;
-class GameObject : public IBehavior
+class GameObject : public IBehaviour
 {
 public:
 	GameObject(Scene* scene, const wstring& tag);
