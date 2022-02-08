@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "GameEntity.h"
+#include "IBehaviour.h"
 
 class Image;
 class ImageManager : public Singleton<ImageManager>, public IBehaviour

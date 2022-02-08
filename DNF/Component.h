@@ -1,6 +1,5 @@
 #pragma once
-
-#include "GameEntity.h"
+#include "IBehaviour.h"
 
 class GameObject;
 class Component : public IBehaviour

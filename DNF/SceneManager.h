@@ -1,6 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include "GameEntity.h"
+#include "IBehaviour.h"
 
 class Scene;
 class SceneManager : public Singleton<SceneManager>, public IBehaviour

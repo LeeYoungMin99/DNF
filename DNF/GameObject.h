@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEntity.h"
+#include "IBehaviour.h"
 
 class Scene;
 class Component;
