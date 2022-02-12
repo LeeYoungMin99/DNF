@@ -31,7 +31,7 @@ MeteorAttack::MeteorAttack(StateMachineComponent* stateMachine, GameObject* owne
 
 void MeteorAttack::Init()
 {
-	_atkComp->SetAttack({ -100, 475, 100, 525 }, -100, 0, 0.0f);
+	_atkComp->SetAttack({ -100, 75, 100, 125 }, -100, 0, 0.0f);
 
 	_targetPointX = (float)_owner->GetPosition().x;
 	_targetPointZ = (float)_posComp->GetZ();
@@ -86,11 +86,11 @@ void MeteorSkill::Update()
 
 	if (curFrame == 0)
 	{
-		_atkComp->SetAttack({ -100, 475, 100, 525 }, 100, 0, 0.0f);
+		_atkComp->SetAttack({ -100, 75, 100, 125 }, 100, 0, 0.0f);
 	}
 	else if (curFrame == 2)
 	{
-		_atkComp->SetAttack({ -100, 475, 100, 525 }, 100, 0, 15.0f, 10.0f);
+		_atkComp->SetAttack({ -100, 75, 100, 125 }, 100, 0, 15.0f, 10.0f);
 		_atkComp->ClearHitObjs();
 	}
 	else if (curFrame == 5)

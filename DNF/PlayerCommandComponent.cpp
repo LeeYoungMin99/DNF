@@ -196,9 +196,11 @@ void PlayerCommandComponent::ReadJson()
 				BYTE front = commandQueue.front();
 				commandQueue.pop();
 
-				if (front == VK_LEFT)		{ CreateNode(VK_RIGHT); }
-				else if (front == VK_RIGHT) { CreateNode(VK_LEFT); }
-				else						{ CreateNode(front); }
+				if (front == VK_LEFT)		{ keyCode = VK_RIGHT; }
+				else if (front == VK_RIGHT) { keyCode = VK_LEFT; }
+				else						{ keyCode = front; }
+
+				CreateNode(keyCode);
 			}
 
 			PutFunction(doAction, stringToEnum[keyName[index]]);

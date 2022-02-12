@@ -52,7 +52,14 @@ void Seria::Init()
 
 void Seria::OnExecuteToClick()
 {
-	GetChild(L"SeriaToolList")->SetIsActive(false);
-	GetChild(L"SeriaToolList")->SetIsActive(true);
+	if (GetChild(L"SeriaToolList")->GetIsActive())
+	{
+		GetChild(L"SeriaToolList")->Update();
+	}
+	else
+	{
+		GetChild(L"SeriaToolList")->SetIsActive(false);
+		GetChild(L"SeriaToolList")->SetIsActive(true);
+	}
 }
 

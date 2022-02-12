@@ -41,9 +41,9 @@ void ImageManager::Init()
 	AddImage(L"Image/CharacterMotion/Vinoshu/LowJumpDamaged.png", 1, 1, -52, -125, 1.0f);
 	AddImage(L"Image/CharacterMotion/Vinoshu/HighJumpDamaged.png", 1, 1, -55, -122, 1.0f);
 
-	AddImage(L"Image/CharacterMotion/Meteor/MagicCircle.png", 10, 10, -53, 461, 0.1f);
-	AddImage(L"Image/CharacterMotion/Meteor/Falling.png", 6, 6, -80, 215, 0.1f, true);
-	AddImage(L"Image/CharacterMotion/Meteor/Explosion.png", 13, 13, -255, 255, 0.1f);
+	AddImage(L"Image/CharacterMotion/Meteor/MagicCircle.png", 10, 10, -53, 61, 0.1f);
+	AddImage(L"Image/CharacterMotion/Meteor/Falling.png", 6, 6, -80, -185, 0.1f, true);
+	AddImage(L"Image/CharacterMotion/Meteor/Explosion.png", 13, 13, -255, -145, 0.1f);
 
 #pragma endregion
 

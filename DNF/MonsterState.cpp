@@ -193,7 +193,7 @@ void AttackReady::Update()
 	{
 		_meteor->SetIsActive(true);
 		_meteor->SetX(_target->GetX());
-		_meteor->SetY(_target->GetY() - 500);
+		_meteor->SetY(_target->GetY() - 100);
 
 		ChangeState(eState::Idle);
 	}
