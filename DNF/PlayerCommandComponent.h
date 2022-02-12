@@ -5,15 +5,14 @@ class StateMachineComponent;
 class PlayerCommandComponent : public Component
 {
 private:
-	using function = function<void(GameObject*, int)>;
 	struct CommandNode
 	{
 		~CommandNode();
 
-		unordered_map<BYTE, CommandNode*> nodes = {};
+		unordered_map<BYTE, CommandNode*> _nodes = {};
 
-		function doAction = nullptr;
-		int stateTag = 0;
+		function<void(int)> _doAction = nullptr;
+		int _stateTag = 0;
 	};
 public:
 	using::Component::Component;
@@ -24,6 +23,8 @@ public:
 
 	void					CheckCommand();
 	void					CheckSkillCommand();
+	void					CreateNode(BYTE keyCode);
+	void					PutFunction(function<void(int)> doAction, int stateTag);
 	void					ReadJson();
 private:
 	StateMachineComponent*	_stateMachineComp = nullptr;

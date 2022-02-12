@@ -1,26 +1,13 @@
 {
-  "Run1": {
-    "StateTag": 12,
+  "Run": {
     "Command": [ "Left", "Left" ]
   },
 
-  "Run2": {
-    "StateTag": 12,
-    "Command": [ "Right", "Right" ]
-  },
-
   "Skill1": {
-    "StateTag": 5,
     "Command": [ "Z" ]
   },
 
-  "Skill2-Right": {
-    "StateTag": 6,
+  "Skill2": {
     "Command": [ "Down", "Right", "Z" ]
-  },
-
-  "Skill2-Left": {
-    "StateTag": 6,
-    "Command": [ "Down", "Left", "Z" ]
   }
 }

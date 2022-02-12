@@ -24,23 +24,23 @@ HRESULT Image::Init(LPCWCHAR path, const int& maxFrameX, const int& canCancelFra
 		0.0f,
 		WICBitmapPaletteTypeCustom);
 
-	gpRenderTarget->CreateBitmapFromWicBitmap(pConverter, nullptr, &(_imageInfo->pBitmap));
+	gpRenderTarget->CreateBitmapFromWicBitmap(pConverter, nullptr, &(_imageInfo->_bitmap));
 
 	pConverter->Release();
 	pImageDecoder->Release();
 	pFrameDecode->Release();
 
-	D2D1_SIZE_F imageSize = _imageInfo->pBitmap->GetSize();
+	D2D1_SIZE_F imageSize = _imageInfo->_bitmap->GetSize();
 	D2D1_SIZE_F imageOneFrameSize = D2D1::SizeF(imageSize.width / maxFrameX, imageSize.height);
 
-	_imageInfo->maxFrameX = maxFrameX;
-	_imageInfo->canCancelFrame = canCancelFrame;
-	_imageInfo->imageFrameSize.width = imageOneFrameSize.width;
-	_imageInfo->imageFrameSize.height = imageOneFrameSize.height;
-	_imageInfo->animationSpeed = animationSpeed;
-	_imageInfo->bIsLoop = loop;
-	_imageInfo->correctX = correctX;
-	_imageInfo->correctY = correctY;
+	_imageInfo->_maxFrameX = maxFrameX;
+	_imageInfo->_canCancelFrame = canCancelFrame;
+	_imageInfo->_imageFrameSize.width = imageOneFrameSize.width;
+	_imageInfo->_imageFrameSize.height = imageOneFrameSize.height;
+	_imageInfo->_animationSpeed = animationSpeed;
+	_imageInfo->_bIsLoop = loop;
+	_imageInfo->_correctX = correctX;
+	_imageInfo->_correctY = correctY;
 
 	return S_OK;
 }

@@ -8,37 +8,13 @@
 
 PlayerCommandComponent::~PlayerCommandComponent()
 {
-	//stack<CommandNode*> nodeStack = {};
-
 	_curCommand = _noneCommand;
 	SAFE_DELETE(_noneCommand);
-	//nodeStack.push(_noneCommand);
-
-	//while (nodeStack.empty() == false)
-	//{
-	//	CommandNode* deleteNode = nodeStack.top();
-	//	nodeStack.pop();
-	//
-	//	if (deleteNode->doAction) { deleteNode->doAction = nullptr; }
-	//
-	//	for (auto node : deleteNode->nodes)
-	//	{
-	//		nodeStack.push(node.second);
-	//	}
-	//
-	//	SAFE_DELETE(deleteNode);
-	//}
 }
 
 void PlayerCommandComponent::Init()
 {
-
 	_stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
-
-	auto doAction = [](GameObject* owner, int stateTag)
-	{
-		owner->GetComponent<StateMachineComponent>()->ChangeState(stateTag);
-	};
 
 	_noneCommand = new CommandNode();
 
@@ -81,7 +57,7 @@ void PlayerCommandComponent::Update()
 
 void PlayerCommandComponent::CheckCommand()
 {
-	for (const auto& node : _curCommand->nodes)
+	for (const auto& node : _curCommand->_nodes)
 	{
 		CommandNode* commandNode = node.second;
 		BYTE keyCode = node.first;
@@ -92,9 +68,9 @@ void PlayerCommandComponent::CheckCommand()
 
 			_inputElapsedTime = 0.0f;
 
-			if (_curCommand->doAction)
+			if (_curCommand->_doAction)
 			{
-				_curCommand->doAction(GetOwner(), _curCommand->stateTag);
+				_curCommand->_doAction(_curCommand->_stateTag);
 				_curCommand = _noneCommand;
 			}
 
@@ -105,7 +81,7 @@ void PlayerCommandComponent::CheckCommand()
 
 void PlayerCommandComponent::CheckSkillCommand()
 {
-	for (auto node : _curCommand->nodes)
+	for (auto node : _curCommand->_nodes)
 	{
 		CommandNode* commandNode = node.second;
 		BYTE keyCode = node.first;
@@ -116,15 +92,31 @@ void PlayerCommandComponent::CheckSkillCommand()
 
 			_inputElapsedTime = 0.0f;
 
-			if (_curCommand->doAction && (keyCode != VK_LEFT && keyCode != VK_RIGHT && keyCode != VK_DOWN && keyCode != VK_UP))
+			if (_curCommand->_doAction && (keyCode != VK_LEFT && keyCode != VK_RIGHT && keyCode != VK_DOWN && keyCode != VK_UP))
 			{
-				_curCommand->doAction(GetOwner(), _curCommand->stateTag);
+				_curCommand->_doAction(_curCommand->_stateTag);
 				_curCommand = _noneCommand;
 			}
 
 			break;
 		}
 	}
+}
+
+void PlayerCommandComponent::CreateNode(BYTE keyCode)
+{
+	if (nullptr == _curCommand->_nodes[keyCode])
+	{
+		_curCommand->_nodes[keyCode] = new CommandNode();
+	}
+
+	_curCommand = _curCommand->_nodes[keyCode];
+}
+
+void PlayerCommandComponent::PutFunction(function<void(int)> doAction,int stateTag)
+{
+	_curCommand->_doAction = doAction;
+	_curCommand->_stateTag = stateTag;
 }
 
 void PlayerCommandComponent::ReadJson()
@@ -141,104 +133,77 @@ void PlayerCommandComponent::ReadJson()
 		cout << "Parse Failed." << endl;
 		return;
 	}
-
-	auto doAction = [](GameObject* owner, int stateTag)
-	{
-		owner->GetComponent<StateMachineComponent>()->ChangeState(stateTag);
-	};
-
+	
 	ifstream json_dir(jsonPath);
 	Json::CharReaderBuilder builder;
 	builder["collectComments"] = false;
-	Json::Value value; JSONCPP_STRING errs;
+	Json::Value value; 
+	JSONCPP_STRING errs;
 	bool ok = parseFromStream(builder, json_dir, &value, &errs);
 	if (ok == true)
 	{
+		StateMachineComponent* stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
+
+		auto doAction = [stateMachineComp](int _stateTag)
+		{
+			stateMachineComp->ChangeState(_stateTag);
+		};
+
+		int index = 0;
+		unordered_map<string, int> stringToEnum = {};
+		stringToEnum["Run"] = 12;
+		stringToEnum["Skill1"] = 5;
+		stringToEnum["Skill2"] = 6;
+
+		const auto keyName = value.getMemberNames();
+
 		for (const auto& skill : value)
 		{
 			_curCommand = _noneCommand;
+
+			queue<BYTE> commandQueue = {};
+
+			BYTE keyCode = 0;
 
 			for (const auto& command : skill["Command"])
 			{
 				string key = command.asString();
 
-				CommandNode* newCommand;
-
-				if (key.size() == 1)
-				{
-					BYTE keyCode = key[0];
-
-					if (_curCommand->nodes[keyCode])
-					{
-						newCommand = _curCommand->nodes[keyCode];
-					}
-					else
-					{
-						newCommand = new CommandNode();
-						_curCommand->nodes[keyCode] = newCommand;
-					}
-				}
+				if (key.size() == 1)			{ keyCode = key[0]; }
 				else
 				{
-					if ("Left" == key)
-					{
-						if (_curCommand->nodes[VK_LEFT])
-						{
-							newCommand = _curCommand->nodes[VK_LEFT];
-						}
-						else
-						{
-							newCommand = new CommandNode();
-							_curCommand->nodes[VK_LEFT] = newCommand;
-						}
-					}
-					else if ("Up" == key)
-					{
-						if (_curCommand->nodes[VK_UP])
-						{
-							newCommand = _curCommand->nodes[VK_UP];
-						}
-						else
-						{
-							newCommand = new CommandNode();
-							_curCommand->nodes[VK_UP] = newCommand;
-						}
-					}
-					else if ("Right" == key)
-					{
-						if (_curCommand->nodes[VK_RIGHT])
-						{
-							newCommand = _curCommand->nodes[VK_RIGHT];
-						}
-						else
-						{
-							newCommand = new CommandNode();
-							_curCommand->nodes[VK_RIGHT] = newCommand;
-						}
-					}
-					else if ("Down" == key)
-					{
-						if (_curCommand->nodes[VK_DOWN])
-						{
-							newCommand = _curCommand->nodes[VK_DOWN];
-						}
-						else
-						{
-							newCommand = new CommandNode();
-							_curCommand->nodes[VK_DOWN] = newCommand;
-						}
-					}
+					if ("Left" == key)			{ keyCode = VK_LEFT; }
+					else if ("Up" == key)		{ keyCode = VK_UP; }
+					else if ("Right" == key)	{ keyCode = VK_RIGHT; }
+					else if ("Down" == key)		{ keyCode = VK_DOWN; }
 					else
 					{
 						static_assert(true, "Unusable Key Value");
 					}
 				}
 
-				_curCommand = newCommand;
+				CreateNode(keyCode);
+
+				commandQueue.emplace(keyCode);
 			}
 
-			_curCommand->doAction = doAction;
-			_curCommand->stateTag = skill["StateTag"].asInt();
+			PutFunction(doAction,stringToEnum[keyName[index]]);
+
+			_curCommand = _noneCommand;
+
+			while (false == commandQueue.empty())
+			{
+				BYTE front = commandQueue.front();
+				commandQueue.pop();
+
+				if (front == VK_LEFT)		{ CreateNode(VK_RIGHT); }
+				else if (front == VK_RIGHT) { CreateNode(VK_LEFT); }
+				else						{ CreateNode(front); }
+			}
+
+			PutFunction(doAction, stringToEnum[keyName[index]]);
+			
+			++index;
 		}
 	}
 	else
@@ -249,11 +214,11 @@ void PlayerCommandComponent::ReadJson()
 
 PlayerCommandComponent::CommandNode::~CommandNode()
 {
-	for (auto& node : nodes)
+	for (auto& node : _nodes)
 	{
-		node.second->doAction = nullptr;
+		node.second->_doAction = nullptr;
 		SAFE_DELETE(node.second);
 	}
 
-	nodes.clear();
+	_nodes.clear();
 }

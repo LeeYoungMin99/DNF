@@ -13,7 +13,7 @@ SceneManager::~SceneManager()
 
 	for (auto& scene : _scenes)
 	{
-		delete scene.second;
+		SAFE_RELEASE(scene.second);
 	}
 
 	_scenes.clear();

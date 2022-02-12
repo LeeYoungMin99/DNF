@@ -6,8 +6,7 @@ Scene::~Scene()
 {
 	for (auto& obj : _objects)
 	{
-		delete obj;
-		obj = nullptr;
+		SAFE_DELETE(obj);
 	}
 	_objects.clear();
 }
