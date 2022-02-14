@@ -11,7 +11,7 @@ private:
 
 		unordered_map<BYTE, CommandNode*> _nodes = {};
 
-		function<void(int)> _doAction = nullptr;
+		function<void()> _doAction = nullptr;
 		int _stateTag = 0;
 	};
 public:
@@ -21,18 +21,18 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 
-	void					CheckCommand();
-	void					CheckSkillCommand();
-	void					CreateNode(BYTE keyCode);
-	void					PutFunction(function<void(int)> doAction, int stateTag);
-	void					ReadJson();
+	void									CheckCommand();
+	void									CheckSkillCommand();
+	PlayerCommandComponent::CommandNode*	CreateNode(BYTE keyCode);
+	void									BindFunction(function<void()> doAction, int stateTag);
+	void									ReadJson();
 private:
-	StateMachineComponent*	_stateMachineComp = nullptr;
+	StateMachineComponent*					_stateMachineComp = nullptr;
 
-	CommandNode*			_noneCommand = nullptr;
-	CommandNode*			_curCommand = nullptr;
+	CommandNode*							_noneCommand = nullptr;
+	CommandNode*							_curCommand = nullptr;
 
-	float					_inputElapsedTime = 0.0f;
+	float									_inputElapsedTime = 0.0f;
 
 	const float INPUT_TIME_LIMIT = 0.3f;
 };

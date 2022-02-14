@@ -62,15 +62,15 @@ void PlayerCommandComponent::CheckCommand()
 		CommandNode* commandNode = node.second;
 		BYTE keyCode = node.first;
 
-		if (Input::GetButtonDown(node.first))
+		if (Input::GetButtonDown(keyCode))
 		{
 			_curCommand = commandNode;
 
 			_inputElapsedTime = 0.0f;
 
-			if (_curCommand->_doAction)
+			if (nullptr != _curCommand->_doAction)
 			{
-				_curCommand->_doAction(_curCommand->_stateTag);
+				_curCommand->_doAction();
 				_curCommand = _noneCommand;
 			}
 
@@ -86,7 +86,7 @@ void PlayerCommandComponent::CheckSkillCommand()
 		CommandNode* commandNode = node.second;
 		BYTE keyCode = node.first;
 
-		if (Input::GetButtonDown(node.first))
+		if (Input::GetButtonDown(keyCode))
 		{
 			_curCommand = commandNode;
 
@@ -94,7 +94,7 @@ void PlayerCommandComponent::CheckSkillCommand()
 
 			if (_curCommand->_doAction && (keyCode != VK_LEFT && keyCode != VK_RIGHT && keyCode != VK_DOWN && keyCode != VK_UP))
 			{
-				_curCommand->_doAction(_curCommand->_stateTag);
+				_curCommand->_doAction();
 				_curCommand = _noneCommand;
 			}
 
@@ -103,20 +103,20 @@ void PlayerCommandComponent::CheckSkillCommand()
 	}
 }
 
-void PlayerCommandComponent::CreateNode(BYTE keyCode)
+PlayerCommandComponent::CommandNode* PlayerCommandComponent::CreateNode(BYTE keyCode)
 {
 	if (nullptr == _curCommand->_nodes[keyCode])
 	{
 		_curCommand->_nodes[keyCode] = new CommandNode();
 	}
 
-	_curCommand = _curCommand->_nodes[keyCode];
+	return _curCommand->_nodes[keyCode];
 }
 
-void PlayerCommandComponent::PutFunction(function<void(int)> doAction,int stateTag)
+void PlayerCommandComponent::BindFunction(function<void()> doAction,int stateTag)
 {
-	_curCommand->_doAction = doAction;
 	_curCommand->_stateTag = stateTag;
+	_curCommand->_doAction = doAction;
 }
 
 void PlayerCommandComponent::ReadJson()
@@ -144,16 +144,16 @@ void PlayerCommandComponent::ReadJson()
 	{
 		StateMachineComponent* stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
 
-		auto doAction = [stateMachineComp](int _stateTag)
+		auto doAction = [this,stateMachineComp]()
 		{
-			stateMachineComp->ChangeState(_stateTag);
+			stateMachineComp->ChangeState(this->_curCommand->_stateTag);
 		};
 
 		int index = 0;
 		unordered_map<string, int> stringToEnum = {};
 		stringToEnum["Run"] = 12;
-		stringToEnum["Skill1"] = 5;
-		stringToEnum["Skill2"] = 6;
+		stringToEnum["승천검"] = 5;
+		stringToEnum["사복검-무"] = 6;
 
 		const auto keyName = value.getMemberNames();
 
@@ -182,12 +182,12 @@ void PlayerCommandComponent::ReadJson()
 					}
 				}
 
-				CreateNode(keyCode);
+				_curCommand = CreateNode(keyCode);
 
 				commandQueue.emplace(keyCode);
 			}
 
-			PutFunction(doAction,stringToEnum[keyName[index]]);
+			BindFunction(doAction,stringToEnum[keyName[index]]);
 
 			_curCommand = _noneCommand;
 
@@ -200,10 +200,10 @@ void PlayerCommandComponent::ReadJson()
 				else if (front == VK_RIGHT) { keyCode = VK_LEFT; }
 				else						{ keyCode = front; }
 
-				CreateNode(keyCode);
+				_curCommand = CreateNode(keyCode);
 			}
 
-			PutFunction(doAction, stringToEnum[keyName[index]]);
+			BindFunction(doAction, stringToEnum[keyName[index]]);
 			
 			++index;
 		}
