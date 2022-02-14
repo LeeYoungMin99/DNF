@@ -3,11 +3,11 @@
     "Command": [ "Left", "Left" ]
   },
 
-  "Skill1": {
+  "승천검": {
     "Command": [ "Z" ]
   },
 
-  "Skill2": {
-    "Command": [ "Down", "Right", "Z" ]
+  "사복검-무": {
+    "Command": [ "Down", "Left", "Z" ]
   }
 }
