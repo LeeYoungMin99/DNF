@@ -22,7 +22,7 @@ void PlayerAction::Update()
 
 bool PlayerAction::EndAnimation()
 {
-	return _animComp->GetCurAnim()->IsEnd();
+	return _animComp->GetCurAnimation()->IsEnd();
 }
 
 void PlayerIdle::Update()
@@ -149,6 +149,6 @@ void PlayerAttack::Update()
 
 bool PlayerAttack::CheckCanCombo()
 {
-	return _animComp->GetCurAnim()->CanCancel() && _bInputCombo;
+	return _animComp->GetCurAnimation()->CanCancel() && _bInputCombo;
 }
 

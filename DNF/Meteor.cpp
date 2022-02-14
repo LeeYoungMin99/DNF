@@ -27,7 +27,7 @@ void Meteor::Init()
 	animComp->AddAnimation(L"Image/CharacterMotion/Meteor/Falling.png", L"Falling");
 	animComp->AddAnimation(L"Image/CharacterMotion/Meteor/Explosion.png", L"Explosion");
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
 
 	auto CanChange = [stateMachineComp](const int& nextStateNum) {if ((stateMachineComp->GetCurStateTag()) == (eState)nextStateNum)

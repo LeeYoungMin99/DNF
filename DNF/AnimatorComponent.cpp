@@ -22,9 +22,9 @@ AnimatorComponent::~AnimatorComponent()
 
 void AnimatorComponent::Update()
 {
-	_curAnim->Update();
+	_curAnimation->Update();
 
-	for (auto& transition : _graph[_curAnim->GetAnimationTag()])
+	for (auto& transition : _graph[_curAnimation->GetAnimationTag()])
 	{
 		transition->Update();
 
@@ -32,9 +32,9 @@ void AnimatorComponent::Update()
 		{
 			_boolParams[transition->GetConnectAnimationTag()] = false;
 
-			_curAnim = _animations[transition->GetConnectAnimationTag()];
+			_curAnimation = _animations[transition->GetConnectAnimationTag()];
 
-			_curAnim->Init();
+			_curAnimation->Init();
 		}
 	}
 }

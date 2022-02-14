@@ -70,7 +70,7 @@ void Player::Init()
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/UpperSlash.png", L"Upper");
 	animComp->AddAnimation(L"Image/CharacterMotion/Player/SnakeDance.png", L"SnakeDance");
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 
 #pragma endregion
 

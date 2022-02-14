@@ -189,7 +189,7 @@ AttackReady::AttackReady(StateMachineComponent* stateMachine, GameObject* owner)
 
 void AttackReady::Update()
 {
-	if (_animComp->GetCurAnim()->IsEnd())
+	if (_animComp->GetCurAnimation()->IsEnd())
 	{
 		_meteor->SetIsActive(true);
 		_meteor->SetX(_target->GetX());
@@ -213,7 +213,7 @@ void NormalAttack::Init()
 
 void NormalAttack::Update()
 {
-	int curAnimationFrame = _animComp->GetCurAnim()->GetCurFrame();
+	int curAnimationFrame = _animComp->GetCurAnimation()->GetCurFrame();
 
 	switch (curAnimationFrame)
 	{
@@ -225,7 +225,7 @@ void NormalAttack::Update()
 		break;
 	}
 
-	if (_animComp->GetCurAnim()->IsEnd())
+	if (_animComp->GetCurAnimation()->IsEnd())
 	{
 		ChangeState(eState::Idle);
 	}

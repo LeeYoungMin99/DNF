@@ -23,20 +23,20 @@ void SpriteComponent::Render()
 
 	if (_posComp != nullptr)
 	{
-		renderPosX = (FLOAT)(_posComp->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
-		renderPosY = (FLOAT)(_posComp->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY() - _posComp->GetZ());
+		renderPosX = (FLOAT)(_posComp->GetX() + _animComp->GetCurAnimation()->GetImage()->GetCorrectX());
+		renderPosY = (FLOAT)(_posComp->GetY() + _animComp->GetCurAnimation()->GetImage()->GetCorrectY() - _posComp->GetZ());
 	}
 	else
 	{
-		renderPosX = (FLOAT)(GetOwner()->GetX() + _animComp->GetCurAnim()->GetImage()->GetCorrectX());
-		renderPosY = (FLOAT)(GetOwner()->GetY() + _animComp->GetCurAnim()->GetImage()->GetCorrectY());
+		renderPosX = (FLOAT)(GetOwner()->GetX() + _animComp->GetCurAnimation()->GetImage()->GetCorrectX());
+		renderPosY = (FLOAT)(GetOwner()->GetY() + _animComp->GetCurAnimation()->GetImage()->GetCorrectY());
 	}
 
-	FLOAT imageFrameSizeY = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().height;
-	FLOAT imageFrameSizeX = _animComp->GetCurAnim()->GetImage()->GetImageFrameSize().width;
+	FLOAT imageFrameSizeY = _animComp->GetCurAnimation()->GetImage()->GetImageFrameSize().height;
+	FLOAT imageFrameSizeX = _animComp->GetCurAnimation()->GetImage()->GetImageFrameSize().width;
 	FLOAT renderSizeX = renderPosX + imageFrameSizeX;
 	FLOAT renderSizeY = renderPosY + imageFrameSizeY;
-	FLOAT currFrameStart = _animComp->GetCurAnim()->GetCurFrame() * imageFrameSizeX;
+	FLOAT currFrameStart = _animComp->GetCurAnimation()->GetCurFrame() * imageFrameSizeX;
 	FLOAT currFrameEnd = currFrameStart + imageFrameSizeX;
 
 	if (_transformComp != nullptr)
@@ -67,7 +67,7 @@ void SpriteComponent::Render()
 
 void SpriteComponent::ImageRender(const FLOAT& renderPosX, const FLOAT& renderPosY, const FLOAT& renderSizeX, const FLOAT& renderSizeY, const FLOAT& currFrameStart, const FLOAT& currFrameEnd, const FLOAT& imageFrameSizeY)
 {
-	gpRenderTarget->DrawBitmap(_animComp->GetCurAnim()->GetImage()->GetBitmap()
+	gpRenderTarget->DrawBitmap(_animComp->GetCurAnimation()->GetImage()->GetBitmap()
 		, D2D1::RectF((FLOAT)renderPosX, (FLOAT)renderPosY, renderSizeX, renderSizeY)
 		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
 		, D2D1::RectF(currFrameStart, 0, currFrameEnd, imageFrameSizeY));

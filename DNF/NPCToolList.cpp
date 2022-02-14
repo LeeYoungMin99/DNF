@@ -30,7 +30,7 @@ void NPCToolList::Init()
 
 	animComp->AddAnimation(L"Image/NPC_ClickNameSpace.png", L"Idle");
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 
 	SetIsActive(false);
 

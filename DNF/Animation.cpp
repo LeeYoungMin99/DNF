@@ -7,7 +7,7 @@
 Animation::Animation(const wstring& path, const wstring& animTag)
 {
 	_image = ImageManager::GetSingleton()->FindImage(path);
-	_animTag = animTag;
+	_animationTag = animTag;
 
 	_maxFrame		= _image->GetMaxFrameX();
 	_canCancelFrame = _image->GetCanCancelFrame();

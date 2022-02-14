@@ -17,7 +17,7 @@ void PlayerAttackComponent::Init()
 
 void PlayerAttackComponent::Update()
 {
-	int curFrame = _animComp->GetCurAnim()->GetCurFrame();
+	int curFrame = _animComp->GetCurAnimation()->GetCurFrame();
 	if (curFrame == 0) { _atkComp->Init(); }
 
 	eState state = (eState)_stateMachineComp->GetCurStateTag();

@@ -46,7 +46,7 @@ void SceneChangeButton::Init()
 
 	animComp->AddTransition(L"Idle", L"Hover", (int)ButtonComponent::eButtonState::Hover, CanChange);
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 
 	GameObject::Init();
 }

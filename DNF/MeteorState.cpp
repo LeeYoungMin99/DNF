@@ -16,7 +16,7 @@ MeteorIdle::MeteorIdle(StateMachineComponent* stateMachine, GameObject* owner)
 
 void MeteorIdle::Update()
 {
-	if (_animComp->GetCurAnim()->IsEnd())
+	if (_animComp->GetCurAnimation()->IsEnd())
 	{
 		ChangeState(eState::NormalAttack1);
 	}
@@ -82,7 +82,7 @@ MeteorSkill::MeteorSkill(StateMachineComponent* stateMachine, GameObject* owner)
 
 void MeteorSkill::Update()
 {
-	int curFrame = _animComp->GetCurAnim()->GetCurFrame();
+	int curFrame = _animComp->GetCurAnimation()->GetCurFrame();
 
 	if (curFrame == 0)
 	{
@@ -98,7 +98,7 @@ void MeteorSkill::Update()
 		_atkComp->Init();
 	}
 
-	if (_animComp->GetCurAnim()->IsEnd())
+	if (_animComp->GetCurAnimation()->IsEnd())
 	{
 		_owner->SetIsActive(false);
 		ChangeState(eState::Idle);

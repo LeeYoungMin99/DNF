@@ -43,7 +43,7 @@ void Vinoshu::Init()
 	animComp->AddAnimation(L"Image/CharacterMotion/Vinoshu/HighJumpDamaged.png", L"HighJumpDamaged");
 
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 
 	PositionComponent* posComp = new PositionComponent(this, 99);
 	TransformComponent* transformComp = new TransformComponent(this, 101);

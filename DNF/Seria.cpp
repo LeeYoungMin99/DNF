@@ -42,7 +42,7 @@ void Seria::Init()
 
 	animComp->AddTransition(L"Idle", L"Hover", (int)ButtonComponent::eButtonState::Hover, CanChange);
 
-	animComp->SetCurrAnim(L"Idle");
+	animComp->SetCurAnimation(L"Idle");
 
 	NPCToolList* toolList = new NPCToolList(this, L"SeriaToolList", L"¼¼¸®¾Æ");
 	SceneChangeButton* sceneChangeBtn = new SceneChangeButton(toolList, L"SeriaSceneChangeButton", L"Battle");
