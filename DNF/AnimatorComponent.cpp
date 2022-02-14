@@ -24,18 +24,15 @@ void AnimatorComponent::Update()
 {
 	_curAnim->Update();
 
-	for (auto& transition : _graph[_curAnim->GetAnimTag()])
+	for (auto& transition : _graph[_curAnim->GetAnimationTag()])
 	{
 		transition->Update();
-	}
 
-	for (auto& transition : _graph[_curAnim->GetAnimTag()])
-	{
-		if (_boolParams[transition->GetNextAnimTag()])
+		if (true == _boolParams[transition->GetConnectAnimationTag()])
 		{
-			_boolParams[transition->GetNextAnimTag()] = false;
+			_boolParams[transition->GetConnectAnimationTag()] = false;
 
-			_curAnim = _animations[transition->GetNextAnimTag()];
+			_curAnim = _animations[transition->GetConnectAnimationTag()];
 
 			_curAnim->Init();
 		}
@@ -47,21 +44,21 @@ void AnimatorComponent::AddAnimation(const wstring& path, const wstring& animTag
 	_animations[animTag] = new Animation(path, animTag);
 }
 
-void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, const int& transitionValue, function func)
+void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, const int& transitionData, function func)
 {
-	_graph[start].push_back(new Transition(func, end, transitionValue, this));
+	_graph[start].push_back(new Transition(func, end, transitionData, this));
 	_graph[end].push_back(new Transition(func, L"Idle", 1, this));
 }
 
-void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, function func, const int& transitionValue)
+void AnimatorComponent::AddTransition(const wstring& start, const wstring& end, function func, const int& transitionData)
 {
-	_graph[start].push_back(new Transition(func, end, transitionValue, this));
+	_graph[start].push_back(new Transition(func, end, transitionData, this));
 }
 
-void AnimatorComponent::AddTransition(const wstring& end, function func, const int& transitionValue)
+void AnimatorComponent::AddTransition(const wstring& end, function func, const int& transitionData)
 {
 	for (auto transition : _graph)
 	{
-		_graph[transition.first].push_back(new Transition(func, end, transitionValue, this));
+		_graph[transition.first].push_back(new Transition(func, end, transitionData, this));
 	}
 }

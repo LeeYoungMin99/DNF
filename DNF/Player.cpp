@@ -76,7 +76,7 @@ void Player::Init()
 
 #pragma region AddTransition
 
-	auto CanChange = [stateMachineComp](const int& nextStateNum) {if ((stateMachineComp->GetCurStateTag()) == nextStateNum)
+	auto CanChange = [stateMachineComp](const int& nextStateNum) {if ((stateMachineComp->GetCurStateTag()) == (eState)nextStateNum)
 	{
 		return true;
 	}

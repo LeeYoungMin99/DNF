@@ -3,13 +3,13 @@
 
 #include "AnimatorComponent.h"
 
-Transition::Transition(function func, const wstring& nextAnimTag, int transitionValue, AnimatorComponent* animComp)
-	:_callback{ func }, _nextAnimTag{ nextAnimTag }, _transitionValue{ transitionValue}, _animComp{ animComp } {}
+Transition::Transition(function func, const wstring& nextAnimTag, int transitionData, AnimatorComponent* animComp)
+	:_callback{ func }, _ConnectAnimationTag{ nextAnimTag }, _transitionData{ transitionData}, _animComp{ animComp } {}
 
 void Transition::Update()
 {
-	if (_callback(_transitionValue))
+	if (_callback(_transitionData))
 	{
-		_animComp->SetBoolParams(_nextAnimTag, true);
+		_animComp->SetBoolParams(_ConnectAnimationTag, true);
 	}
 }

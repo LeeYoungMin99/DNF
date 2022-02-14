@@ -15,18 +15,18 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 
-	wstring		GetAnimTag()	const  { return _animTag; }
-	Image*		GetImage()		const  { return _image; }
-	int			GetCurFrame()	const  { return _curFrame; }
-	bool		IsEnd()			const  { return _bIsEnd; }
-	bool		CanCancel()		const  { return _bCanCancel; }
+	wstring		GetAnimationTag()	const  { return _animationTag; }
+	Image*		GetImage()			const  { return _image; }
+	int			GetCurFrame()		const  { return _curFrame; }
+	bool		IsEnd()				const  { return _bIsEnd; }
+	bool		CanCancel()			const  { return _bCanCancel; }
 
 	void		SetCurrFrame(int frame)	{ _curFrame = frame; }
 	void		SetIsEnd(bool b)		{ _bIsEnd = b; }
 	void		SetCanCancel(bool b)	{ _bCanCancel = b; }
 private:
 	Image*		_image = nullptr;
-	wstring		_animTag = {};
+	wstring		_animationTag = {};
 	int			_curFrame = 0;
 	int			_maxFrame = 0;
 	int			_canCancelFrame = 0;

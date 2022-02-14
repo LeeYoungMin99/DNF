@@ -8,7 +8,7 @@ class Transition : public IBehaviour
 private:
 	using function = function<bool(const int&)>;
 public:
-	Transition(function func, const wstring& nextAnimTag, int transitionValue, AnimatorComponent* animComp);
+	Transition(function func, const wstring& nextAnimTag, int transitionData, AnimatorComponent* animComp);
 	virtual ~Transition() = default;
 
 	virtual void Init() override {}
@@ -17,10 +17,10 @@ public:
 
 	virtual void Update() override;
 
-	wstring				GetNextAnimTag() const { return _nextAnimTag; }
+	wstring				GetConnectAnimationTag() const { return _ConnectAnimationTag; }
 private:
 	AnimatorComponent*	_animComp = nullptr;
-	int					_transitionValue = 0;
-	wstring				_nextAnimTag = {};
+	int					_transitionData = 0;
+	wstring				_ConnectAnimationTag = {};
 	function			_callback = {};
 };
