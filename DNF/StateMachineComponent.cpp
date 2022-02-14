@@ -18,18 +18,19 @@ void StateMachineComponent::Update()
 	_curState->Update();
 }
 
-void StateMachineComponent::ChangeState(int stateTag)
+void StateMachineComponent::ChangeState(eState state)
 {
 	if (_curState != nullptr)
 	{
 		_curState->Release();
 	}
-	_curState = _states[stateTag];
-	_curStateTag = stateTag;
+
+	_curState = _states[state];
+	_curStateTag = state;
 	_curState->Init();
 }
 
-void StateMachineComponent::ChangeState(eState state)
+void StateMachineComponent::ChangeState(int stateTag)
 {
-	ChangeState((int)state);
+	ChangeState((eState)stateTag);
 }

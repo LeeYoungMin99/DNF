@@ -40,14 +40,14 @@ public:
 
 	virtual void Update() override;
 
-	int							GetCurStateTag() { return _curStateTag; }
+	eState						GetCurStateTag() { return _curStateTag; }
 	State*						GetCurState() { return _curState; }
 
-	void						AddState(State* state, eState StateTag) { _states[(int)StateTag] = state; }
+	void						AddState(State* state, eState StateTag) { _states[StateTag] = state; }
 	void						ChangeState(int stateTag);
 	void						ChangeState(eState state);
 private:
-	unordered_map<int, State*>	_states = {};
-	State*						_curState = nullptr;
-	int							_curStateTag = 0;
+	unordered_map<eState, State*>	_states = {};
+	State*							_curState = nullptr;
+	eState							_curStateTag = eState::None;
 };

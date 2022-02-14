@@ -59,7 +59,7 @@ void Vinoshu::Init()
 
 	SpriteComponent* spriteComp = new SpriteComponent(this, 103);
 
-	auto CanChange = [stateMachineComp](const int& nextStateNum) {if (stateMachineComp->GetCurStateTag() == nextStateNum)
+	auto CanChange = [stateMachineComp](const int& nextStateNum) {if (stateMachineComp->GetCurStateTag() == (eState)nextStateNum)
 	{
 		return true;
 	}

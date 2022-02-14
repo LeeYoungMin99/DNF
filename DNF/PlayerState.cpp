@@ -142,7 +142,7 @@ void PlayerAttack::Update()
 	{
 		if (CheckCanCombo())
 		{
-			State::ChangeState((_stateMachineComp->GetCurStateTag() + NEXT_STATE));
+			State::ChangeState(((int)_stateMachineComp->GetCurStateTag() + NEXT_STATE));
 		}
 	}
 }
