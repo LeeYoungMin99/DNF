@@ -20,7 +20,7 @@ void StateMachineComponent::Update()
 
 void StateMachineComponent::ChangeState(eState state)
 {
-	if (_curState != nullptr)
+	if (nullptr != _curState)
 	{
 		_curState->Release();
 	}

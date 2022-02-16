@@ -8,30 +8,30 @@
 
 PlayerCommandComponent::~PlayerCommandComponent()
 {
-	_curCommand = _noneCommand;
-	SAFE_DELETE(_noneCommand);
+	_curCommand = _rootCommand;
+	SAFE_DELETE(_rootCommand);
 }
 
 void PlayerCommandComponent::Init()
 {
 	_stateMachineComp = GetOwner()->GetComponent<StateMachineComponent>();
 
-	_noneCommand = new CommandNode();
+	_rootCommand = new CommandNode();
 
 	ReadJson();
 
-	_curCommand = _noneCommand;
+	_curCommand = _rootCommand;
 }
 
 void PlayerCommandComponent::Update()
 {
-	if (_curCommand != _noneCommand)
+	if (_curCommand != _rootCommand)
 	{
 		_inputElapsedTime += Timer::GetDeltaTime();
 
 		if (_inputElapsedTime >= INPUT_TIME_LIMIT)
 		{
-			_curCommand = _noneCommand;
+			_curCommand = _rootCommand;
 			_inputElapsedTime = 0.0f;
 		}
 	}
@@ -71,7 +71,7 @@ void PlayerCommandComponent::CheckCommand()
 			if (nullptr != _curCommand->_doAction)
 			{
 				_curCommand->_doAction();
-				_curCommand = _noneCommand;
+				_curCommand = _rootCommand;
 			}
 
 			break;
@@ -95,7 +95,7 @@ void PlayerCommandComponent::CheckSkillCommand()
 			if (_curCommand->_doAction && (keyCode != VK_LEFT && keyCode != VK_RIGHT && keyCode != VK_DOWN && keyCode != VK_UP))
 			{
 				_curCommand->_doAction();
-				_curCommand = _noneCommand;
+				_curCommand = _rootCommand;
 			}
 
 			break;
@@ -159,7 +159,7 @@ void PlayerCommandComponent::ReadJson()
 
 		for (const auto& skill : value)
 		{
-			_curCommand = _noneCommand;
+			_curCommand = _rootCommand;
 
 			queue<BYTE> commandQueue = {};
 
@@ -189,7 +189,7 @@ void PlayerCommandComponent::ReadJson()
 
 			BindFunction(doAction,stringToEnum[keyName[index]]);
 
-			_curCommand = _noneCommand;
+			_curCommand = _rootCommand;
 
 			while (false == commandQueue.empty())
 			{

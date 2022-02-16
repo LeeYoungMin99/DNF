@@ -29,7 +29,7 @@ public:
 private:
 	StateMachineComponent*					_stateMachineComp = nullptr;
 
-	CommandNode*							_noneCommand = nullptr;
+	CommandNode*							_rootCommand = nullptr;
 	CommandNode*							_curCommand = nullptr;
 
 	float									_inputElapsedTime = 0.0f;

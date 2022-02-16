@@ -8,7 +8,7 @@ Transition::Transition(function func, const wstring& nextAnimTag, int transition
 
 void Transition::Update()
 {
-	if (_callback(_transitionData))
+	if (true == _callback(_transitionData))
 	{
 		_animComp->SetBoolParams(_ConnectAnimationTag, true);
 	}

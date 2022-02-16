@@ -14,13 +14,13 @@ public:
 	virtual void Render() override;
 
 	void ImageRender(
-		const FLOAT& renderPosX, 
-		const FLOAT& renderPosY, 
-		const FLOAT& renderSizeX, 
-		const FLOAT& renderSizeY,
-		const FLOAT& currFrameStart, 
-		const FLOAT& currFrameEnd, 
-		const FLOAT& imageFrameSizeY);
+		const FLOAT renderPosX, 
+		const FLOAT renderPosY, 
+		const FLOAT renderSizeX, 
+		const FLOAT renderSizeY,
+		const FLOAT currFrameStart, 
+		const FLOAT currFrameEnd, 
+		const FLOAT imageFrameSizeY);
 private:
 	AnimatorComponent*		_animComp = nullptr;
 	PositionComponent*		_posComp = nullptr;
