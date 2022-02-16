@@ -21,7 +21,7 @@ TextComponent::TextComponent(const wchar_t* text, const wchar_t* font, float siz
 
 	_textFormat->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);            // 문단 센터 정렬
 	_textFormat->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);  // 문장 내의 수직 정렬
-	gpRenderTarget->CreateSolidColorBrush(color, &_brush);
+	_gRenderTarget->CreateSolidColorBrush(color, &_brush);
 	_text = text;
 }
 
@@ -49,7 +49,7 @@ void TextComponent::Render()
 
 void TextComponent::WriteText(const RECT rect)
 {
-	gpRenderTarget->DrawTextW(
+	_gRenderTarget->DrawTextW(
 		_text,							// WCHAR* 문자열
 		(UINT32)wcslen(_text),			// 문자의 개수
 		_textFormat,					// IDWriteTextFormat 텍스트 포맷 

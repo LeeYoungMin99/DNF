@@ -5,9 +5,8 @@
 #include "SceneManager.h"
 #include "ImageManager.h"
 
-ID2D1HwndRenderTarget* gpRenderTarget = nullptr;
-IWICImagingFactory* gpImagingFactory = nullptr;
-ID2D1HwndRenderTarget* gpTextRenderTarget = nullptr;
+ID2D1HwndRenderTarget* _gRenderTarget = nullptr;
+IWICImagingFactory* _gImagingFactory = nullptr;
 
 LRESULT MainGame::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -48,23 +47,24 @@ bool MainGame::Init(HINSTANCE hInst)
 	}
 
 	RECT cr = { 0, 0, _res.Width, _res.Height };
+
 	AdjustWindowRect(&cr, WS_OVERLAPPEDWINDOW, FALSE);
 	SetWindowPos(_hWnd, HWND_TOPMOST, 100, 100, cr.right - cr.left, cr.bottom - cr.top, SWP_NOMOVE | SWP_NOZORDER);
 
 	ShowWindow(_hWnd, SW_SHOW);
 	UpdateWindow(_hWnd);
 
-	ID2D1Factory* pFactory = nullptr;
+	ID2D1Factory* factory = nullptr;
 
 	GetClientRect(_hWnd, &cr);
-	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &pFactory);
+	D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factory);
 
-	pFactory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(),
+	factory->CreateHwndRenderTarget(D2D1::RenderTargetProperties(),
 		D2D1::HwndRenderTargetProperties(_hWnd, D2D1::SizeU(cr.right - cr.left, cr.bottom - cr.top)),
-		&gpRenderTarget);
+		&_gRenderTarget);
 
 	if (FAILED(CoInitialize(nullptr))) { ASSERT_CRASH(true); }
-	if (FAILED(CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&gpImagingFactory)))) { ASSERT_CRASH(true); }
+	if (FAILED(CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&_gImagingFactory)))) { ASSERT_CRASH(true); }
 
 	Input::Init(_hWnd);
 	ImageManager::GetSingleton()->Init();
@@ -143,11 +143,11 @@ void MainGame::update()
 
 void MainGame::render()
 {
-	gpRenderTarget->BeginDraw();
+	_gRenderTarget->BeginDraw();
 
-	gpRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+	_gRenderTarget->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
 	SceneManager::GetSingleton()->Render();
 
-	gpRenderTarget->EndDraw();
+	_gRenderTarget->EndDraw();
 }

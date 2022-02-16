@@ -21,7 +21,7 @@ void Sprite::Render()
 	FLOAT renderSizeX = posX + imageFrameSizeX;
 	FLOAT renderSizeY = posY + imageFrameSizeY;
 
-	gpRenderTarget->DrawBitmap(_image->GetBitmap()
+	_gRenderTarget->DrawBitmap(_image->GetBitmap()
 		, D2D1::RectF((FLOAT)posX, (FLOAT)posY, renderSizeX, renderSizeY)
 		, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_LINEAR
 		, D2D1::RectF(0, 0, imageFrameSizeX, imageFrameSizeY));

@@ -62,8 +62,8 @@
 #include <d2derr.h>
 // Direct2D에서 기본 제공하는 이펙트가 있음
 #include <d2d1effects.h>
-extern ID2D1HwndRenderTarget* gpRenderTarget;
-extern IWICImagingFactory* gpImagingFactory;
+extern ID2D1HwndRenderTarget* _gRenderTarget;
+extern IWICImagingFactory* _gImagingFactory;
 
 // 전처리문
 #pragma comment(lib, "D2D1.lib")

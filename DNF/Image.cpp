@@ -9,14 +9,14 @@ HRESULT Image::Init(LPCWCHAR path, const int& maxFrameX, const int& canCancelFra
 	IWICBitmapDecoder* pImageDecoder = nullptr;
 	IWICBitmapFrameDecode* pFrameDecode = nullptr;
 
-	gpImagingFactory->CreateDecoderFromFilename(path,
+	_gImagingFactory->CreateDecoderFromFilename(path,
 		nullptr,
 		GENERIC_READ,
 		WICDecodeMetadataCacheOnDemand,
 		&pImageDecoder);
  	pImageDecoder->GetFrame(0, &pFrameDecode);
 
-	gpImagingFactory->CreateFormatConverter(&pConverter);
+	_gImagingFactory->CreateFormatConverter(&pConverter);
 	pConverter->Initialize(pFrameDecode,
 		GUID_WICPixelFormat32bppPBGRA,
 		WICBitmapDitherTypeNone,
@@ -24,7 +24,7 @@ HRESULT Image::Init(LPCWCHAR path, const int& maxFrameX, const int& canCancelFra
 		0.0f,
 		WICBitmapPaletteTypeCustom);
 
-	gpRenderTarget->CreateBitmapFromWicBitmap(pConverter, nullptr, &(_imageInfo->_bitmap));
+	_gRenderTarget->CreateBitmapFromWicBitmap(pConverter, nullptr, &(_imageInfo->_bitmap));
 
 	pConverter->Release();
 	pImageDecoder->Release();

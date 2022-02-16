@@ -62,7 +62,7 @@ void RectColliderComponent::Render()
 	{
 		ID2D1SolidColorBrush* _brush = nullptr;
 
-		gpRenderTarget->CreateSolidColorBrush(D2D1::ColorF(1, 1, 1, 1), &_brush);
-		gpRenderTarget->DrawRectangle(D2D1::RectF((FLOAT)(_rect.left), (FLOAT)(_rect.top - _posComp->GetZ()), (FLOAT)(_rect.right), (FLOAT)(_rect.bottom - _posComp->GetZ())), _brush, 1);
+		_gRenderTarget->CreateSolidColorBrush(D2D1::ColorF(1, 1, 1, 1), &_brush);
+		_gRenderTarget->DrawRectangle(D2D1::RectF((FLOAT)(_rect.left), (FLOAT)(_rect.top - _posComp->GetZ()), (FLOAT)(_rect.right), (FLOAT)(_rect.bottom - _posComp->GetZ())), _brush, 1);
 	}
 }
